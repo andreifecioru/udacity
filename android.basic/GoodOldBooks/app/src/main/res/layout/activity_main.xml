@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!--Splash image
+    A "bleeding" image banner and 2 text views with the slogan.
+    -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/books"
+            android:scaleType="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/white"
+            android:textStyle="italic|bold"
+            android:text="Real books..."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/black"
+            android:textStyle="italic|bold"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="...for real you"/>
+    </RelativeLayout>
+
+    <!--Content area
+    A vertically oriented linear layout wrapped in a scroll view (to cope with landscape
+    device orientation). Contains 4 sections:
+        - a "pitch" section: what the business is all about
+        - a "location" section: the address
+        - a "contacts" section: phone and email
+        - a "social media" section: links to various social networks
+    -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <!--The pitch: a regular text view -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:fontFamily="sans-serif-light"
+                android:text="The pleasure of old books and the quiet of our library make for a truly unique experience" />
+
+            <!-- Location:
+                - a "header" text view
+                - a regular text view with the address
+             -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="24dp"
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                android:text="Where?" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="sans-serif-light"
+                android:text="Str. Piece and Quiet, no. 0, Bucharest, Romania" />
+
+            <!-- Contact info:
+                - a "header" text view
+                - 2 linear horizontally oriented linear layouts composed of 2 text views
+                 (one bolded and one normal style)
+            -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="24dp"
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                android:text="Contact us" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingLeft="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:fontFamily="sans-serif-light"
+                    android:textStyle="bold"
+                    android:text="Tel: " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:fontFamily="sans-serif-light"
+                    android:text="0123.456.789" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingLeft="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:fontFamily="sans-serif-light"
+                    android:textStyle="bold"
+                    android:text="Email: " />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:fontFamily="sans-serif-light"
+                    android:text="old.books@gmail.com" />
+            </LinearLayout>
+
+            <!-- Social media:
+                A set of buttons arranged horizontally and centered (as a group)
+                horizontally on the screen.
+            -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:layout_gravity="center_horizontal" >
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/twitter"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="8dp"
+                    android:background="@drawable/gplus"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="8dp"
+                    android:background="@drawable/facebook"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
