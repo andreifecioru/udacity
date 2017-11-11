@@ -147,14 +147,16 @@
                     android:textAppearance="?android:textAppearanceSmall"
                     android:fontFamily="sans-serif-light"
                     android:textStyle="bold"
-                    android:text="Email: " />
+                    android:text="Email: "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:fontFamily="sans-serif-light"
-                    android:text="old.books@gmail.com" />
+                    android:text="old.books@gmail.com"
+                    android:autoLink="email"
+                    />
             </LinearLayout>
 
             <!-- Social media:
