@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="score_button_width">130dp</dimen>
+    <dimen name="score_button_height">35dp</dimen>
+
+    <dimen name="reset_button_width">80dp</dimen>
+    <dimen name="reset_button_height">35dp</dimen>
+</resources>
