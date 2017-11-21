@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,7 +46,24 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.place_order_button)
     public void placeOrder(View view) {
-        Toast.makeText(getApplicationContext(), "Your order has been placed.", Toast.LENGTH_SHORT).show();
+        Uri uri = Uri.parse("mailto:office@justjava.com")
+                .buildUpon()
+                .appendQueryParameter("subject", "Your order to JustJava coffee shop")
+                .appendQueryParameter("body", composeOrderSummaryText())
+                .build();
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+//        intent.setData(Uri.parse("mailto:"));
+//        intent.setType("text/plain");
+//        intent.putExtra(Intent.EXTRA_EMAIL, "office@justjava.com");
+//        intent.putExtra(Intent.EXTRA_SUBJECT, "Your order to JustJava coffee shop");
+//        intent.putExtra(Intent.EXTRA_TEXT, composeOrderSummaryText());
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            startActivity(Intent.createChooser(intent, "Submit your order"));
+        }
     }
 
     @OnClick(R.id.quantity_increase_button)
@@ -91,9 +110,11 @@ public class MainActivity extends AppCompatActivity {
         return pricePerCup * quantity;
     }
 
-    private void displayOrderSummary() {
+    private String composeOrderSummaryText() {
+        String retVal;
+
         if (quantity == 0) {
-            orderSummaryTextView.setText(placeYourOrderText);
+            retVal = placeYourOrderText;
         } else {
             String name = nameEditText.getText().toString();
             if ("".equals(name))
@@ -108,7 +129,13 @@ public class MainActivity extends AppCompatActivity {
                 sb.append("  - milk topping\n");
             sb.append("Total: $").append(calculatePrice()).append("\n");
             sb.append("Thank you!");
-            orderSummaryTextView.setText(sb.toString());
+            retVal = sb.toString();
         }
+
+        return retVal;
+    }
+
+    private void displayOrderSummary() {
+        orderSummaryTextView.setText(composeOrderSummaryText());
     }
 }
