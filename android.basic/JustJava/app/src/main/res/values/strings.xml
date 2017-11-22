@@ -1,4 +1,6 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Just Java</string>
     <string name="price">Price</string>
     <string name="order_summary">Order Summary</string>
@@ -12,4 +14,17 @@
     <string name="milk">Milk</string>
     <string name="place_order">Place order</string>
     <string name="place_your_order">Place your order.</string>
+    <string name="mail_subject">JustJava - Your order placement for <xliff:g id="total">%d</xliff:g> coffees</string>
+    <string name="submit_your_order">Submit your order</string>
+
+    <string name="who_you_are">Please tell us who you are!</string>
+    <string name="order_coffee_first">Order a coffee first!</string>
+    <string name="greeting">Hi <xliff:g id="name">%s</xliff:g>!</string>
+    <string name="you_have_ordered">You have ordered:</string>
+    <string name="coffees"><xliff:g id="quantity">%d</xliff:g> coffees</string>
+    <string name="vanilla_topping">vanilla topping</string>
+    <string name="milk_topping">milk topping</string>
+    <string name="total_price">Total: <xliff:g id="total">%s</xliff:g></string>
+    <string name="thank_you">Thank you!</string>
+
 </resources>

@@ -41,11 +41,8 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/available_toppings"
-                android:textAllCaps="true"
-                android:textStyle="bold" />
+                style="@style/SectionHeader"
+                android:text="@string/available_toppings" />
 
             <CheckBox
                 android:id="@+id/vanilla_check_box"
@@ -62,13 +59,10 @@
                 android:text="@string/milk" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/SectionHeader"
                 android:layout_marginTop="32dp"
                 android:paddingBottom="8dp"
-                android:text="@string/quantity"
-                android:textAllCaps="true"
-                android:textStyle="bold" />
+                android:text="@string/quantity" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,12 +93,9 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/SectionHeader"
                 android:paddingBottom="16dp"
-                android:text="@string/order_summary"
-                android:textAllCaps="true"
-                android:textStyle="bold" />
+                android:text="@string/order_summary" />
 
             <TextView
                 android:id="@+id/order_summary_text_view"

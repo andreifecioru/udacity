@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Cafaua Furioasa</string>
+    <string name="price">Pret</string>
+    <string name="order_summary">Sumar comanda</string>
+    <string name="quantity">Cantitate</string>
+    <string name="your_name">Numele dvs.</string>
+    <string name="your_name_hint">Tastati numele aici…</string>
+    <string name="available_toppings">Toppinguri</string>
+    <string name="vanilla">Vanilie</string>
+    <string name="milk">Lapte</string>
+    <string name="place_order">Plasati comanda</string>
+    <string name="place_your_order">Plasati comanda dvs.</string>
+    <string name="mail_subject">Cafeaua Furioasa - Comanda dvs. pt. <xliff:g id="total">%d</xliff:g> cafele</string>
+    <string name="submit_your_order">Plasati comanda</string>
+    <string name="who_you_are">Te rugam sa ne spui cine esti</string>
+    <string name="greeting">Salut <xliff:g id="name">%s</xliff:g>!</string>
+    <string name="you_have_ordered">Ati comandat</string>
+    <string name="coffees"><xliff:g id="quantity">%d</xliff:g> cafele</string>
+    <string name="vanilla_topping">topping de vanilie</string>
+    <string name="milk_topping">topping de lapte</string>
+    <string name="thank_you">Multumim!</string>
+    <string name="order_coffee_first">Comanda mai intai o cafea!</string>
+</resources>

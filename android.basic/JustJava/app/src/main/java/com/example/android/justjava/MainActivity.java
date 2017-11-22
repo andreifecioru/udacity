@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 import butterknife.BindString;
@@ -33,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.order_summary_text_view) TextView orderSummaryTextView;
 
     @BindString(R.string.place_your_order) String placeYourOrderText;
+    @BindString(R.string.submit_your_order) String submitYourOrderText;
+    @BindString(R.string.who_you_are) String whoYouAreText;
+    @BindString(R.string.order_coffee_first) String orderCoffeeFirstText;
+    @BindString(R.string.greeting) String helloText;
+    @BindString(R.string.you_have_ordered) String youHaveOrderText;
+    @BindString(R.string.coffees) String coffeesText;
+    @BindString(R.string.vanilla_topping) String vanillaToppingText;
+    @BindString(R.string.milk_topping) String milkToppingText;
+    @BindString(R.string.total_price) String totalPriceText;
+    @BindString(R.string.thank_you) String thankYouText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +57,27 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.place_order_button)
     public void placeOrder(View view) {
+        if (quantity == 0) {
+            Toast.makeText(this, orderCoffeeFirstText, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if ("".equals(nameEditText.getText().toString())) {
+            Toast.makeText(this, whoYouAreText, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Uri uri = Uri.parse("mailto:office@justjava.com")
                 .buildUpon()
-                .appendQueryParameter("subject", "Your order to JustJava coffee shop")
+                .appendQueryParameter("subject", getString(R.string.mail_subject, calculatePrice()))
                 .appendQueryParameter("body", composeOrderSummaryText())
                 .build();
 
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-//        intent.setData(Uri.parse("mailto:"));
-//        intent.setType("text/plain");
-//        intent.putExtra(Intent.EXTRA_EMAIL, "office@justjava.com");
-//        intent.putExtra(Intent.EXTRA_SUBJECT, "Your order to JustJava coffee shop");
-//        intent.putExtra(Intent.EXTRA_TEXT, composeOrderSummaryText());
-
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         } else {
-            startActivity(Intent.createChooser(intent, "Submit your order"));
+            startActivity(Intent.createChooser(intent, submitYourOrderText));
         }
     }
 
@@ -114,22 +129,24 @@ public class MainActivity extends AppCompatActivity {
         String retVal;
 
         if (quantity == 0) {
-            retVal = placeYourOrderText;
+            retVal = orderCoffeeFirstText;
         } else {
             String name = nameEditText.getText().toString();
-            if ("".equals(name))
-                name = "John Doe";
-            StringBuilder sb = new StringBuilder("");
-            sb.append("Hi ").append(name).append("!\n");
-            sb.append("You have ordered:\n");
-            sb.append("  - ").append(quantity).append(" coffees\n");
-            if (vanillaToppingCheckBox.isChecked())
-                sb.append("  - vanilla topping\n");
-            if (milkToppingCheckBox.isChecked())
-                sb.append("  - milk topping\n");
-            sb.append("Total: $").append(calculatePrice()).append("\n");
-            sb.append("Thank you!");
-            retVal = sb.toString();
+            if ("".equals(name)) {
+                retVal = whoYouAreText;
+            } else {
+                StringBuilder sb = new StringBuilder("");
+                sb.append(getString(R.string.greeting, name)).append("\n");
+                sb.append(youHaveOrderText).append("\n");
+                sb.append("  - ").append(getString(R.string.coffees, quantity)).append("\n");
+                if (vanillaToppingCheckBox.isChecked())
+                    sb.append("  - ").append(vanillaToppingText).append("\n");
+                if (milkToppingCheckBox.isChecked())
+                    sb.append("  - ").append(milkToppingText).append("\n");
+                sb.append(getString(R.string.total_price, NumberFormat.getCurrencyInstance().format(calculatePrice()))).append("\n");
+                sb.append(thankYouText);
+                retVal = sb.toString();
+            }
         }
 
         return retVal;
