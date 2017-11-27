@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Custom layout for a toast: an icon and a text area aligned horizontally.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/error_toast_container"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@drawable/rounded_corners">
+
+    <!--Icon of the message toast-->
+    <ImageView
+        android:id="@+id/toast_image"
+        android:src="@android:drawable/stat_notify_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"/>
+
+    <!--Text if the message toast-->
+    <TextView android:id="@+id/toast_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"/>
+
+</LinearLayout>
+

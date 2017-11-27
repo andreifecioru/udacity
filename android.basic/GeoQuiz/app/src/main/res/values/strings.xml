@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">GeoQuiz</string>
+
+    <string name="question_1">What is the Earth\'s circumference (in km)?</string>
+    <string name="question_2">How many continents are on Earth?</string>
+    <string name="question_3">How many oceans are on Earth?</string>
+    <string name="question_4">On which continent is Russia located?</string>
+    <string name="question_5">On which coast is NY located?</string>
+    <string name="question_6">What is the least populated continent?</string>
+
+    <string name="answer_ok">Good job! That one is correct!</string>
+    <string name="answer_bad">Bummer! You missed that one…</string>
+
+    <string name="start_again">Start again</string>
+    <string name="next_question">Next question</string>
+
+    <string name="quiz_results">Your results</string>
+    <string name="quiz_report">You got <xliff:g id="correct_answer_count">%d</xliff:g> (out of <xliff:g id="question_count">%d</xliff:g>) correct answers.</string>
+
+    <string name="europe">Europe</string>
+    <string name="asia">Asia</string>
+    <string name="africa">Africa</string>
+    <string name="australia">Australia</string>
+    <string name="antartica">Antartica</string>
+
+    <string name="east_coast">East Coast</string>
+    <string name="west_coast">West Coast</string>
+    <string name="none_of_above">None of the above</string>
+
+    <string name="your_answer_here">Type your answer here</string>
+
+    <string name="provide_answer">Please provide an answer.</string>
+    <string name="internal_error">Internal error. Something went wrong…</string>
+</resources>

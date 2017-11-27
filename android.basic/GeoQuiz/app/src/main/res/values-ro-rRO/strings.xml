@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">GeoChestionar</string>
+    <string name="question_1">Care este circumferinta pamantului (in km)?</string>
+    <string name="question_2">Cate continente sunt pe pamant?</string>
+    <string name="question_3">Cate oceane sunt pe pamant?</string>
+    <string name="question_4">Pe ce continent(e) e situata Rusia?</string>
+    <string name="question_5">Pe ce coasta se afla orasul NY?</string>
+    <string name="question_6">Care este cel mai putin populat continent?</string>
+    <string name="answer_ok">Foarte bine! Raspuns corect!</string>
+    <string name="answer_bad">Pacat! L-ai gresit pe asta...</string>
+    <string name="start_again">Chestionar nou</string>
+    <string name="next_question">Urmatoarea intrebare</string>
+    <string name="quiz_results">Rezultatele tale</string>
+    <string name="quiz_report">Ai obtinut <xliff:g id="correct_answer_count">%d</xliff:g> (din <xliff:g id="question_count">%d</xliff:g>) raspunsuri corecte.</string>
+    <string name="europe">Europa</string>
+    <string name="east_coast">Coasta de Est</string>
+    <string name="west_coast">Coasta de Vest</string>
+    <string name="none_of_above">Nici unul de mai sus</string>
+    <string name="your_answer_here">Raspunsul tau aici</string>
+    <string name="provide_answer">Te rugam sa dai un raspuns.</string>
+    <string name="internal_error">Eroare interna. Ceva nu a mers cum trebuie...</string>
+</resources>

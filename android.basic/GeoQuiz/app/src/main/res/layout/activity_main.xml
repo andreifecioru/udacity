@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.example.geoquiz.MainActivity">
+
+    <!--Background splash image-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"/>
+
+    <!--
+        Vertical LinearLauyout container wrapping the application content
+        area (which is scrollable) and an "action button" pinned to the bottom
+        of the screen.
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--
+            Application content area (scrollable). It contains the layout for the
+            ScreenCard abstraction (a title strip and a content area beneath it).
+        -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:id="@+id/screen_card_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="96dp"
+                android:orientation="vertical"
+                android:descendantFocusability="afterDescendants"
+                android:padding="16dp">
+                <!--The title strip of the ScreenCard-->
+                <TextView
+                    android:id="@+id/screen_card_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:padding="16dp"
+                    android:background="@drawable/rounded_corners_top"
+                    android:textColor="@color/white"/>
+                <!--The content area of the ScreenCard is injected dynamically here.-->
+            </LinearLayout>
+        </ScrollView>
+
+        <!--The "action button". It's function depends on the state of the quiz.-->
+        <Button
+            android:id="@+id/button_action"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+</RelativeLayout>
