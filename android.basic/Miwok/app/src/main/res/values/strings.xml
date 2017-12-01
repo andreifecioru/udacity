@@ -1,0 +1,130 @@
+<!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <!-- Title for the application. [CHAR LIMIT=12] -->
+    <string name="app_name">Miwok</string>
+
+    <!-- Category name for phrases [CHAR LIMIT=20] -->
+    <string name="category_phrases">Phrases</string>
+
+    <!-- Category name for the vocabulary words for colors [CHAR LIMIT=20] -->
+    <string name="category_colors">Colors</string>
+
+    <!-- Category name for the vocabulary words for numbers [CHAR LIMIT=20] -->
+    <string name="category_numbers">Numbers</string>
+
+    <!-- Category name for the vocabulary words for family members [CHAR LIMIT=20] -->
+    <string name="category_family">Family Members</string>
+
+    <string-array name="numbers_english">
+        <item>one</item>
+        <item>two</item>
+        <item>three</item>
+        <item>four</item>
+        <item>five</item>
+        <item>six</item>
+        <item>seven</item>
+        <item>eight</item>
+        <item>nine</item>
+        <item>ten</item>
+    </string-array>
+
+    <string-array name="numbers_miwok">
+        <item>lutti</item>
+        <item>otiiko</item>
+        <item>tolookosu</item>
+        <item>oyyisa</item>
+        <item>massokka</item>
+        <item>temmokka</item>
+        <item>kenekaku</item>
+        <item>kawinta</item>
+        <item>wo’e</item>
+        <item>na’aacha</item>
+    </string-array>
+
+    <string-array name="family_english">
+        <item>father</item>
+        <item>mother</item>
+        <item>son</item>
+        <item>daughter</item>
+        <item>older brother</item>
+        <item>younger brother</item>
+        <item>older sister</item>
+        <item>younger sister</item>
+        <item>grandmother</item>
+        <item>grandfather</item>
+    </string-array>
+
+    <string-array name="family_miwok">
+        <item>әpә</item>
+        <item>әṭa</item>
+        <item>angsi</item>
+        <item>tune</item>
+        <item>taachi</item>
+        <item>chalitti</item>
+        <item>teṭe</item>
+        <item>kolliti</item>
+        <item>ama</item>
+        <item>paapa</item>
+    </string-array>
+
+    <string-array name="colors_english">
+        <item>red</item>
+        <item>green</item>
+        <item>brown</item>
+        <item>gray</item>
+        <item>black</item>
+        <item>white</item>
+        <item>dusty yellow</item>
+        <item>mustard yellow</item>
+    </string-array>
+
+    <string-array name="colors_miwok">
+        <item>weṭeṭṭi</item>
+        <item>chokokki</item>
+        <item>ṭakaakki</item>
+        <item>ṭopoppi</item>
+        <item>kululli</item>
+        <item>kelelli</item>
+        <item>ṭopiisә</item>
+        <item>chiwiiṭә</item>
+    </string-array>
+
+    <string-array name="phrases_english">
+        <item>Where are you going?</item>
+        <item>What is your name?</item>
+        <item>My name is…</item>
+        <item>How are you feeling?</item>
+        <item>I\'m feeling good.</item>
+        <item>Are you coming?</item>
+        <item>Yes, I\'m coming.</item>
+        <item>I\'m coming.</item>
+        <item>Let\'s go.</item>
+        <item>Come here.</item>
+    </string-array>
+
+    <string-array name="phrases_miwok">
+        <item>minto wuksus</item>
+        <item>tinnә oyaase'nә</item>
+        <item>oyaaset…</item>
+        <item>michәksәs?</item>
+        <item>kuchi achit</item>
+        <item>әәnәs\'aa?</item>
+        <item>hәә’ әәnәm</item>
+        <item>әәnәm</item>
+        <item>yoowutis</item>
+        <item>әnni\'nem</item>
+    </string-array>
+</resources>

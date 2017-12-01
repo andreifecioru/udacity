@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/icon_img_view"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:layout_alignParentLeft="true"
+        android:src="@android:drawable/ic_lock_idle_alarm"/>
+
+    <TextView
+        android:id="@+id/mi_word_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/icon_img_view"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/en_word_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingBottom="8dp"
+        android:layout_toRightOf="@id/icon_img_view"
+        android:layout_below="@id/mi_word_text_view"
+        android:textSize="16sp"
+        android:textStyle="italic"/>
+
+</RelativeLayout>
