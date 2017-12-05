@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"/>
 
-    <!--Text if the message toast-->
+    <!--Text of the message toast-->
     <TextView android:id="@+id/toast_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

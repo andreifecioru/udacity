@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">GeoChestionar</string>
+    <string name="picture_ship">Poza cu o harta veche si o corabie</string>
     <string name="question_1">Care este circumferinta pamantului (in km)?</string>
     <string name="question_2">Cate continente sunt pe pamant?</string>
     <string name="question_3">Cate oceane sunt pe pamant?</string>

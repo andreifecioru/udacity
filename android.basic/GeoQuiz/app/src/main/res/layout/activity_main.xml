@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/background"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/picture_ship" />
 
     <!--
         Vertical LinearLauyout container wrapping the application content
@@ -35,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                android:layout_marginTop="96dp"
                 android:orientation="vertical"
                 android:descendantFocusability="afterDescendants"
                 android:padding="16dp">

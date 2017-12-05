@@ -2,6 +2,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">GeoQuiz</string>
 
+    <string name="picture_ship">Picture of an old map with a ship.</string>
+
     <string name="question_1">What is the Earth\'s circumference (in km)?</string>
     <string name="question_2">How many continents are on Earth?</string>
     <string name="question_3">How many oceans are on Earth?</string>

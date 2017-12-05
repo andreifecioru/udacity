@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Custom layout for a toast presenting the final quiz results.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/error_toast_container"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Title of the title strip-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:padding="16dp"
+        android:background="@drawable/rounded_corners_top"
+        android:textColor="@color/white"
+        android:text="@string/quiz_results"/>
+
+    <TextView
+        android:id="@+id/quiz_results_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:textSize="16dp"
+        android:background="@drawable/rounded_corners_bottom" />
+
+</LinearLayout>
+

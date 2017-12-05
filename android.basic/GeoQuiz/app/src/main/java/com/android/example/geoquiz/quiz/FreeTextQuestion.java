@@ -83,8 +83,8 @@ class FreeTextQuestion extends Question {
         EditText editText = (EditText) screenCardContainer.getChildAt(1);
 
         if (editText != null) {
+            String answer = editText.getText().toString().trim();
 
-            String answer = editText.getText().toString();
             // the user must type something
             if ("".equals(answer)) {
                 throw new InvalidAnswerException(mProvideAnswer);

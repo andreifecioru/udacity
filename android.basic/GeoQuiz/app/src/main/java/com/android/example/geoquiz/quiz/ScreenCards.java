@@ -9,10 +9,6 @@ import android.view.ViewGroup;
  * implementations of screen cards.
  */
 final public class ScreenCards {
-    public static ScreenCard createQuizReport(ViewGroup screenCardContainer, Quiz quiz) {
-        return new QuizResults(screenCardContainer, quiz);
-    }
-
     static Question createQuestionOne(ViewGroup screenCardContainer) {
         return new QuestionOne(screenCardContainer);
     }

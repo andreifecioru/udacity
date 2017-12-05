@@ -76,7 +76,7 @@ public class Quiz {
      *
      * @return The number of questions in the quiz.
      */
-    int getQuestionCount() {
+    public int getQuestionCount() {
         return mQuestionCount;
     }
 
@@ -85,7 +85,7 @@ public class Quiz {
      *
      * @return The number of correct answers.
      */
-    int getCorrectAnswerCount() {
+    public int getCorrectAnswerCount() {
         return mCorrectAnswerCount;
     }
 
@@ -155,7 +155,6 @@ public class Quiz {
 
         // setup the toast and show it on the screen
         Toast toast = new Toast(context);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 250);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
