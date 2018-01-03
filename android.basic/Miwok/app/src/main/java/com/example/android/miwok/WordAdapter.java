@@ -29,7 +29,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
     @NonNull
     @Override
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-        final ViewHolder viewHolder;
+        ViewHolder viewHolder;
         final Word word = getItem(position);
 
         if (convertView == null) {

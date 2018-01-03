@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Jukebox</string>
+    <string name="album_list">Albums</string>
+    <string name="album_details">Album details</string>
+    <string name="song_details">Song details</string>
+
+    <string name="album_art_image">Album art image.</string>
+
+    <string name="title_activity_album_details">AlbumDetailsActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
