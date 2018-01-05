@@ -21,7 +21,8 @@ public class FamilyActivity extends AppCompatActivity {
 
         ArrayAdapter<Word> wordsAdapter = new WordAdapter(
                 this,
-                Words.createFamilyMembers(this));
+                Words.createFamilyMembers(this),
+                R.color.category_family);
 
         mListView.setAdapter(wordsAdapter);
     }

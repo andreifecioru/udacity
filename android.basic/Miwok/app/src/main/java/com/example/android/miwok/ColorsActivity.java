@@ -21,7 +21,8 @@ public class ColorsActivity extends AppCompatActivity {
 
         ArrayAdapter<Word> wordsAdapter = new WordAdapter(
                 this,
-                Words.createColors(this));
+                Words.createColors(this),
+                R.color.category_colors);
 
         mListView.setAdapter(wordsAdapter);
     }

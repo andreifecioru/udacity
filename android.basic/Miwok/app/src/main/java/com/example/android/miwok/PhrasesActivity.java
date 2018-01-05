@@ -21,7 +21,8 @@ public class PhrasesActivity extends AppCompatActivity {
 
         ArrayAdapter<Word> wordsAdapter = new WordAdapter(
                 this,
-                Words.createPhrases(this));
+                Words.createPhrases(this),
+                R.color.category_phrases);
 
         mListView.setAdapter(wordsAdapter);
     }

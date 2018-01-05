@@ -1,20 +1,41 @@
 package com.example.android.miwok;
 
-import android.support.annotation.NonNull;
-
 class Word {
-    private String mMiwokTranslation;
-    private String mDefaultTranslation;
+    private static final int NO_IMAGE_PROVIDED = -1;
+
+    final private String mMiwokTranslation;
+    final private String mDefaultTranslation;
+    final private int mIconDrawableResId;
+    final private String mMediaResource;
 
     Word(String miwokTranslation, String defaultTranslation) {
-        mMiwokTranslation = miwokTranslation;
-        mDefaultTranslation = defaultTranslation;
+        this(miwokTranslation, defaultTranslation, NO_IMAGE_PROVIDED, null);
     }
 
-    @NonNull
+    Word(String miwokTranslation, String defaultTranslation, String mediaResource) {
+        this(miwokTranslation, defaultTranslation, NO_IMAGE_PROVIDED, mediaResource);
+    }
+
+    Word(String miwokTranslation, String defaultTranslation, int iconDrawableResId) {
+        this(miwokTranslation, defaultTranslation, iconDrawableResId, null);
+    }
+
+    Word(String miwokTranslation, String defaultTranslation, int iconDrawableResId, String mediaResource) {
+        mMiwokTranslation = miwokTranslation;
+        mDefaultTranslation = defaultTranslation;
+        mIconDrawableResId = iconDrawableResId;
+        mMediaResource = mediaResource;
+    }
+
     String getMiwokTranslation() { return mMiwokTranslation; }
 
     String getDefaultTranslation() { return mDefaultTranslation; }
+
+    int getIconDrawableResId() { return mIconDrawableResId; }
+
+    String getMediaResource() { return mMediaResource; }
+
+    boolean hasImage() { return mIconDrawableResId != NO_IMAGE_PROVIDED; }
 
     @Override
     public String toString() { return getMiwokTranslation() + " / " + getDefaultTranslation(); }
