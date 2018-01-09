@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder)convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         convertView.setBackgroundResource(mColorResId);
@@ -61,22 +62,8 @@ public class WordAdapter extends ArrayAdapter<Word> {
             viewHolder.iconImageView.setVisibility(View.GONE);
         }
 
-        if (word.getMediaResource() != null) {
-            viewHolder.mediaIconImageView.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.mediaIconImageView.setVisibility(View.GONE);
-        }
-
         viewHolder.miWordTextView.setText(word.getMiwokTranslation());
         viewHolder.enWordTextView.setText(word.getDefaultTranslation());
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(LOG_TAG, "Click on position: " + position);
-                Log.i(LOG_TAG, "Click on word: " +  word);
-            }
-        });
 
         return convertView;
     }

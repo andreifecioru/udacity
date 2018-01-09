@@ -6,25 +6,21 @@ class Word {
     final private String mMiwokTranslation;
     final private String mDefaultTranslation;
     final private int mIconDrawableResId;
-    final private String mMediaResource;
+    final private int mMediaResourceId;
 
-    Word(String miwokTranslation, String defaultTranslation) {
-        this(miwokTranslation, defaultTranslation, NO_IMAGE_PROVIDED, null);
+    static Word createWord(String miwokTranslation, String defaultTranslation, int iconDrawableResId, int mediaResourceId) {
+        return new Word(miwokTranslation, defaultTranslation, iconDrawableResId, mediaResourceId);
     }
 
-    Word(String miwokTranslation, String defaultTranslation, String mediaResource) {
-        this(miwokTranslation, defaultTranslation, NO_IMAGE_PROVIDED, mediaResource);
+    static Word createWordWithoutImage(String miwokTranslation, String defaultTranslation, int mediaResourceId) {
+        return new Word(miwokTranslation, defaultTranslation, NO_IMAGE_PROVIDED, mediaResourceId);
     }
 
-    Word(String miwokTranslation, String defaultTranslation, int iconDrawableResId) {
-        this(miwokTranslation, defaultTranslation, iconDrawableResId, null);
-    }
-
-    Word(String miwokTranslation, String defaultTranslation, int iconDrawableResId, String mediaResource) {
+    private Word(String miwokTranslation, String defaultTranslation, int iconDrawableResId, int mediaResourceId) {
         mMiwokTranslation = miwokTranslation;
         mDefaultTranslation = defaultTranslation;
         mIconDrawableResId = iconDrawableResId;
-        mMediaResource = mediaResource;
+        mMediaResourceId = mediaResourceId;
     }
 
     String getMiwokTranslation() { return mMiwokTranslation; }
@@ -33,7 +29,7 @@ class Word {
 
     int getIconDrawableResId() { return mIconDrawableResId; }
 
-    String getMediaResource() { return mMediaResource; }
+    int getMediaResourceId() { return mMediaResourceId; }
 
     boolean hasImage() { return mIconDrawableResId != NO_IMAGE_PROVIDED; }
 

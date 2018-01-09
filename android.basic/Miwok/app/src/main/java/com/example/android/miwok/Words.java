@@ -25,11 +25,24 @@ class Words {
             R.drawable.number_ten
         };
 
-        int wordCount = Math.min(Math.min(miWords.length, enWords.length), icons.length);
+        int[] audio = {
+            R.raw.number_one,
+            R.raw.number_two,
+            R.raw.number_three,
+            R.raw.number_four,
+            R.raw.number_five,
+            R.raw.number_six,
+            R.raw.number_seven,
+            R.raw.number_eight,
+            R.raw.number_nine,
+            R.raw.number_ten
+        };
+
+        int wordCount = Math.min(Math.min(Math.min(miWords.length, enWords.length), icons.length), audio.length);
         List<Word> words = new ArrayList<>();
 
         for (int i = 0; i < wordCount; i++) {
-            words.add(new Word(miWords[i], enWords[i], icons[i]));
+            words.add(Word.createWord(miWords[i], enWords[i], icons[i], audio[i]));
         }
 
         return words;
@@ -51,11 +64,22 @@ class Words {
             R.drawable.color_mustard_yellow
         };
 
-        int wordCount = Math.min(Math.min(miWords.length, enWords.length), icons.length);
+        int[] audio = {
+            R.raw.color_red,
+            R.raw.color_green,
+            R.raw.color_brown,
+            R.raw.color_gray,
+            R.raw.color_black,
+            R.raw.color_white,
+            R.raw.color_dusty_yellow,
+            R.raw.color_mustard_yellow
+        };
+
+        int wordCount = Math.min(Math.min(Math.min(miWords.length, enWords.length), icons.length), audio.length);
         List<Word> words = new ArrayList<>();
 
         for (int i = 0; i < wordCount; i++) {
-            words.add(new Word(miWords[i], enWords[i], icons[i]));
+            words.add(Word.createWord(miWords[i], enWords[i], icons[i], audio[i]));
         }
 
         return words;
@@ -67,23 +91,36 @@ class Words {
         String[] miWords = res.getStringArray(R.array.family_miwok);
         String[] enWords = res.getStringArray(R.array.family_english);
         int[] icons = {
-                R.drawable.family_father,
-                R.drawable.family_mother,
-                R.drawable.family_son,
-                R.drawable.family_daughter,
-                R.drawable.family_older_brother,
-                R.drawable.family_younger_brother,
-                R.drawable.family_older_sister,
-                R.drawable.family_younger_sister,
-                R.drawable.family_grandmother,
-                R.drawable.family_grandfather
+            R.drawable.family_father,
+            R.drawable.family_mother,
+            R.drawable.family_son,
+            R.drawable.family_daughter,
+            R.drawable.family_older_brother,
+            R.drawable.family_younger_brother,
+            R.drawable.family_older_sister,
+            R.drawable.family_younger_sister,
+            R.drawable.family_grandmother,
+            R.drawable.family_grandfather
         };
 
-        int wordCount = Math.min(Math.min(miWords.length, enWords.length), icons.length);
+        int[] audio = {
+            R.raw.family_father,
+            R.raw.family_mother,
+            R.raw.family_son,
+            R.raw.family_daughter,
+            R.raw.family_older_brother,
+            R.raw.family_younger_brother,
+            R.raw.family_older_sister,
+            R.raw.family_younger_sister,
+            R.raw.family_grandmother,
+            R.raw.family_grandfather
+        };
+
+        int wordCount = Math.min(Math.min(Math.min(miWords.length, enWords.length), icons.length), audio.length);
         List<Word> words = new ArrayList<>();
 
         for (int i = 0; i < wordCount; i++) {
-            words.add(new Word(miWords[i], enWords[i], icons[i]));
+            words.add(Word.createWord(miWords[i], enWords[i], icons[i], audio[i]));
         }
 
         return words;
@@ -95,11 +132,24 @@ class Words {
         String[] miWords = res.getStringArray(R.array.phrases_miwok);
         String[] enWords = res.getStringArray(R.array.phrases_english);
 
-        int wordCount = Math.min(miWords.length, enWords.length);
+        int[] audio = {
+                R.raw.phrase_where_are_you_going,
+                R.raw.phrase_what_is_your_name,
+                R.raw.phrase_my_name_is,
+                R.raw.phrase_how_are_you_feeling,
+                R.raw.phrase_im_feeling_good,
+                R.raw.phrase_are_you_coming,
+                R.raw.phrase_yes_im_coming,
+                R.raw.phrase_im_coming,
+                R.raw.phrase_lets_go,
+                R.raw.phrase_come_here
+        };
+
+        int wordCount = Math.min(Math.min(miWords.length, enWords.length), audio.length);
         List<Word> words = new ArrayList<>();
 
         for (int i = 0; i < wordCount; i++) {
-            words.add(new Word(miWords[i], enWords[i], "none"));
+            words.add(Word.createWordWithoutImage(miWords[i], enWords[i], audio[i]));
         }
 
         return words;
