@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">TourGuide</string>
+    <string name="location_details">Location details</string>
+
+
+    <string name="best_friend_in_bucharest">Your best friend in Bucharest</string>
+
+    <string name="location_image">Location image</string>
+    <string name="location_rating_star">Location rating star</string>
+    <string name="drawer_open">Navigation menu open</string>
+    <string name="drawer_close">Navigation menu close</string>
+
+    <string name="parks_and_gardens">Parks &amp; Gardens</string>
+    <string name="museums">Museums</string>
+    <string name="concerts_and_events">Concerts &amp; Events</string>
+    <string name="restaurants">Restaurants</string>
+
+    <string-array name="park_and_gardens_names">
+        <item>Herastrau Park</item>
+        <item>Tineretului Park</item>
+        <item>Cismigiu Garden</item>
+        <item>Carol Park</item>
+        <item>Titan Park</item>
+    </string-array>
+
+    <integer-array name="park_and_gardens_ratings">
+        <item>4</item>
+        <item>3</item>
+        <item>3</item>
+        <item>5</item>
+        <item>2</item>
+    </integer-array>
+
+    <string-array name="park_and_gardens_descriptions">
+        <item>Largest Park in Bucharest surrounding a chain of beautiful artificial lakes.</item>
+        <item>A group of several connected mini-parks, it\'s a great location for kids and family.</item>
+        <item>A green oasis smack in the middle of Bucharest heavy traffic.</item>
+        <item>A great location for casual strolls, home of the Unknown Soldier monument.</item>
+        <item>A large park serving one of the largest residential areas in Bucharest.</item>
+    </string-array>
+
+    <string-array name="concerts_and_events_names">
+        <item>Stefan Banica Jr.</item>
+        <item>Antonia</item>
+        <item>Carla's Dreams</item>
+        <item>Delia</item>
+        <item>Loredana Groza</item>
+    </string-array>
+
+    <integer-array name="concerts_and_events_ratings">
+        <item>2</item>
+        <item>4</item>
+        <item>5</item>
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+
+    <string-array name="concerts_and_events_descriptions">
+        <item>Are you an Elvis fan? If so, then this is a must see.</item>
+        <item>Great voice, great presence on the scene, what more could you ask for?</item>
+        <item>One of the newest and hottest entries on the Romanian music scene. You simply cannot miss this one.</item>
+        <item>Looking for an entertaining way to end the weekend? You will not be disappointed!</item>
+        <item>One of the most well established female voices in the Romanian music industry.</item>
+    </string-array>
+
+    <string-array name="museums_names">
+        <item>Grigore Antipa Museum</item>
+        <item>National Art Museum</item>
+        <item>Romanian Peasant Museum</item>
+        <item>National History</item>
+        <item>George Enescu Museum</item>
+    </string-array>
+
+    <integer-array name="museums_ratings">
+        <item>4</item>
+        <item>4</item>
+        <item>5</item>
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+
+    <string-array name="museums_descriptions">
+        <item>Are you a fan of natural evolutionary history? Come see the dinosaur skeletons!</item>
+        <item>Great art and amazing architecture. One of the nicest way to spend your afternoon.</item>
+        <item>A great real-life outdoor recreation of Romanian rural life.</item>
+        <item>Are you a history geek? Come look at all the old artifacts!</item>
+        <item>Possibly the most beautiful building in Bucharest. An opportunity one cannot miss!</item>
+    </string-array>
+
+    <string-array name="restaurants_names">
+        <item>Beer Wagon</item>
+        <item>Manuc\'s Inn</item>
+        <item>Bocca Lupo</item>
+        <item>Shift</item>
+        <item>Chef\'s experience</item>
+    </string-array>
+
+    <integer-array name="restaurants_ratings">
+        <item>4</item>
+        <item>4</item>
+        <item>5</item>
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+
+    <string-array name="restaurants_descriptions">
+        <item>Lots of beer and lots of hearty food. Situated in Bucharest\'s historical centre.</item>
+        <item>With a tradition of over 200 years, it\'s an unforgettable culinary experience.</item>
+        <item>Hungry for a juicy stake? This is the place for you!</item>
+        <item>Amazing atmosphere to close off a great evening in Bucharest.</item>
+        <item>For the most refined food enthusiasts, this location must be on your must-visit list.</item>
+    </string-array>
+</resources>

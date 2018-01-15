@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_menu_parks_and_gardens"
+            android:checked="true"
+            android:icon="@drawable/park_icon"
+            android:title="@string/parks_and_gardens" />
+        <item
+            android:id="@+id/nav_menu_museums"
+            android:checked="false"
+            android:icon="@drawable/museum_icon"
+            android:title="@string/museums" />
+        <item
+            android:id="@+id/nav_menu_concerts_and_events"
+            android:checked="false"
+            android:icon="@drawable/concert_icon"
+            android:title="@string/concerts_and_events" />
+        <item
+            android:id="@+id/nav_menu_restaurants"
+            android:checked="false"
+            android:icon="@drawable/restaurant_icon"
+            android:title="@string/restaurants" />
+    </group>
+</menu>

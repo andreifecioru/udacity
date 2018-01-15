@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xsmall">4dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="large">24dp</dimen>
+    <dimen name="xlarge">32dp</dimen>
+
+    <dimen name="nav_menu_header_height">150dp</dimen>
+    <dimen name="nav_menu_header_title_text_size">24sp</dimen>
+    <dimen name="nav_menu_header_subtitle_text_size">16sp</dimen>
+
+    <dimen name="details_view_title_text_size">24sp</dimen>
+    <dimen name="details_view_description_text_size">16sp</dimen>
+    <dimen name="details_view_rating_star_size">40dp</dimen>
+    <dimen name="details_view_playback_control_size">100dp</dimen>
+
+    <dimen name="location_card_height">200dp</dimen>
+    <dimen name="location_card_name_font_size">24sp</dimen>
+    <dimen name="location_card_description_font_size">16sp</dimen>
+    <dimen name="location_card_rating_star_size">20dp</dimen>
+</resources>

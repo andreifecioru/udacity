@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Layout for the location details activity:
+      - location image on the top
+      - info details on the bottom
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--
+        Location image, and media playback control on top.
+    -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/location_img_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/placeholder"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/media_play_img_view"
+            android:layout_width="@dimen/details_view_playback_control_size"
+            android:layout_height="@dimen/details_view_playback_control_size"
+            android:layout_centerInParent="true"
+            android:src="@android:drawable/ic_media_play"/>
+    </RelativeLayout>
+
+    <!-- Content area
+        A vertically oriented linear layout wrapped in a scroll view (to cope with landscape
+        device orientation).
+    -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/medium"
+            android:paddingRight="@dimen/medium">
+
+            <TextView
+                android:id="@+id/location_name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryLight"
+                android:textStyle="bold"
+                android:textSize="@dimen/details_view_title_text_size" />
+
+            <TextView
+                android:id="@+id/location_description_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="@dimen/details_view_description_text_size" />
+
+            <LinearLayout
+                android:id="@+id/rating_container"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/small"
+                android:layout_marginEnd="@dimen/small"
+                android:layout_marginTop="@dimen/xlarge"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/rounded_corners_bg">
+                <ImageView
+                    android:layout_width="@dimen/details_view_rating_star_size"
+                    android:layout_height="@dimen/details_view_rating_star_size"
+                    android:src="@android:drawable/star_off" />
+                <ImageView
+                    android:layout_width="@dimen/details_view_rating_star_size"
+                    android:layout_height="@dimen/details_view_rating_star_size"
+                    android:src="@android:drawable/star_off" />
+                <ImageView
+                    android:layout_width="@dimen/details_view_rating_star_size"
+                    android:layout_height="@dimen/details_view_rating_star_size"
+                    android:src="@android:drawable/star_off" />
+                <ImageView
+                    android:layout_width="@dimen/details_view_rating_star_size"
+                    android:layout_height="@dimen/details_view_rating_star_size"
+                    android:src="@android:drawable/star_off" />
+                <ImageView
+                    android:layout_width="@dimen/details_view_rating_star_size"
+                    android:layout_height="@dimen/details_view_rating_star_size"
+                    android:src="@android:drawable/star_off" />
+            </LinearLayout>
+
+            <!-- Social media:
+                A set of buttons arranged horizontally and centered (as a group)
+                horizontally on the screen.
+            -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium"
+                android:paddingBottom="@dimen/medium"
+                android:layout_marginTop="@dimen/large"
+                android:layout_gravity="center_horizontal" >
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/twitter"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="8dp"
+                    android:background="@drawable/gplus"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:paddingLeft="8dp"
+                    android:background="@drawable/facebook"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
