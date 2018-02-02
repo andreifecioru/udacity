@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/small">
+
+    <TextView
+        android:id="@+id/mag_text_view"
+        style="@style/quake_list_item_mag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="6.4" />
+
+    <TextView
+        android:id="@+id/location_text_view"
+        style="@style/quake_list_item_location"
+        app:layout_constraintStart_toEndOf="@+id/mag_text_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/place_text_view"
+        tools:text="5km w of" />
+
+    <TextView
+        android:id="@+id/place_text_view"
+        style="@style/quake_list_item_place"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mag_text_view"
+        tools:text="Bucharest, Romania" />
+
+    <TextView
+        android:id="@+id/date_text_view"
+        style="@style/quake_list_item_date"
+        app:layout_constraintBottom_toTopOf="@+id/time_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nov 14, 2015" />
+
+    <TextView
+        android:id="@+id/time_text_view"
+        style="@style/quake_list_item_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="2:51 PM" />
+</android.support.constraint.ConstraintLayout>

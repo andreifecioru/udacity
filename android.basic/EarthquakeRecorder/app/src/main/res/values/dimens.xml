@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xsmall">4dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="large">24dp</dimen>
+    <dimen name="xlarge">32dp</dimen>
+
+    <dimen name="quake_list_item_mag_size">50dp</dimen>
+    <dimen name="quake_list_item_mag_size_half">25dp</dimen>
+    <dimen name="quake_list_item_mag_text_size">24sp</dimen>
+
+    <dimen name="quake_list_item_location_text_size">14sp</dimen>
+    <dimen name="quake_list_item_place_text_size">16sp</dimen>
+
+    <dimen name="quake_list_item_date_time_text_size">12sp</dimen>
+</resources>
