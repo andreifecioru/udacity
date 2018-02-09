@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="@dimen/small">
+
+    <TextView
+        android:id="@+id/title_text_view"
+        style="@style/news_list_item_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Pluto review – Astro Boy epic is a technical marvel" />
+
+
+    <TextView
+        android:id="@+id/author_text_view"
+        style="@style/news_list_item_author"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+        tools:text="Michael Billington" />
+
+    <TextView
+        android:id="@+id/pillar_text_view"
+        style="@style/news_list_item_pillar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/author_text_view"
+        tools:text="Arts" />
+
+    <TextView
+        android:id="@+id/date_text_view"
+        style="@style/news_list_item_date"
+        app:layout_constraintBottom_toTopOf="@+id/time_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+        tools:text="Nov 14, 2015" />
+
+    <TextView
+        android:id="@+id/time_text_view"
+        style="@style/news_list_item_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="2:51 PM" />
+</android.support.constraint.ConstraintLayout>

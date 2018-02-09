@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xsmall">4dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="large">24dp</dimen>
+    <dimen name="xlarge">32dp</dimen>
+
+    <dimen name="news_list_item_title_text_size">14sp</dimen>
+
+    <dimen name="news_list_item_pillar_min_width">50dp</dimen>
+    <dimen name="news_list_item_pillar_text_size">14sp</dimen>
+    <dimen name="news_list_item_author_text_size">16sp</dimen>
+
+    <dimen name="news_list_item_date_time_text_size">12sp</dimen>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GuardianNews</string>
+    <string name="check_later">No news yet. Check back later!</string>
+    <string name="not_online">You do not appear to be online.</string>
+    <string name="try_again">Try again</string>
+    <string name="refresh">Refresh</string>
+</resources>
