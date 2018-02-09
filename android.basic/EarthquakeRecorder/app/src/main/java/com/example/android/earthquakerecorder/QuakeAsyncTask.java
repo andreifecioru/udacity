@@ -6,21 +6,25 @@ import android.util.Log;
 import com.example.android.earthquakerecorder.models.Earthquake;
 import com.example.android.earthquakerecorder.models.Earthquakes;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 
 public class QuakeAsyncTask extends AsyncTask<QuakeDataFetcher, Void, List<Earthquake>> {
     private final static String LOG_TAG = QuakeAsyncTask.class.getSimpleName();
 
     private QuakeDataFetcher mQuakeFetcher;
+    private OkHttpClient mHttpClient = new OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .build();
 
     @Override
     protected List<Earthquake> doInBackground(QuakeDataFetcher... fetchers) {
@@ -31,9 +35,8 @@ public class QuakeAsyncTask extends AsyncTask<QuakeDataFetcher, Void, List<Earth
         }
 
         mQuakeFetcher = fetchers[0];
-        URL url = createURL(mQuakeFetcher.getURLString());
         try {
-            String data = fetchQuakeData(url);
+            String data = fetchQuakeData(mQuakeFetcher.getURLString());
             result = Earthquakes.fromJSON(data);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Failed to fetch quake data: " + e.getMessage());
@@ -49,53 +52,23 @@ public class QuakeAsyncTask extends AsyncTask<QuakeDataFetcher, Void, List<Earth
         }
     }
 
-    private URL createURL(String url) {
-        URL _url;
+    private String fetchQuakeData(String url) throws IOException {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
 
         try {
-            _url = new URL(url);
-        } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Invalid URL string: " + url);
-            _url = null;
-        }
-
-        return _url;
-    }
-
-    private String fetchQuakeData(URL url) throws IOException {
-        String response = "";
-        HttpURLConnection connection = null;
-        InputStream inStream = null;
-
-        try {
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setReadTimeout(10 * 1000);
-            connection.setConnectTimeout(15 * 1000);
-            connection.connect();
-            inStream = connection.getInputStream();
-            response = readFromStream(inStream);
+            Response response = mHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                ResponseBody body = response.body();
+                if (body != null) {
+                    return body.string();
+                }
+            }
         } catch (IOException e) {
             Log.e(LOG_TAG, "Failed to fetch quake data: " + e.getMessage());
-        } finally {
-            if (connection != null) connection.disconnect();
-            if (inStream != null) inStream.close();
         }
 
-        return response;
-    }
-
-    private String readFromStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line = reader.readLine();
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        }
-        return output.toString();
+        return "";
     }
 }
