@@ -1,6 +1,7 @@
 package com.example.android.earthquakerecorder.models;
 
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class Earthquakes {
     private static final String LOG_TAG = Earthquake.class.getSimpleName();
-    public static final String QUAKE_DATA_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2012-01-01&endtime=2012-12-01&minmagnitude=6";
+    public static final String QUAKE_DATA_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
     public static List<Earthquake> createEarthquakes() {
         List<Earthquake> quakes = new ArrayList<>();
@@ -33,6 +34,8 @@ public class Earthquakes {
 
     public static List<Earthquake> fromJSON(String jsonData) {
         List<Earthquake> result = new ArrayList<>();
+
+        if (TextUtils.isEmpty(jsonData)) return result;
 
         try {
             JSONObject root = new JSONObject(jsonData);
