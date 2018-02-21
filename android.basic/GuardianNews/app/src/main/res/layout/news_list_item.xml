@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+The layout for a single item in the list with news items.
+Contains a set of text views which display for each item:
+  - the title
+  - the name of the author (if present)
+  - the section to which the item belongs
+  - the publishing date/time
+-->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -24,7 +32,7 @@
         tools:text="Michael Billington" />
 
     <TextView
-        android:id="@+id/pillar_text_view"
+        android:id="@+id/section_text_view"
         style="@style/news_list_item_pillar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/author_text_view"

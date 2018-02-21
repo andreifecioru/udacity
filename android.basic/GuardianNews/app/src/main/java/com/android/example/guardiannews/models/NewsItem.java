@@ -18,7 +18,7 @@ import java.util.Map;
 public class NewsItem implements Parcelable {
     private final String mTitle;
     private final String mAuthorName;
-    private final String mPillar;
+    private final String mSection;
     private final String mPublishDate;
     private final String mPublishTime;
     private final String mUrl;
@@ -51,12 +51,12 @@ public class NewsItem implements Parcelable {
      * @param title The title of the post.
      * @param authorName The name of the post's author. If not available, it is set to 'Unknown'.
      * @param publishTimestamp The publishing time in the format provided by the Guardian API (i.e.  yyyy-mm-ddTHH:MM:SSZ)
-     * @param pillar The pillar (i.e. category) to which the post belongs.
+     * @param section The section to which the post belongs.
      */
-    NewsItem(String title, String authorName, String publishTimestamp, String pillar, String url) {
+    NewsItem(String title, String authorName, String publishTimestamp, String section, String url) {
         mTitle = title;
         mAuthorName = authorName;
-        mPillar = pillar;
+        mSection = section;
         mUrl = url;
 
         // parse the publish timestamp (input format: 2018-02-09T13:42:05Z)
@@ -90,11 +90,11 @@ public class NewsItem implements Parcelable {
     public String getTitle() { return mTitle; }
 
     /**
-     * (Getter) Returns the post pillar (i.e. category).
+     * (Getter) Returns the post section.
      *
-     * @return The post's pillar.
+     * @return The post's section.
      */
-    public String getPillar() { return mPillar; }
+    public String getSection() { return mSection; }
 
     /**
      * (Getter) Returns the post pillar (i.e. category).
@@ -131,7 +131,7 @@ public class NewsItem implements Parcelable {
         in.readStringArray(data);
         mTitle= data[0];
         mAuthorName = data[1];
-        mPillar = data[2];
+        mSection = data[2];
         mPublishDate = data[3];
         mPublishTime = data[4];
         mUrl = data[5];
@@ -146,7 +146,7 @@ public class NewsItem implements Parcelable {
         dest.writeStringArray(new String[] {
                 mTitle,
                 mAuthorName,
-                mPillar,
+                mSection,
                 mPublishDate,
                 mPublishTime,
                 mUrl});

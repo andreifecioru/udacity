@@ -33,6 +33,8 @@ class NewsRefreshAsyncTaskLoader extends AsyncTaskLoader<List<NewsItem>> {
 
     NewsRefreshAsyncTaskLoader(Context context, String url) {
         super(context);
+
+        Log.i(LOG_TAG, "Feed URL: " + url);
         mUrl = createURL(url);
     }
 

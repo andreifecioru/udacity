@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- String-array resources for the "Order by" preference -->
+    <string-array name="settings_order_by_labels">
+        <item>@string/settings_order_by_newest_label</item>
+        <item>@string/settings_order_by_oldest_label</item>
+        <item>@string/settings_order_by_relevance_label</item>
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/settings_order_by_newest_value</item>
+        <item>@string/settings_order_by_oldest_value</item>
+        <item>@string/settings_order_by_relevance_value</item>
+    </string-array>
+
+    <!-- String-array resources for the "Section" preference -->
+    <string-array name="settings_section_labels">
+        <item>@string/settings_section_business_label</item>
+        <item>@string/settings_section_culture_label</item>
+        <item>@string/settings_section_environment_label</item>
+        <item>@string/settings_section_football_label</item>
+        <item>@string/settings_section_all_label</item>
+    </string-array>
+
+    <string-array name="settings_section_values">
+        <item>@string/settings_section_business_value</item>
+        <item>@string/settings_section_culture_value</item>
+        <item>@string/settings_section_environment_value</item>
+        <item>@string/settings_section_football_value</item>
+        <item>@string/settings_section_all_value</item>
+    </string-array>
+</resources>

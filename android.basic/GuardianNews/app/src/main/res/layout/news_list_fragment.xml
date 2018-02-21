@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+The layout of the fragment which displays the news items.
+  - a list view with the news items
+  - a button on the button which triggers the re-download of the news items.
+-->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,6 +14,7 @@
         android:id="@+id/news_list_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@id/refresh_news_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+The preference screen layout for the settings preference fragment. Contains:
+  - a numerical (decimal) preference for the max number of items to be displayed
+    (maps to the "page-size" query param)
+  - a selection from a list of sections. All news fetched from the server will be part of this section.
+    (maps on the "section" query param)
+  - a selection from a list dictating the order of the news items
+    (maps on the "order-by" query param)
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+
+    <EditTextPreference
+        android:title="@string/settings_max_item_count_label"
+        android:key="@string/settings_max_item_count_key"
+        android:defaultValue="@string/settings_max_item_count_default"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true" />
+
+    <ListPreference
+        android:title="@string/settings_section_label"
+        android:key="@string/settings_section_key"
+        android:defaultValue="@string/settings_section_default"
+        android:entries="@array/settings_section_labels"
+        android:entryValues="@array/settings_section_values" />
+
+    <ListPreference
+        android:title="@string/settings_order_by_label"
+        android:key="@string/settings_order_by_key"
+        android:defaultValue="@string/settings_order_by_default"
+        android:entries="@array/settings_order_by_labels"
+        android:entryValues="@array/settings_order_by_values" />
+
+</PreferenceScreen>

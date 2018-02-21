@@ -1,7 +1,54 @@
 <resources>
     <string name="app_name">GuardianNews</string>
+    <string name="news_feed">News Feed</string>
+
     <string name="check_later">No news yet. Check back later!</string>
     <string name="not_online">You do not appear to be online.</string>
     <string name="try_again">Try again</string>
     <string name="refresh">Refresh</string>
+    <string name="drawer_open">Navigation menu open</string>
+    <string name="drawer_close">Navigation menu close</string>
+
+    <string name="settings_title">Feed Settings</string>
+    <string name="settings_menu_item">Settings</string>
+
+    <!-- String resources for the "Order by" preference -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+
+    <!-- String resources for the "Section" preference -->
+    <string name="settings_section_label">Section</string>
+    <string name="settings_section_key" translatable="false">section</string>
+    <string name="settings_section_default" translatable="false">@string/settings_section_all_value</string>
+
+    <string name="settings_section_all_label">All</string>
+    <string name="settings_section_all_value" translatable="false">all</string>
+
+    <string name="settings_section_football_label">Football</string>
+    <string name="settings_section_football_value" translatable="false">football</string>
+
+    <string name="settings_section_environment_label">Environment</string>
+    <string name="settings_section_environment_value" translatable="false">environment</string>
+
+    <string name="settings_section_culture_label">Culture</string>
+    <string name="settings_section_culture_value" translatable="false">culture</string>
+
+    <string name="settings_section_business_label">Business</string>
+    <string name="settings_section_business_value" translatable="false">business</string>
+
+    <!-- String resources for the "Max item count" preference -->
+    <string name="settings_max_item_count_label">Max item count</string>
+    <string name="settings_max_item_count_key" translatable="false">max_item_count</string>
+    <string name="settings_max_item_count_default" translatable="false">50</string>
 </resources>

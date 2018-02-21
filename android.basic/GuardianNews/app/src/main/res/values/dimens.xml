@@ -6,6 +6,10 @@
     <dimen name="large">24dp</dimen>
     <dimen name="xlarge">32dp</dimen>
 
+    <dimen name="nav_menu_header_height">150dp</dimen>
+    <dimen name="nav_menu_header_title_text_size">24sp</dimen>
+    <dimen name="nav_menu_header_subtitle_text_size">16sp</dimen>
+
     <dimen name="news_list_item_title_text_size">14sp</dimen>
 
     <dimen name="news_list_item_pillar_min_width">50dp</dimen>

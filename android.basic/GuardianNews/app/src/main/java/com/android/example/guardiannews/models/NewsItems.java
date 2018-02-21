@@ -46,7 +46,7 @@ public class NewsItems {
                     JSONObject result = results.getJSONObject(i);
                     String title = result.getString("webTitle");
                     String publishTimestamp = result.getString("webPublicationDate");
-                    String pillar = result.getString("pillarName");
+                    String section = result.getString("sectionName");
                     String url = result.getString("webUrl");
                     JSONArray tags = result.getJSONArray("tags");
 
@@ -65,7 +65,7 @@ public class NewsItems {
                     }
 
                     // construct a new {@link NewsItem} and add it to the final result.
-                    newsItems.add(new NewsItem(title, authorName, publishTimestamp, pillar, url));
+                    newsItems.add(new NewsItem(title, authorName, publishTimestamp, section, url));
                 }
             }
         } catch (JSONException e) {

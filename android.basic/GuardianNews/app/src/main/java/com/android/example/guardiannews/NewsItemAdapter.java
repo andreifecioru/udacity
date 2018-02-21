@@ -19,7 +19,7 @@ import java.util.List;
 class NewsItemAdapter extends ArrayAdapter<NewsItem> {
     private static class ViewHolder {
         TextView titleTextView;
-        TextView pillarTextView;
+        TextView sectionTextView;
         TextView authorTextView;
         TextView dateTextView;
         TextView timeTextView;
@@ -49,7 +49,7 @@ class NewsItemAdapter extends ArrayAdapter<NewsItem> {
             // cache the relevant views (so we don't have to search for them every time)
             viewHolder = new ViewHolder();
             viewHolder.titleTextView = convertView.findViewById(R.id.title_text_view);
-            viewHolder.pillarTextView = convertView.findViewById(R.id.pillar_text_view);
+            viewHolder.sectionTextView = convertView.findViewById(R.id.section_text_view);
             viewHolder.authorTextView = convertView.findViewById(R.id.author_text_view);
             viewHolder.dateTextView = convertView.findViewById(R.id.date_text_view);
             viewHolder.timeTextView = convertView.findViewById(R.id.time_text_view);
@@ -61,7 +61,7 @@ class NewsItemAdapter extends ArrayAdapter<NewsItem> {
 
         // populate the UI with the relevant data.
         viewHolder.titleTextView.setText(newsItem.getTitle());
-        viewHolder.pillarTextView.setText(newsItem.getPillar());
+        viewHolder.sectionTextView.setText(newsItem.getSection());
         viewHolder.authorTextView.setText(newsItem.getAuthorName());
         viewHolder.dateTextView.setText(newsItem.getPublishDate());
         viewHolder.timeTextView.setText(newsItem.getPublishTime());
