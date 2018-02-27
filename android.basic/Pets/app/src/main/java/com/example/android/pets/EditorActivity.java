@@ -15,10 +15,14 @@
  */
 package com.example.android.pets;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +40,7 @@ import com.example.android.pets.models.Pet;
  * Allows user to create a new pet or edit an existing one.
  */
 public class EditorActivity extends AppCompatActivity {
+    private static final String LOG_TAG = EditorActivity.class.getSimpleName();
 
     /** EditText field to enter the pet's name */
     private EditText mNameEditText;
@@ -55,14 +60,10 @@ public class EditorActivity extends AppCompatActivity {
      */
     private int mGender = PetEntry.GENDER_UNKNOWN;
 
-    private PetDbHelper mDbHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-
-        mDbHelper = new PetDbHelper(this);
 
         // Find all relevant views that we will need to read user input from
         mNameEditText = findViewById(R.id.edit_pet_name);
@@ -126,11 +127,11 @@ public class EditorActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                Pet newPet = mDbHelper.insertPet(createPetFromUserInput());
-                if (newPet != null) {
-                    Toast.makeText(this, "Pet saved with ID: " + newPet.getId(), Toast.LENGTH_SHORT).show();
+                Uri newPetUri = insertPet(createPetFromUserInput());
+                if (newPetUri != null) {
+                    Toast.makeText(this, "Pet saved available at URI: " + newPetUri, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Error with saving pet.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Error saving pet.", Toast.LENGTH_SHORT).show();
                 }
                 finish();
                 return true;
@@ -149,9 +150,26 @@ public class EditorActivity extends AppCompatActivity {
 
     private Pet createPetFromUserInput() {
         String name = mNameEditText.getText().toString().trim();
-        String breed = mNameEditText.getText().toString().trim();
+        String breed = mBreedEditText.getText().toString().trim();
         int weight = Integer.parseInt(mWeightEditText.getText().toString().trim());
 
         return new Pet(name, breed, mGender, weight);
+    }
+
+    private Uri insertPet(Pet pet) {
+        ContentResolver resolver = getContentResolver();
+
+        ContentValues values = new ContentValues();
+        values.put(PetEntry.COLUMN_PET_NAME, pet.getName());
+        values.put(PetEntry.COLUMN_PET_BREED, pet.getBreed());
+        values.put(PetEntry.COLUMN_PET_GENDER, pet.getGender());
+        values.put(PetEntry.COLUMN_PET_WEIGHT, pet.getWeight());
+
+        Uri newPetUri = resolver.insert(PetEntry.CONTENT_URI_PETS, values);
+        if (newPetUri != null) {
+            Log.d(LOG_TAG, "URI for new pet: " + newPetUri.toString());
+        }
+
+        return newPetUri;
     }
 }

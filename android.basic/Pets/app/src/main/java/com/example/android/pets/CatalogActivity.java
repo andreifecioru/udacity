@@ -15,12 +15,15 @@
  */
 package com.example.android.pets;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +34,7 @@ import com.example.android.pets.data.PetDbHelper;
 import com.example.android.pets.models.Pet;
 import com.example.android.pets.models.Pets;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,7 +43,7 @@ import java.util.Locale;
  * Displays list of pets that were entered and stored in the app.
  */
 public class CatalogActivity extends AppCompatActivity {
-    private PetDbHelper mDbHelper;
+    private static final String LOG_TAG = CatalogActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,6 @@ public class CatalogActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        mDbHelper = new PetDbHelper(this);
     }
 
     @Override
@@ -79,12 +81,12 @@ public class CatalogActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
-                mDbHelper.insertPets(Pets.generateDummyData());
+                insertPets(Pets.generateDummyData());
                 displayDatabaseInfo();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
-                mDbHelper.clearAllPets();
+                deleteAllPets();
                 displayDatabaseInfo();
                 return true;
         }
@@ -96,8 +98,7 @@ public class CatalogActivity extends AppCompatActivity {
      * the pets database.
      */
     private void displayDatabaseInfo() {
-//        int petCount = mDbHelper.countAllPets();
-        List<Pet> pets = mDbHelper.getAllPets();
+        List<Pet> pets = getAllPets();
 
         TextView displayView = findViewById(R.id.text_view_pet);
         displayView.setText("Number of rows in pets database table: " + pets.size());
@@ -109,5 +110,64 @@ public class CatalogActivity extends AppCompatActivity {
         for (Pet pet : pets) {
             displayView.append("\n" + pet);
         }
+    }
+
+    private List<Pet> getAllPets() {
+        ContentResolver resolver = getContentResolver();
+
+        String [] projection = {
+                PetEntry.COLUMN_PET_ID,
+                PetEntry.COLUMN_PET_NAME,
+                PetEntry.COLUMN_PET_BREED,
+                PetEntry.COLUMN_PET_GENDER,
+                PetEntry.COLUMN_PET_WEIGHT
+        };
+
+        try(Cursor cursor =
+                    resolver.query(PetEntry.CONTENT_URI_PETS, projection, null, null, null)) {
+            List<Pet> result = new ArrayList<>();
+
+            if (cursor == null) return result;
+
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndex(PetEntry.COLUMN_PET_ID));
+                String name = cursor.getString(cursor.getColumnIndex(PetEntry.COLUMN_PET_NAME));
+                String breed = cursor.getString(cursor.getColumnIndex(PetEntry.COLUMN_PET_BREED));
+                int gender = cursor.getInt(cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER));
+                int weight = cursor.getInt(cursor.getColumnIndex(PetEntry.COLUMN_PET_WEIGHT));
+
+                result.add(new Pet(id, name, breed, gender, weight));
+            }
+
+            return result;
+        }
+    }
+
+    private void deleteAllPets() {
+        ContentResolver resolver = getContentResolver();
+        resolver.delete(PetEntry.CONTENT_URI_PETS, null, null);
+    }
+
+    private void insertPets(List<Pet> pets) {
+        for (Pet pet : pets) {
+            insertPet(pet);
+        }
+    }
+
+    private Uri insertPet(Pet pet) {
+        ContentResolver resolver = getContentResolver();
+
+        ContentValues values = new ContentValues();
+        values.put(PetEntry.COLUMN_PET_NAME, pet.getName());
+        values.put(PetEntry.COLUMN_PET_BREED, pet.getBreed());
+        values.put(PetEntry.COLUMN_PET_GENDER, pet.getGender());
+        values.put(PetEntry.COLUMN_PET_WEIGHT, pet.getWeight());
+
+        Uri newPetUri = resolver.insert(PetEntry.CONTENT_URI_PETS, values);
+        if (newPetUri != null) {
+            Log.d(LOG_TAG, "URI for new pet: " + newPetUri.toString());
+        }
+
+        return newPetUri;
     }
 }
