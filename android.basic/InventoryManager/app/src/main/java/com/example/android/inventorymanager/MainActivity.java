@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDisplayTextView.setText("Number of products in DB: " + allProducts.size());
 
-        mDisplayTextView.append("\n\n_id - name - quantity - sup_name - sup_phone");
+        mDisplayTextView.append("\n\n_id - name - price - quantity - sup_name - sup_phone");
 
         for (Product product : allProducts) {
             mDisplayTextView.append("\n" + product);

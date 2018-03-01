@@ -16,7 +16,7 @@ import java.util.List;
  * DB helper class for interacting with the "product" table.
  */
 final public class ProductBDHelper extends SQLiteOpenHelper {
-    private static final int DATABSE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // DB file name on disk
     private static final String DATABASE_NAME = "inventory.db";
@@ -26,6 +26,7 @@ final public class ProductBDHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_SCHEMA = "CREATE TABLE " + ProductEntry.TABLE_NAME + " (" +
             ProductEntry.COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             ProductEntry.COLUMN_PRODUCT_NAME + " TEXT NOT NULL, " +
+            ProductEntry.COLUMN_PRODUCT_PRICE + " INTEGER NOT NULL DEFAULT 0, " +
             ProductEntry.COLUMN_PRODUCT_QUANTITY + " INTEGER NOT NULL DEFAULT 0, " +
             ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME + " TEXT NOT NULL, " +
             ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE + " TEXT NOT NULL" +
@@ -38,7 +39,7 @@ final public class ProductBDHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ALL = "DELETE FROM " + ProductEntry.TABLE_NAME + ";";
 
     public ProductBDHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABSE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -70,6 +71,7 @@ final public class ProductBDHelper extends SQLiteOpenHelper {
 
         // we don't provide the ID here. It will be automatically assigned during DB insertion
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, product.getName());
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, (int)(product.getPrice() * 100)); // transform $ to cents
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, product.getQuantity());
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, product.getSupplierName());
         values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE, product.getSupplierPhone());
@@ -97,6 +99,7 @@ final public class ProductBDHelper extends SQLiteOpenHelper {
         String[] projection = {
                 ProductEntry.COLUMN_PRODUCT_ID,
                 ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY,
                 ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
                 ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE
@@ -117,11 +120,12 @@ final public class ProductBDHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_ID));
                 String name = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME));
+                int price = cursor.getInt(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE));
                 int quantity = cursor.getInt(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY));
                 String supplierName = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME));
                 String supplierPhone = cursor.getString(cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE));
 
-                result.add(new Product(id, name, quantity, supplierName, supplierPhone));
+                result.add(new Product(id, name, price / 100.0, quantity, supplierName, supplierPhone));
             }
 
             return result;

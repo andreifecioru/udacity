@@ -16,6 +16,7 @@ final public class Product {
 
     private final long mId;
     private final String mName;
+    private final double mPrice;
     private final int mQuantity;
     private final String mSupplierName;
     private final String mSupplierPhone;
@@ -25,7 +26,7 @@ final public class Product {
      *
      * This constructor is used to create a product after we have the ID as a result of a DB insert.
      */
-    public Product(long id, String name, int quantity, String supplierName, String supplierPhone) {
+    public Product(long id, String name, double price, int quantity, String supplierName, String supplierPhone) {
         // enforce invariants
         if (id < 0) {
             throw new IllegalArgumentException("Product ID must be a positive integer. Got: " + id);
@@ -33,6 +34,10 @@ final public class Product {
 
         if (TextUtils.isEmpty(name)) {
             throw new IllegalArgumentException("Product name must not be null or empty.");
+        }
+
+        if (price < 0) {
+            throw new IllegalArgumentException("Product price must be a positive integer. Got: " + price);
         }
 
         if (quantity < 0) {
@@ -49,6 +54,7 @@ final public class Product {
 
         mId = id;
         mName = name;
+        mPrice = price;
         mQuantity = quantity;
         mSupplierName = supplierName;
         mSupplierPhone = supplierPhone;
@@ -59,8 +65,8 @@ final public class Product {
      *
      * This constructor is used to create a product before we have the ID (before we do a DB insert).
      */
-    Product(String name, int quantity, String supplierName, String supplierPhone) {
-        this(DEFAULT_PRODUCT_ID, name, quantity, supplierName, supplierPhone);
+    Product(String name, double price, int quantity, String supplierName, String supplierPhone) {
+        this(DEFAULT_PRODUCT_ID, name, price, quantity, supplierName, supplierPhone);
     }
 
     /*
@@ -69,13 +75,15 @@ final public class Product {
      * Acts as a copy-constructor.
      */
     public Product cloneWithId(long id) {
-        return new Product(id, mName, mQuantity, mSupplierName, mSupplierPhone);
+        return new Product(id, mName, mPrice, mQuantity, mSupplierName, mSupplierPhone);
     }
 
     /* Getters */
     public long getId() { return mId; }
 
     public String getName() { return mName; }
+
+    public double getPrice() { return mPrice; }
 
     public int getQuantity() { return mQuantity; }
 
@@ -85,7 +93,7 @@ final public class Product {
 
     @Override
     public String toString() {
-        return String.format(Locale.ENGLISH, "\n %d - %s - %d - %s -%s",
-                mId, mName, mQuantity, mSupplierName, mSupplierPhone);
+        return String.format(Locale.ENGLISH, "\n %d - %s - $%.2f - %d - %s -%s",
+                mId, mName, mPrice, mQuantity, mSupplierName, mSupplierPhone);
     }
 }

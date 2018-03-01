@@ -17,6 +17,7 @@ final public class ProductContract implements BaseColumns {
         // column names
         public static final String COLUMN_PRODUCT_ID = BaseColumns._ID;
         public static final String COLUMN_PRODUCT_NAME = "name";
+        public static final String COLUMN_PRODUCT_PRICE = "price";
         public static final String COLUMN_PRODUCT_QUANTITY = "quantity";
         public static final String COLUMN_PRODUCT_SUPPLIER_NAME = "sup_name";
         public static final String COLUMN_PRODUCT_SUPPLIER_PHONE = "sup_phone";
