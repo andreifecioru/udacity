@@ -27,16 +27,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import com.example.android.pets.data.PetContract.PetEntry;
-import com.example.android.pets.data.PetDbHelper;
 import com.example.android.pets.models.Pet;
 import com.example.android.pets.models.Pets;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
@@ -45,10 +42,18 @@ import java.util.Locale;
 public class CatalogActivity extends AppCompatActivity {
     private static final String LOG_TAG = CatalogActivity.class.getSimpleName();
 
+    private ListView mPetsListView;
+
+    private PetCursorAdapter mPetCursorAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+
+        // Setup list view to show the pet inventory
+        mPetsListView = findViewById(R.id.pets_list_view);
+        mPetsListView.setEmptyView(findViewById(R.id.empty_view));
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -62,9 +67,15 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        displayDatabaseInfo();
+    protected void onStart() {
+        super.onStart();
+        displayPetList();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPetCursorAdapter.getCursor().close();
     }
 
     @Override
@@ -82,37 +93,28 @@ public class CatalogActivity extends AppCompatActivity {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
                 insertPets(Pets.generateDummyData());
-                displayDatabaseInfo();
+                refreshPetList();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
                 deleteAllPets();
-                displayDatabaseInfo();
+                refreshPetList();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Temporary helper method to display information in the onscreen TextView about the state of
-     * the pets database.
-     */
-    private void displayDatabaseInfo() {
-        List<Pet> pets = getAllPets();
-
-        TextView displayView = findViewById(R.id.text_view_pet);
-        displayView.setText("Number of rows in pets database table: " + pets.size());
-
-        displayView.append("\n");
-        displayView.append(String.format(Locale.ENGLISH, "\n %s - %s - %s - %s - %s",
-                PetEntry.COLUMN_PET_ID, PetEntry.COLUMN_PET_NAME, PetEntry.COLUMN_PET_BREED, PetEntry.COLUMN_PET_GENDER, PetEntry.COLUMN_PET_WEIGHT));
-
-        for (Pet pet : pets) {
-            displayView.append("\n" + pet);
-        }
+    private void displayPetList() {
+        mPetCursorAdapter = new PetCursorAdapter(CatalogActivity.this, setupCursor());
+        mPetsListView.setAdapter(mPetCursorAdapter);
     }
 
-    private List<Pet> getAllPets() {
+    private void refreshPetList() {
+        mPetCursorAdapter.getCursor().close();
+        mPetCursorAdapter.changeCursor(setupCursor());
+    }
+
+    private Cursor setupCursor() {
         ContentResolver resolver = getContentResolver();
 
         String [] projection = {
@@ -123,24 +125,7 @@ public class CatalogActivity extends AppCompatActivity {
                 PetEntry.COLUMN_PET_WEIGHT
         };
 
-        try(Cursor cursor =
-                    resolver.query(PetEntry.CONTENT_URI_PETS, projection, null, null, null)) {
-            List<Pet> result = new ArrayList<>();
-
-            if (cursor == null) return result;
-
-            while (cursor.moveToNext()) {
-                long id = cursor.getLong(cursor.getColumnIndex(PetEntry.COLUMN_PET_ID));
-                String name = cursor.getString(cursor.getColumnIndex(PetEntry.COLUMN_PET_NAME));
-                String breed = cursor.getString(cursor.getColumnIndex(PetEntry.COLUMN_PET_BREED));
-                int gender = cursor.getInt(cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER));
-                int weight = cursor.getInt(cursor.getColumnIndex(PetEntry.COLUMN_PET_WEIGHT));
-
-                result.add(new Pet(id, name, breed, gender, weight));
-            }
-
-            return result;
-        }
+        return resolver.query(PetEntry.CONTENT_URI_PETS, projection, null, null, null);
     }
 
     private void deleteAllPets() {
