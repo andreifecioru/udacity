@@ -1,6 +1,10 @@
 package com.example.android.pets.models;
 
+import android.text.TextUtils;
+
 import com.example.android.pets.data.PetContract.PetEntry;
+
+import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -14,6 +18,10 @@ final public class Pet {
 
 
     public Pet(long id, String name, String breed, int gender, int weight) {
+        if (TextUtils.isEmpty(name)) {
+            throw new IllegalArgumentException("Pet name cannot be empty.");
+        }
+
         if (gender != PetEntry.GENDER_MALE &&
             gender != PetEntry.GENDER_FEMALE &&
             gender != PetEntry.GENDER_UNKNOWN) {

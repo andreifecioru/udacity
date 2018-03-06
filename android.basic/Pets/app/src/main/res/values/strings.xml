@@ -23,6 +23,9 @@
     <!-- Title for the activity to add a new pet [CHAR LIMIT=20] -->
     <string name="editor_activity_title_new_pet">Add a Pet</string>
 
+    <!-- Title for the activity to edit an existing pet [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_edit_pet">Edit Pet</string>
+
     <!-- Label for editor menu option to save pet and leave editor [CHAR LIMIT=20] -->
     <string name="action_save">Save</string>
 
@@ -64,4 +67,29 @@
 
     <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
     <string name="empty_view_subtitle_text">Get started by adding a pet</string>
+
+    <!-- Error message for updating a pet entry [CHAR LIMIT=50]-->
+    <string name="msg_update_pet_failed">Error updating pet.</string>
+
+    <!-- Message for successfully updating a pet entry [CHAR LIMIT=50]-->
+    <string name="msg_update_pet_success">Successfully updated pet.</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Dialog message when user is deleting a pet entry [CHAR LIMIT=NONE] -->
+    <string name="msg_delete_pet_entry">Are you sure you want to delete this pet?</string>
+
+    <!-- Dialog button text for the option to confirm pet deletion [CHAR LIMIT=20] -->
+    <string name="delete_yes">Yes</string>
+
+    <!-- Dialog button text for the option to cancel pet deletion [CHAR LIMIT=20] -->
+    <string name="delete_no">No</string>
 </resources>
+

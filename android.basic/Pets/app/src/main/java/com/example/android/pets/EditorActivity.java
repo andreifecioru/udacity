@@ -16,15 +16,24 @@
 package com.example.android.pets;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,14 +42,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.android.pets.data.PetContract.PetEntry;
-import com.example.android.pets.data.PetDbHelper;
 import com.example.android.pets.models.Pet;
 
 /**
  * Allows user to create a new pet or edit an existing one.
  */
-public class EditorActivity extends AppCompatActivity {
+public class EditorActivity
+        extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String LOG_TAG = EditorActivity.class.getSimpleName();
+
+    private final static int PET_CURSOR_LOADER_ID = 1;
 
     /** EditText field to enter the pet's name */
     private EditText mNameEditText;
@@ -60,16 +72,46 @@ public class EditorActivity extends AppCompatActivity {
      */
     private int mGender = PetEntry.GENDER_UNKNOWN;
 
+    private Uri mPetUri;
+
+    private boolean mPetHasChanged = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            mPetUri = intent.getData();
+        }
+
+        if (mPetUri != null) {
+            setTitle(R.string.editor_activity_title_edit_pet);
+
+            invalidateOptionsMenu();
+
+            // setup the loader
+            getSupportLoaderManager()
+                    .initLoader(PET_CURSOR_LOADER_ID,null, this)
+                    .forceLoad();
+        } else {
+            setTitle(R.string.editor_activity_title_new_pet);
+        }
+
+        Log.d(LOG_TAG, "Pet URI: " + mPetUri);
 
         // Find all relevant views that we will need to read user input from
         mNameEditText = findViewById(R.id.edit_pet_name);
         mBreedEditText = findViewById(R.id.edit_pet_breed);
         mWeightEditText = findViewById(R.id.edit_pet_weight);
         mGenderSpinner = findViewById(R.id.spinner_gender);
+
+        mNameEditText.setOnTouchListener(mOnTouchListener);
+        mBreedEditText.setOnTouchListener(mOnTouchListener);
+        mWeightEditText.setOnTouchListener(mOnTouchListener);
+        mGenderSpinner.setOnTouchListener(mOnTouchListener);
+
 
         setupSpinner();
     }
@@ -122,17 +164,24 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        if (mPetUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                Uri newPetUri = insertPet(createPetFromUserInput());
-                if (newPetUri != null) {
-                    Toast.makeText(this, "Pet saved available at URI: " + newPetUri, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Error saving pet.", Toast.LENGTH_SHORT).show();
-                }
+                savePet(createPetFromUserInput());
                 finish();
                 return true;
             // Respond to a click on the "Delete" menu option
@@ -141,22 +190,53 @@ public class EditorActivity extends AppCompatActivity {
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                // Navigate back to parent activity (CatalogActivity)
-                NavUtils.navigateUpFromSameTask(this);
+                if (mPetHasChanged) {
+                    showUnsavedChangesDialog(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Navigate back to parent activity (CatalogActivity)
+                            NavUtils.navigateUpFromSameTask(EditorActivity.this);
+                        }
+                    });
+                } else {
+                    // Navigate back to parent activity (CatalogActivity)
+                    NavUtils.navigateUpFromSameTask(this);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private Pet createPetFromUserInput() {
-        String name = mNameEditText.getText().toString().trim();
-        String breed = mBreedEditText.getText().toString().trim();
-        int weight = Integer.parseInt(mWeightEditText.getText().toString().trim());
-
-        return new Pet(name, breed, mGender, weight);
+    @Override
+    public void onBackPressed() {
+        if (mPetHasChanged) {
+            showUnsavedChangesDialog(new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+        } else {
+            super.onBackPressed();
+        }
     }
 
-    private Uri insertPet(Pet pet) {
+    private Pet createPetFromUserInput() {
+
+        try {
+            String name = mNameEditText.getText().toString().trim();
+            String breed = mBreedEditText.getText().toString().trim();
+            int weight = Integer.parseInt(mWeightEditText.getText().toString().trim());
+            return new Pet(name, breed, mGender, weight);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
+            return null;
+        }
+    }
+
+    private void savePet(Pet pet) {
+        if (pet == null) return;
+
         ContentResolver resolver = getContentResolver();
 
         ContentValues values = new ContentValues();
@@ -165,11 +245,92 @@ public class EditorActivity extends AppCompatActivity {
         values.put(PetEntry.COLUMN_PET_GENDER, pet.getGender());
         values.put(PetEntry.COLUMN_PET_WEIGHT, pet.getWeight());
 
-        Uri newPetUri = resolver.insert(PetEntry.CONTENT_URI_PETS, values);
-        if (newPetUri != null) {
-            Log.d(LOG_TAG, "URI for new pet: " + newPetUri.toString());
-        }
+        if (mPetUri == null) { // insert mode
+            Uri newPetUri = resolver.insert(PetEntry.CONTENT_URI_PETS, values);
+            if (newPetUri != null) {
+                Log.d(LOG_TAG, "URI for new pet: " + newPetUri.toString());
+            }
+        } else { // update mode
+            long petId = ContentUris.parseId(mPetUri);
+            String selection = "_id = ?";
+            String[] selectionArgs = new String[] { String.valueOf(petId) };
+            int rowsUpdated = resolver.update(mPetUri, values, selection, selectionArgs);
 
-        return newPetUri;
+            if (rowsUpdated == 0) {
+                Toast.makeText(EditorActivity.this,
+                        getString(R.string.msg_update_pet_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(EditorActivity.this,
+                        getString(R.string.msg_update_pet_success),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(EditorActivity.this, mPetUri, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor.getCount() == 1) {
+            cursor.moveToPosition(0);
+            long id = cursor.getLong(cursor.getColumnIndex(PetEntry.COLUMN_PET_ID));
+            String name = cursor.getString(cursor.getColumnIndex(PetEntry.COLUMN_PET_NAME));
+            String breed = cursor.getString(cursor.getColumnIndex(PetEntry.COLUMN_PET_BREED));
+            int gender = cursor.getInt(cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER));
+            int weight = cursor.getInt(cursor.getColumnIndex(PetEntry.COLUMN_PET_WEIGHT));
+
+            fillUIFromPet(new Pet(id, name, breed, gender, weight));
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mNameEditText.setText("");
+        mBreedEditText.setText("");
+        mWeightEditText.setText("");
+        mGenderSpinner.setSelection(PetEntry.GENDER_UNKNOWN);
+    }
+
+    private void fillUIFromPet(Pet pet) {
+        mNameEditText.setText(pet.getName());
+        mBreedEditText.setText(pet.getBreed());
+        mWeightEditText.setText(String.valueOf(pet.getWeight()));
+        mGenderSpinner.setSelection(pet.getGender());
+    }
+
+    private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            mPetHasChanged = true;
+            return false;
+        }
+    };
+
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener onDiscardClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditorActivity.this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, onDiscardClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        builder.create().show();
+    }
+
+    private void showDeleteConfirmationDialog(
+            DialogInterface.OnClickListener onOkClickListener,
+            DialogInterface.OnClickListener onCancelListener ) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditorActivity.this);
+        builder
+
     }
 }

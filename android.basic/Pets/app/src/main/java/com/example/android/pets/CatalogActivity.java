@@ -16,17 +16,22 @@
 package com.example.android.pets;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.pets.data.PetContract.PetEntry;
@@ -39,10 +44,12 @@ import java.util.List;
 /**
  * Displays list of pets that were entered and stored in the app.
  */
-public class CatalogActivity extends AppCompatActivity {
+public class CatalogActivity
+        extends AppCompatActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String LOG_TAG = CatalogActivity.class.getSimpleName();
 
-    private ListView mPetsListView;
+    private final static int PET_CURSOR_LOADER_ID = 1;
 
     private PetCursorAdapter mPetCursorAdapter;
 
@@ -52,8 +59,23 @@ public class CatalogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_catalog);
 
         // Setup list view to show the pet inventory
-        mPetsListView = findViewById(R.id.pets_list_view);
-        mPetsListView.setEmptyView(findViewById(R.id.empty_view));
+        ListView petsListView = findViewById(R.id.pets_list_view);
+        petsListView.setEmptyView(findViewById(R.id.empty_view));
+
+        // setup the adapter for our list view
+        mPetCursorAdapter = new PetCursorAdapter(CatalogActivity.this, null);
+        petsListView.setAdapter(mPetCursorAdapter);
+        petsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(LOG_TAG, "Pressed on pet with id: " + id);
+
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                intent.setData(ContentUris.withAppendedId(PetEntry.CONTENT_URI_PETS, id));
+
+                startActivity(intent);
+            }
+        });
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -64,18 +86,11 @@ public class CatalogActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        displayPetList();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mPetCursorAdapter.getCursor().close();
+        // setup the loader
+        getSupportLoaderManager()
+                .initLoader(PET_CURSOR_LOADER_ID,null, this)
+                .forceLoad();
     }
 
     @Override
@@ -93,39 +108,13 @@ public class CatalogActivity extends AppCompatActivity {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
                 insertPets(Pets.generateDummyData());
-                refreshPetList();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
                 deleteAllPets();
-                refreshPetList();
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void displayPetList() {
-        mPetCursorAdapter = new PetCursorAdapter(CatalogActivity.this, setupCursor());
-        mPetsListView.setAdapter(mPetCursorAdapter);
-    }
-
-    private void refreshPetList() {
-        mPetCursorAdapter.getCursor().close();
-        mPetCursorAdapter.changeCursor(setupCursor());
-    }
-
-    private Cursor setupCursor() {
-        ContentResolver resolver = getContentResolver();
-
-        String [] projection = {
-                PetEntry.COLUMN_PET_ID,
-                PetEntry.COLUMN_PET_NAME,
-                PetEntry.COLUMN_PET_BREED,
-                PetEntry.COLUMN_PET_GENDER,
-                PetEntry.COLUMN_PET_WEIGHT
-        };
-
-        return resolver.query(PetEntry.CONTENT_URI_PETS, projection, null, null, null);
     }
 
     private void deleteAllPets() {
@@ -154,5 +143,30 @@ public class CatalogActivity extends AppCompatActivity {
         }
 
         return newPetUri;
+    }
+
+    /**
+     * Loader manager callbacks
+     */
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String [] projection = {
+                PetEntry.COLUMN_PET_ID,
+                PetEntry.COLUMN_PET_NAME,
+                PetEntry.COLUMN_PET_BREED
+        };
+
+        return new CursorLoader(CatalogActivity.this, PetEntry.CONTENT_URI_PETS,
+                projection, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mPetCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mPetCursorAdapter.swapCursor(null);
     }
 }
