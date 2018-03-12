@@ -22,9 +22,6 @@ public class PetDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_DROP_TABLE = "DROP TABLE IF EXISTS " + PetEntry.TABLE_NAME + ";";
 
-    private static final String SQL_DELETE_ENTRIES = "DELETE FROM " + PetEntry.TABLE_NAME + ";";
-
-
     public PetDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

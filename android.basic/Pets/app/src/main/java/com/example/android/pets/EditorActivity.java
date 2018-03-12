@@ -186,7 +186,38 @@ public class EditorActivity
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
-                // Do nothing for now
+                showDeleteConfirmationDialog(
+                        // user confirmed pet deletion
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int deletedPets = deletePet();
+                                if (deletedPets > 0) {
+                                    Toast.makeText(EditorActivity.this,
+                                            getString(R.string.msg_delete_pet_success),
+                                            Toast.LENGTH_SHORT)
+                                    .show();
+                                    finish();
+                                } else {
+                                    Toast.makeText(EditorActivity.this,
+                                            getString(R.string.msg_delete_pet_failed),
+                                            Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            }
+                        },
+
+                        // user cancelled pet deletion
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(EditorActivity.this,
+                                        getString(R.string.msg_delete_pet_cancelled),
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        }
+                );
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
@@ -268,6 +299,11 @@ public class EditorActivity
         }
     }
 
+    private int deletePet() {
+        ContentResolver resolver = getContentResolver();
+        return resolver.delete(mPetUri, null, null);
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(EditorActivity.this, mPetUri, null, null, null, null);
@@ -330,7 +366,10 @@ public class EditorActivity
             DialogInterface.OnClickListener onOkClickListener,
             DialogInterface.OnClickListener onCancelListener ) {
         AlertDialog.Builder builder = new AlertDialog.Builder(EditorActivity.this);
-        builder
+        builder.setMessage(R.string.msg_delete_pet_entry);
+        builder.setPositiveButton(R.string.delete_yes, onOkClickListener);
+        builder.setNegativeButton(R.string.delete_no, onCancelListener);
 
+        builder.create().show();
     }
 }

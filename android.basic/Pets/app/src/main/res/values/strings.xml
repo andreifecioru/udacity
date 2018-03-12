@@ -53,6 +53,9 @@
     <!-- Units for weight of the pet (kilograms) [CHAR LIMIT=5] -->
     <string name="unit_pet_weight">kg</string>
 
+    <!-- Label for unknown breed [CHAR LIMIT=NONE] -->
+    <string name="breed_unknown">Breed unknown</string>
+
     <!-- Label for dropdown menu option if the pet's gender is unknown [CHAR LIMIT=20] -->
     <string name="gender_unknown">Unknown</string>
 
@@ -91,5 +94,14 @@
 
     <!-- Dialog button text for the option to cancel pet deletion [CHAR LIMIT=20] -->
     <string name="delete_no">No</string>
+
+    <!-- Confirmation message after a pet was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="msg_delete_pet_success">Pet deleted successfully</string>
+
+    <!-- Error message after failing to delete a pet [CHAR LIMIT=NONE] -->
+    <string name="msg_delete_pet_failed">Failed to delete pet</string>
+
+    <!-- Confirmation message after user cancelled pet deletion.[CHAR LIMIT=NONE] -->
+    <string name="msg_delete_pet_cancelled">User cancelled pet deletion.</string>
 </resources>
 
