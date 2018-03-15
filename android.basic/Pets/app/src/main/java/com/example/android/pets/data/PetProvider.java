@@ -20,7 +20,7 @@ import com.example.android.pets.data.PetContract.PetEntry;
 public class PetProvider extends ContentProvider {
     static final private String LOG_TAG = PetProvider.class.getSimpleName();
 
-    public static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     private static final int URI_PATTERN_ID_PETS = 1000;
     private static final int URI_PATTERN_ID_PET_ID = 10001;

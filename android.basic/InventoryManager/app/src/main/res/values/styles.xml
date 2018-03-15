@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -8,11 +8,92 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Theme of the editor -->
+    <!-- Theme for the editor activity -->
     <style name="EditorTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/editorColorPrimary</item>
         <item name="colorPrimaryDark">@color/editorColorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Style for a category in the editor -->
+    <style name="CategoryStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">@dimen/medium</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+    </style>
+
+    <!-- Style for an EditText field in the editor -->
+    <style name="EditorFieldStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="EditorFieldPriceStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="ButtonPriceStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <!-- Style for name field in product listing-->
+    <style name="CatalogItemProductName">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/small</item>
+        <item name="android:layout_marginStart">@dimen/small</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+        <item name="android:textSize">@dimen/product_item_name_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!-- Style for price field in product listing -->
+    <style name="CatalogItemProductPrice">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/small</item>
+    </style>
+
+    <!-- Style for quantity field in product listing -->
+    <style name="CatalogItemProductQuantity">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/small</item>
+    </style>
+
+    <!-- Style for "sell" button in product listing -->
+    <style name="CatalogItemProductSell">
+        <item name="android:layout_width">@dimen/xxlarge</item>
+        <item name="android:layout_height">@dimen/xxlarge</item>
+        <item name="android:layout_marginBottom">@dimen/small</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+        <item name="android:layout_marginEnd">@dimen/medium</item>
+        <item name="android:background">@drawable/dollar_sign_2</item>
+    </style>
+
+    <!-- Style for "call supplier" button in EditorActivity -->
+    <style name="EditorButtonCallSupplier">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:drawableTop">@android:drawable/stat_sys_phone_call</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingTop">@dimen/medium</item>
     </style>
 
 </resources>

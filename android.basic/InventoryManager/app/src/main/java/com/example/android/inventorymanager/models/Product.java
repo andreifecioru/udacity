@@ -1,7 +1,11 @@
 package com.example.android.inventorymanager.models;
 
 
+import android.content.Context;
 import android.text.TextUtils;
+
+import com.example.android.inventorymanager.InventoryManagerApplication;
+import com.example.android.inventorymanager.R;
 
 import java.util.Locale;
 
@@ -27,29 +31,32 @@ final public class Product {
      * This constructor is used to create a product after we have the ID as a result of a DB insert.
      */
     public Product(long id, String name, double price, int quantity, String supplierName, String supplierPhone) {
-        // enforce invariants
+        // Get a hold of the application context to access the string resources
+        Context appContext = InventoryManagerApplication.appContext;
+
+        // Enforce invariants
         if (id < 0) {
-            throw new IllegalArgumentException("Product ID must be a positive integer. Got: " + id);
+            throw new IllegalArgumentException(appContext.getString(R.string.invalid_product_id, id));
         }
 
         if (TextUtils.isEmpty(name)) {
-            throw new IllegalArgumentException("Product name must not be null or empty.");
+            throw new IllegalArgumentException(appContext.getString(R.string.invalid_product_name));
         }
 
         if (price < 0) {
-            throw new IllegalArgumentException("Product price must be a positive integer. Got: " + price);
+            throw new IllegalArgumentException(appContext.getString(R.string.invalid_product_price, price));
         }
 
         if (quantity < 0) {
-            throw new IllegalArgumentException("Product quantity must be a positive integer. Got: " + quantity);
+            throw new IllegalArgumentException(appContext.getString(R.string.invalid_product_quantity, quantity));
         }
 
         if (TextUtils.isEmpty(supplierName)) {
-            throw new IllegalArgumentException("Supplier name must not be null or empty.");
+            throw new IllegalArgumentException(appContext.getString(R.string.invalid_supplier_name));
         }
 
         if (TextUtils.isEmpty(supplierPhone)) {
-            throw new IllegalArgumentException("Supplier phone must not be null or empty.");
+            throw new IllegalArgumentException(appContext.getString(R.string.invalid_supplier_phone));
         }
 
         mId = id;
@@ -65,8 +72,27 @@ final public class Product {
      *
      * This constructor is used to create a product before we have the ID (before we do a DB insert).
      */
-    Product(String name, double price, int quantity, String supplierName, String supplierPhone) {
+    public Product(String name, double price, int quantity, String supplierName, String supplierPhone) {
         this(DEFAULT_PRODUCT_ID, name, price, quantity, supplierName, supplierPhone);
+    }
+
+    /*
+     * Creates a @{link Product} instance (constructor)
+     *
+     * This constructor allows the price param to be provided in cents (as integer)
+     */
+    public Product(long id, String name, int priceInCents, int quantity, String supplierName, String supplierPhone) {
+        this(id, name, priceInCents / 100.0, quantity, supplierName, supplierPhone);
+    }
+
+    /*
+     * Creates a @{link Product} instance (constructor)
+     *
+     * This constructor allows the price param to be provided in cents (as integer)
+     * This constructor is used to create a product before we have the ID (before we do a DB insert).
+     */
+    public Product(String name, int priceInCents, int quantity, String supplierName, String supplierPhone) {
+        this(DEFAULT_PRODUCT_ID, name, priceInCents, quantity, supplierName, supplierPhone);
     }
 
     /*
@@ -84,6 +110,9 @@ final public class Product {
     public String getName() { return mName; }
 
     public double getPrice() { return mPrice; }
+
+    /** Returns the product price in cents (as integer) */
+    public double getPriceInCents() { return (int) (mPrice * 100); }
 
     public int getQuantity() { return mQuantity; }
 
