@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DetailActivity">
+
+    <ImageView
+        android:id="@+id/image_iv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/sandwich_picture_content_description"
+        android:scaleType="centerCrop" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/DetailsLabel"
+                android:id="@+id/place_of_origin_label"
+                android:text="@string/detail_place_of_origin_label"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                style="@style/DetailsTextSide"
+                android:id="@+id/origin_tv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/place_of_origin_label" />
+
+            <TextView
+                style="@style/DetailsLabel"
+                android:id="@+id/also_known_as_label"
+                android:text="@string/detail_also_known_as_label"
+                app:layout_constraintTop_toBottomOf="@id/origin_tv"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                style="@style/DetailsTextSide"
+                android:id="@+id/also_known_tv"
+                app:layout_constraintTop_toBottomOf="@id/origin_tv"
+                app:layout_constraintLeft_toRightOf="@id/also_known_as_label" />
+
+            <TextView
+                style="@style/DetailsLabel"
+                android:id="@+id/ingredients_label"
+                android:text="@string/detail_ingredients_label"
+                app:layout_constraintTop_toBottomOf="@id/also_known_tv"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                style="@style/DetailsTextBelow"
+                android:id="@+id/ingredients_tv"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_label" />
+
+            <TextView
+                style="@style/DetailsLabel"
+                android:id="@+id/description_label"
+                android:text="@string/detail_description_label"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_tv"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                style="@style/DetailsTextBelow"
+                android:id="@+id/description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/description_label" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

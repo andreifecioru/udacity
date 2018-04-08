@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="DetailsLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+        <item name="android:paddingRight">@dimen/small</item>
+        <item name="android:paddingLeft">@dimen/small</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DetailsTextSide">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+        <item name="android:paddingRight">@dimen/small</item>
+    </style>
+
+    <style name="DetailsTextBelow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+        <item name="android:paddingRight">@dimen/small</item>
+        <item name="android:paddingLeft">@dimen/small</item>
+    </style>
+</resources>
