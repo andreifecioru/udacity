@@ -207,6 +207,9 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         MenuInflater inflater = getMenuInflater();
         /* Use the inflater's inflate method to inflate our menu layout to this menu */
         inflater.inflate(R.menu.forecast, menu);
+
+        menu.getItem(1).setVisible(false);
+
         /* Return true so that the menu is displayed in the Toolbar */
         return true;
     }
@@ -215,13 +218,15 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_refresh) {
-            mForecastAdapter.setWeatherData(null);
-            loadWeatherData();
-            return true;
-        }
+        switch (id) {
+            case R.id.action_refresh:
+                mForecastAdapter.setWeatherData(null);
+                loadWeatherData();
+                return true;
 
-        // TODO (2) Launch the map when the map menu item is clicked
+            case R.id.action_share:
+                return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
