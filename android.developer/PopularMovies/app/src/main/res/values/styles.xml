@@ -1,0 +1,133 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MovieListRoot">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="MovieListRecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="MovieListLoadingIndicator">
+        <item name="android:layout_width">@dimen/xxxlarge</item>
+        <item name="android:layout_height">@dimen/xxxlarge</item>
+    </style>
+
+    <style name="MovieListNavigationDrawer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+    <style name="MovieListEmptyView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="MovieListEmptyViewNoMoviesImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/no_movies</item>
+    </style>
+
+    <style name="MovieListEmptyViewNoInternetImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/no_internet</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="MovieListEmptyViewTryAgainButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimaryDarker</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:text">@string/try_again</item>
+    </style>
+
+    <style name="MovieListItemPoster">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MovieListItemTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+    </style>
+
+
+    <style name="MovieDetailsRoot">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="MovieDetailsBackdrop">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="MovieDetailsScrollView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="MovieDetailsContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">@dimen/medium</item>
+    </style>
+
+    <style name="MovieDetailsDefaultStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="MovieDetailsTitle" parent="MovieDetailsDefaultStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="MovieDetailsUserRating" parent="MovieDetailsDefaultStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:text">@string/user_rating</item>
+    </style>
+
+    <style name="MovieDetailsReleaseDate" parent="MovieDetailsDefaultStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:text">@string/release_date</item>
+    </style>
+
+    <style name="MovieDetailsSynopsis" parent="MovieDetailsDefaultStyle">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+</resources>

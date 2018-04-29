@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Layout for list-movies activity: implements the navigation drawer navigation pattern.
+    - an empty frame layout where the various fragments.activities will be plugged-in,
+      based on the current selection in the navigation menu
+    - a navigation widget referencing the navigation menu and a header layout
+-->
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    tools:context=".ListMoviesActivity"
+    style="@style/MovieListRoot">
+
+    <!--
+        The main content view
+        (custom recycler view with support for empty view)
+     -->
+    <com.example.android.popularmovies.utils.ui.RecyclerViewEmptyViewSupport
+        android:id="@+id/rv_movie_list"
+        style="@style/MovieListRecyclerView" />
+
+    <!--
+        The empty view for our grid view. It is made visible after the movie data
+        has been loaded and there is nothing to show, which means either:
+            - no movies are provided by the server (server error code is someth. other than 200-OK)
+            - no Internet connection is available (offline)
+     -->
+    <LinearLayout
+        android:id="@+id/empty_view"
+        style="@style/MovieListEmptyView" >
+
+        <!--
+            These images are displayed when no movie data is available
+            to be displayed by our movie poster grid view.
+        -->
+        <LinearLayout
+            android:id="@+id/empty_view_no_movies"
+            style="@style/MovieListEmptyView" >
+
+            <!-- This image is visible when we can't get any movie data from the remote server -->
+            <ImageView
+                android:id="@+id/iv_empty_movie_list"
+                style="@style/MovieListEmptyViewNoMoviesImage"
+                android:contentDescription="@string/no_movies_description" />
+
+            <!-- This image is visible when we're not connected to the Internet -->
+            <ImageView
+                android:id="@+id/iv_no_internet"
+                style="@style/MovieListEmptyViewNoInternetImage"
+                android:contentDescription="@string/no_internet_description" />
+
+            <!-- A button that let's us to re-try the download of movie data. -->
+            <Button
+                android:id="@+id/bt_try_again"
+                style="@style/MovieListEmptyViewTryAgainButton" />
+        </LinearLayout>
+
+        <!--
+            This is a progress indicator that is visible
+            while the movie list data is being downloaded.
+        -->
+        <ProgressBar
+            android:id="@+id/pb_empty_view"
+            style="@style/MovieListLoadingIndicator" />
+    </LinearLayout>
+
+    <!-- The navigation drawer -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        style="@style/MovieListNavigationDrawer"
+        app:itemBackground="@drawable/nav_menu_selected_item"
+        app:itemTextColor="@android:color/white"
+        app:itemIconTint="@android:color/white"
+        app:menu="@menu/navigation_menu"/>
+
+</android.support.v4.widget.DrawerLayout>
