@@ -27,9 +27,8 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.widget.Toast;
 
-// TODO (1) Implement OnPreferenceChangeListener
 public class SettingsFragment extends PreferenceFragmentCompat implements
-        OnSharedPreferenceChangeListener {
+        OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
@@ -37,73 +36,82 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.pref_visualizer);
 
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        PreferenceScreen prefScreen = getPreferenceScreen();
-        int count = prefScreen.getPreferenceCount();
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        SharedPreferences sharedPreferences = preferenceScreen.getSharedPreferences();
+        int preferenceCount = preferenceScreen.getPreferenceCount();
 
-        // Go through all of the preferences, and set up their preference summary.
-        for (int i = 0; i < count; i++) {
-            Preference p = prefScreen.getPreference(i);
-            // You don't need to set up preference summaries for checkbox preferences because
-            // they are already set up in xml using summaryOff and summary On
-            if (!(p instanceof CheckBoxPreference)) {
-                String value = sharedPreferences.getString(p.getKey(), "");
-                setPreferenceSummary(p, value);
+        for (int i = 0; i < preferenceCount; i++) {
+            Preference preference = preferenceScreen.getPreference(i);
+            setPreferenceSummary(sharedPreferences, preference);
+        }
+
+        // setup the preference change listener for the size preference
+        preferenceScreen.findPreference(getString(R.string.pref_size_key))
+                .setOnPreferenceChangeListener(this);
+    }
+
+    private void setPreferenceSummary(SharedPreferences sharedPreferences, Preference preference) {
+        if (preference instanceof CheckBoxPreference) {
+            // For check-box preferences, we set the summary in the XML resource file.
+            return;
+        }
+
+        String prefValue = sharedPreferences.getString(preference.getKey(), "");
+
+        if (preference instanceof ListPreference) {
+            ListPreference listPreference = (ListPreference) preference;
+            int prefIdx = listPreference.findIndexOfValue(prefValue);
+            if (prefIdx >= 0) {
+                CharSequence prefLabel = listPreference.getEntries()[prefIdx];
+                listPreference.setSummary(prefLabel);
             }
         }
-        // TODO (3) Add the OnPreferenceChangeListener specifically to the EditTextPreference
+
+        if (preference instanceof EditTextPreference) {
+            preference.setSummary(prefValue);
+        }
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        // Figure out which preference was changed
-        Preference preference = findPreference(key);
-        if (null != preference) {
-            // Updates the summary for the preference
-            if (!(preference instanceof CheckBoxPreference)) {
-                String value = sharedPreferences.getString(preference.getKey(), "");
-                setPreferenceSummary(preference, value);
-            }
-        }
+        setPreferenceSummary(sharedPreferences, getPreferenceScreen().findPreference(key));
     }
-
-    /**
-     * Updates the summary for the preference
-     *
-     * @param preference The preference to be updated
-     * @param value      The value that the preference was updated to
-     */
-    private void setPreferenceSummary(Preference preference, String value) {
-        if (preference instanceof ListPreference) {
-            // For list preferences, figure out the label of the selected value
-            ListPreference listPreference = (ListPreference) preference;
-            int prefIndex = listPreference.findIndexOfValue(value);
-            if (prefIndex >= 0) {
-                // Set the summary to that label
-                listPreference.setSummary(listPreference.getEntries()[prefIndex]);
-            }
-        } else if (preference instanceof EditTextPreference) {
-            // For EditTextPreferences, set the summary to the value's simple string representation.
-            preference.setSummary(value);
-        }
-    }
-
-    // TODO (2) Override onPreferenceChange. This method should try to convert the new preference value
-    // to a float; if it cannot, show a helpful error message and return false. If it can be converted
-    // to a float check that that float is between 0 (exclusive) and 3 (inclusive). If it isn't, show
-    // an error message and return false. If it is a valid number, return true.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPreferenceScreen().getSharedPreferences()
+        getPreferenceScreen()
+                .getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getPreferenceScreen().getSharedPreferences()
+        getPreferenceScreen()
+                .getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        Toast toast = Toast.makeText(this.getContext(), "Please provide a float number between 0 and 3", Toast.LENGTH_SHORT);
+
+        if (preference.getKey().equals(getString(R.string.pref_size_key))) {
+            try {
+                float size = Float.parseFloat((String) newValue);
+                if (size > 0.0 && size < 3.0) {
+                    return true;
+                } else {
+                    toast.show();
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                toast.show();
+                return false;
+            }
+        }
+
+        return true;
     }
 }
