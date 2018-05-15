@@ -37,65 +37,56 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         // Add visualizer preferences, defined in the XML file in res->xml->pref_visualizer
         addPreferencesFromResource(R.xml.pref_visualizer);
 
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        PreferenceScreen prefScreen = getPreferenceScreen();
-        int count = prefScreen.getPreferenceCount();
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        SharedPreferences sharedPreferences = preferenceScreen.getSharedPreferences();
+        int preferenceCount = preferenceScreen.getPreferenceCount();
 
-        // Go through all of the preferences, and set up their preference summary.
-        for (int i = 0; i < count; i++) {
-            Preference p = prefScreen.getPreference(i);
-            // You don't need to set up preference summaries for checkbox preferences because
-            // they are already set up in xml using summaryOff and summary On
-            if (!(p instanceof CheckBoxPreference)) {
-                String value = sharedPreferences.getString(p.getKey(), "");
-                setPreferenceSummary(p, value);
+        for (int i = 0; i < preferenceCount; i++) {
+            Preference preference = preferenceScreen.getPreference(i);
+            setPreferenceSummary(sharedPreferences, preference);
+        }
+    }
+
+    private void setPreferenceSummary(SharedPreferences sharedPreferences, Preference preference) {
+        if (preference instanceof CheckBoxPreference) {
+            // For check-box preferences, we set the summary in the XML resource file.
+            return;
+        }
+
+        String prefValue = sharedPreferences.getString(preference.getKey(), "");
+
+        if (preference instanceof ListPreference) {
+            ListPreference listPreference = (ListPreference) preference;
+            int prefIdx = listPreference.findIndexOfValue(prefValue);
+            if (prefIdx >= 0) {
+                CharSequence prefLabel = listPreference.getEntries()[prefIdx];
+                listPreference.setSummary(prefLabel);
             }
+        }
+
+        if (preference instanceof EditTextPreference) {
+            preference.setSummary(prefValue);
         }
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        // Figure out which preference was changed
-        Preference preference = findPreference(key);
-        if (null != preference) {
-            // Updates the summary for the preference
-            if (!(preference instanceof CheckBoxPreference)) {
-                String value = sharedPreferences.getString(preference.getKey(), "");
-                setPreferenceSummary(preference, value);
-            }
-        }
+        setPreferenceSummary(sharedPreferences, getPreferenceScreen().findPreference(key));
     }
 
-    /**
-     * Updates the summary for the preference
-     *
-     * @param preference The preference to be updated
-     * @param value      The value that the preference was updated to
-     */
-    private void setPreferenceSummary(Preference preference, String value) {
-        // TODO (3) Don't forget to add code here to properly set the summary for an EditTextPreference
-        if (preference instanceof ListPreference) {
-            // For list preferences, figure out the label of the selected value
-            ListPreference listPreference = (ListPreference) preference;
-            int prefIndex = listPreference.findIndexOfValue(value);
-            if (prefIndex >= 0) {
-                // Set the summary to that label
-                listPreference.setSummary(listPreference.getEntries()[prefIndex]);
-            }
-        }
-    }
-    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPreferenceScreen().getSharedPreferences()
+        getPreferenceScreen()
+                .getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getPreferenceScreen().getSharedPreferences()
+        getPreferenceScreen()
+                .getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 }
