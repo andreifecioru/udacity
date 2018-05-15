@@ -275,11 +275,11 @@ public class VisualizerView extends View {
         @ColorInt
         int trailColor;
 
-        if (newColorKey.equals(getContext().getString(R.string.pref_color_blue_value))) {
+        if (newColorKey.equals(getContext().getString(R.string.pref_list_colors_blue_value))) {
             shapeColor = ContextCompat.getColor(getContext(), R.color.shapeBlue);
             trailColor = ContextCompat.getColor(getContext(), R.color.trailBlue);
             backgroundColor = ContextCompat.getColor(getContext(), R.color.backgroundBlue);
-        } else if (newColorKey.equals(getContext().getString(R.string.pref_color_green_value))) {
+        } else if (newColorKey.equals(getContext().getString(R.string.pref_list_colors_green_value))) {
             shapeColor = ContextCompat.getColor(getContext(), R.color.shapeGreen);
             trailColor = ContextCompat.getColor(getContext(), R.color.trailGreen);
             backgroundColor = ContextCompat.getColor(getContext(), R.color.backgroundGreen);
