@@ -12,11 +12,15 @@
     <!-- Key name for storing bass in SharedPreferences -->
     <string name="pref_show_bass_key" translatable="false">show_bass</string>
 
+    <string name="pref_show_mid_label">Show Mid</string>
+    <string name="pref_show_mid_key" translatable="false">show_mid</string>
+
+    <string name="pref_show_treble_label">Show Treble</string>
+    <string name="pref_show_treble_key" translatable="false">show_treble</string>
+
     <!-- Summary for Checkboxes -->
     <string name="pref_show_true">Shown</string>
     <string name="pref_show_false">Hidden</string>
-
-    <!-- TODO (2) Add all of the strings for the new checkboxes -->
 
     <!-- Value in SharedPreferences for red color option -->
     <string name="pref_color_red_value" translatable="false">red</string>
