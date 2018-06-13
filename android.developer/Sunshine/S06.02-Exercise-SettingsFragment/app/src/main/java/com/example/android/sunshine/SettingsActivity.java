@@ -15,8 +15,16 @@
  */
 package com.example.android.sunshine;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.CheckBoxPreference;
+import android.support.v7.preference.EditTextPreference;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceScreen;
 import android.view.MenuItem;
 
 /**
@@ -28,28 +36,11 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_settings);
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // TODO (2) Create an xml resource directory
-        // TODO (3) Add a PreferenceScreen with an EditTextPreference and ListPreference within the newly created xml resource directory
-
-        // TODO (4) Create SettingsFragment and extend PreferenceFragmentCompat
-
-        // Do steps 5 - 11 within SettingsFragment
-        // TODO (10) Implement OnSharedPreferenceChangeListener from SettingsFragment
-
-        // TODO (8) Create a method called setPreferenceSummary that accepts a Preference and an Object and sets the summary of the preference
-
-        // TODO (5) Override onCreatePreferences and add the preference xml file using addPreferencesFromResource
-
-        // Do step 9 within onCreatePreference
-        // TODO (9) Set the preference summary on each preference that isn't a CheckBoxPreference
-
-        // TODO (13) Unregister SettingsFragment (this) as a SharedPreferenceChangedListener in onStop
-
-        // TODO (12) Register SettingsFragment (this) as a SharedPreferenceChangedListener in onStart
-
-        // TODO (11) Override onSharedPreferenceChanged to update non CheckBoxPreferences when they are changed
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -60,5 +51,68 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static class SunshinePreferenceFragment
+        extends PreferenceFragmentCompat
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            addPreferencesFromResource(R.xml.pref_screen);
+
+            PreferenceScreen prefScreen = getPreferenceScreen();
+            SharedPreferences sharedPreferences = prefScreen.getSharedPreferences();
+            int prefCount = prefScreen.getPreferenceCount();
+
+            for (int i = 0; i < prefCount; i++) {
+                Preference preference = prefScreen.getPreference(i);
+                setPreferenceSummary(preference, sharedPreferences);
+            }
+        }
+
+        private void setPreferenceSummary(Preference preference, SharedPreferences sharedPreferences) {
+            if (preference instanceof CheckBoxPreference) {
+                return;
+            }
+
+            String prefValue = sharedPreferences.getString(preference.getKey(), "");
+
+            if (preference instanceof EditTextPreference) {
+                preference.setSummary(prefValue);
+            }
+
+            if (preference instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) preference;
+                int prefIdx = listPreference.findIndexOfValue(prefValue);
+                if (prefIdx >= 0) {
+                    CharSequence prefLabel = listPreference.getEntries()[prefIdx];
+                    preference.setSummary(prefLabel);
+                }
+            }
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            setPreferenceSummary(getPreferenceScreen().findPreference(key), sharedPreferences);
+        }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+
+            getPreferenceScreen()
+                    .getSharedPreferences()
+                    .registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onStop() {
+            super.onStop();
+
+            getPreferenceScreen()
+                    .getSharedPreferences()
+                    .unregisterOnSharedPreferenceChangeListener(this);
+        }
     }
 }
