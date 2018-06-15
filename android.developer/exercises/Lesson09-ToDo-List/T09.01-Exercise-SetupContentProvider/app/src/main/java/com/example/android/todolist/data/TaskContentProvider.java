@@ -22,9 +22,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-// TODO (1) Verify that TaskContentProvider extends from ContentProvider and implements required methods
 public class TaskContentProvider extends ContentProvider {
 
+    private TaskDbHelper mDbHelper;
 
     /* onCreate() is where you should initialize anything you’ll need to setup
     your underlying data source.
@@ -33,8 +33,7 @@ public class TaskContentProvider extends ContentProvider {
      */
     @Override
     public boolean onCreate() {
-        // TODO (2) Complete onCreate() and initialize a TaskDbhelper on startup
-        // [Hint] Declare the DbHelper as a global variable
+        mDbHelper = new TaskDbHelper(getContext());
 
         return false;
     }
