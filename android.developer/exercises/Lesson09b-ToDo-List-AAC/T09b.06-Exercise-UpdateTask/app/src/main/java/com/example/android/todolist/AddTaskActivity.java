@@ -147,7 +147,7 @@ public class AddTaskActivity extends AppCompatActivity {
                         mDb.taskDao().updateTask(taskEntry);
                         break;
                 }
-                
+
                 finish();
             }
         });
