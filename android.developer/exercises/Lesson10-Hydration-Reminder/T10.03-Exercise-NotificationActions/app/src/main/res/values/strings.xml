@@ -24,4 +24,8 @@
     <string name="charging_reminder_notification_body">There\'s never a better time to drink water than when you know your phone is charging. Drink up!</string>
     <string name="main_notification_channel_name">Primary</string>
 
+    <string name="no_thanks">No, thanks!</string>
+    <string name="i_did_it">I did it!</string>
+
+
 </resources>
