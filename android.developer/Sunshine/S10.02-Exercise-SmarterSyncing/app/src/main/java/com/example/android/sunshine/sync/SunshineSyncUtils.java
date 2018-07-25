@@ -15,20 +15,27 @@
  */
 package com.example.android.sunshine.sync;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+
+import com.example.android.sunshine.data.WeatherContract;
 
 
 public class SunshineSyncUtils {
+    private static boolean sInitialized;
 
-//  TODO (1) Declare a private static boolean field called sInitialized
+    synchronized public static void initialize(Context context) {
+        if (sInitialized) return;
 
-    //  TODO (2) Create a synchronized public static void method called initialize
-    //  TODO (3) Only execute this method body if sInitialized is false
-    //  TODO (4) If the method body is executed, set sInitialized to true
-    //  TODO (5) Check to see if our weather ContentProvider is empty
-        //  TODO (6) If it is empty or we have a null Cursor, sync the weather now!
+        sInitialized = true;
+
+        new CheckDbTask().execute(context);
+
+    }
 
     /**
      * Helper method to perform a sync immediately using an IntentService for asynchronous
@@ -39,5 +46,34 @@ public class SunshineSyncUtils {
     public static void startImmediateSync(@NonNull final Context context) {
         Intent intentToSyncImmediately = new Intent(context, SunshineSyncIntentService.class);
         context.startService(intentToSyncImmediately);
+    }
+
+    private static class CheckDbTask extends AsyncTask<Context, Void, Integer> {
+        private Context mContext;
+
+        @Override
+        protected Integer doInBackground(Context...contexts) {
+            mContext = contexts[0];
+            ContentResolver resolver = mContext.getContentResolver();
+            String[] projectionColumns = { WeatherContract.WeatherEntry._ID };
+            String selectionStatement = WeatherContract.WeatherEntry
+                    .getSqlSelectForTodayOnwards();
+            Cursor cursor = resolver.query(WeatherContract.WeatherEntry.CONTENT_URI,
+                    projectionColumns, selectionStatement, null, null);
+
+            if (cursor != null) {
+                cursor.close();
+                return cursor.getCount();
+            }
+
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer recordCount) {
+            if (recordCount == 0) {
+                SunshineSyncUtils.startImmediateSync(mContext);
+            }
+        }
     }
 }
