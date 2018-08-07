@@ -244,4 +244,5 @@
         Low:<xliff:g id="low">%3$s</xliff:g>
     </string>
 
+    <string name="content_description_weather_icon">Weather Icon</string>
 </resources>
