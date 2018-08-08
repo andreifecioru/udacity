@@ -14,15 +14,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@style/Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!-- Used for settings preference theme -->
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-    </style>
-
+    <bool name="show_notifications_by_default">true</bool>
+    <bool name="use_today_layout">true</bool>
 </resources>
