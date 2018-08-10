@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- TODO (4) Set the touch selector as the background property for the list item layout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -12,7 +11,8 @@
         android:layout_height="80dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@drawable/list_item_selector">
 
         <!-- Person icon -->
         <ImageView
