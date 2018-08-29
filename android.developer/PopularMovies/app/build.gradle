@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.android.popularmovies"
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion 18
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -19,14 +20,34 @@ android {
 }
 
 dependencies {
+    def sdk_lib_version = '28.0.0-beta01'
+    def dagger_version = '2.4'
+    def room_version = "1.1.1"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation "com.android.support:appcompat-v7:$sdk_lib_version"
+    implementation "com.android.support:design:$sdk_lib_version"
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-alpha1'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.android.support:design:27.1.1'
+
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_review_container"
+    style="@style/MovieDetailsListContainer">
+
+    <ImageView
+        android:id="@+id/iv_author_icon"
+        style="@style/MovieDetailsReviewIcon"
+        android:contentDescription="@string/author_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_author"
+        style="@style/MovieDetailsReviewTitle"
+        tools:text="John Doe"
+        app:layout_constraintStart_toEndOf="@+id/iv_author_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_author_icon" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/MovieDetailsListItemText"
+        tools:text="Through a series of daring escapes..."
+        app:layout_constraintStart_toStartOf="@+id/tv_author"
+        app:layout_constraintTop_toBottomOf="@+id/tv_author"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pb_reviews_loading"
+        style="@style/MovieDetailsLoadingIndicator"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_separator"
+        style="@style/MovieDetailsListItemSeparator"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

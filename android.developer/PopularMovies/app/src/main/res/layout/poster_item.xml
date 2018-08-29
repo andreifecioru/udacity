@@ -4,13 +4,13 @@
     the movie-list activity. It contains:
         - image view rendering the movie poster
         - text view displaying the movie title
+        - widget for displaying user rating (1-5 stars scale)
+        - button for marking the movie as favourite
 -->
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/medium">
+    style="@style/MovieListItemPosterContainer">
 
     <ImageView
         android:id="@+id/iv_poster"
@@ -19,11 +19,47 @@
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/poster_description" />
 
+    <ImageView
+        android:id="@+id/iv_favourite"
+        style="@style/MovieListFavouriteButton"
+        android:contentDescription="@string/movie_details_rating_star"
+        app:layout_constraintEnd_toEndOf="@id/iv_poster"
+        app:layout_constraintTop_toTopOf="@id/iv_poster" />
+
+    <TextView
+        android:id="@+id/tv_popularity"
+        style="@style/MovieListPopularity"
+        app:layout_constraintStart_toStartOf="@id/iv_poster"
+        app:layout_constraintBottom_toBottomOf="@id/iv_poster"/>
+
+    <LinearLayout
+        android:id="@+id/rating_container"
+        style="@style/MovieListRatingContainer"
+        app:layout_constraintTop_toBottomOf="@id/iv_poster"
+        app:layout_constraintEnd_toStartOf="@id/iv_poster"
+        app:layout_constraintStart_toEndOf="@id/iv_poster" >
+        <ImageView
+            style="@style/MovieListRatingStar"
+            android:contentDescription="@string/movie_details_rating_star"/>
+        <ImageView
+            style="@style/MovieListRatingStar"
+            android:contentDescription="@string/movie_details_rating_star"/>
+        <ImageView
+            style="@style/MovieListRatingStar"
+            android:contentDescription="@string/movie_details_rating_star"/>
+        <ImageView
+            style="@style/MovieListRatingStar"
+            android:contentDescription="@string/movie_details_rating_star"/>
+        <ImageView
+            style="@style/MovieListRatingStar"
+            android:contentDescription="@string/movie_details_rating_star"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_title"
         style="@style/MovieListItemTitle"
-        app:layout_constraintTop_toBottomOf="@+id/iv_poster"
+        app:layout_constraintTop_toBottomOf="@+id/rating_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </android.support.constraint.ConstraintLayout>

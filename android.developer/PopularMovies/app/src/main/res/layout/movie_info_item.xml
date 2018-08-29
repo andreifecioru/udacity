@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Vertical layout displaying:
+        - the movie title
+        - the movie rating
+        - the movie release date
+        - the movie synopsis
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MovieDetailsContainer">
+
+    <TextView
+        android:id="@+id/tv_title"
+        tools:text="Solo: A Star Wars Story"
+        style="@style/MovieDetailsTitle" />
+
+    <TextView
+        android:id="@+id/tv_user_rating"
+        tools:text="5.5"
+        style="@style/MovieDetailsUserRating" />
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        tools:text="2018-05-15"
+        style="@style/MovieDetailsReleaseDate" />
+
+    <TextView
+        android:id="@+id/tv_synopsis"
+        tools:text="Through a series of daring escapes ..."
+        style="@style/MovieDetailsSynopsis" />
+
+</LinearLayout>

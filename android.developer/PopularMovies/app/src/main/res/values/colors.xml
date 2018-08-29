@@ -8,4 +8,8 @@
     <color name="colorPrimaryDarker">#301b13</color>
     <color name="colorPrimaryDarkTransparent">#cc40241a</color>
     <color name="colorBlackTransparent">#bb000000</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="green">#ff669900</color>
+    <color name="black">#ff000000</color>
 </resources>

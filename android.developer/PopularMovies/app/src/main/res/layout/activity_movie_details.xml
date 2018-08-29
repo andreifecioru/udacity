@@ -4,46 +4,41 @@ Layout for the movie-details activity. Contents is quite simple:
     - backdrop image on the top (33%)
     - movie title and other details on the bottom (66%)
 -->
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/MovieDetailsRoot"
-    tools:context=".MovieDetailsActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- The placeholder for rendering the movie backdrop image -->
-    <ImageView
-        android:id="@+id/iv_backdrop"
-        style="@style/MovieDetailsBackdrop"
-        android:contentDescription="@string/backdrop_description" />
 
-    <!-- The movie details are wrapped in a ScrollView to handle small screen sizes -->
-    <ScrollView style="@style/MovieDetailsScrollView" >
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/layout_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            style="@style/MovieDetailsRoot"
+            android:orientation="vertical"
+            tools:context=".MovieDetailsActivity"
+            android:layout_alignParentTop="true">
 
-        <!--
-            Vertical layout displaying:
-                - the movie title
-                - the movie rating
-                - the movie release date
-                - the movie synopsis
-        -->
-        <LinearLayout style="@style/MovieDetailsContainer" >
+            <include
+                layout="@layout/movie_details_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
-            <TextView
-                android:id="@+id/tv_title"
-                style="@style/MovieDetailsTitle" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_movie_details"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                style="@style/MovieDetailsRecycleView" />
 
-            <TextView
-                android:id="@+id/tv_user_rating"
-                style="@style/MovieDetailsUserRating" />
-
-            <TextView
-                android:id="@+id/tv_release_date"
-                style="@style/MovieDetailsReleaseDate" />
-
-            <TextView
-                android:id="@+id/tv_synopsis"
-                style="@style/MovieDetailsSynopsis" />
         </LinearLayout>
-    </ScrollView>
+    </android.support.design.widget.CoordinatorLayout>
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/conn_status_text_view"
+        style="@style/ConnectivityStatusInfo" />
+
+</RelativeLayout>

@@ -6,19 +6,22 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".PopularMoviesApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListMoviesActivity">
+        <activity
+            android:name=".ListMoviesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings_title"
@@ -28,16 +31,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ListMoviesActivity" />
         </activity>
+
         <activity
             android:name=".MovieDetailsActivity"
             android:label="@string/movie_details_title"
-            android:parentActivityName=".ListMoviesActivity"
-            android:screenOrientation="portrait" >
+            android:parentActivityName=".ListMoviesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListMoviesActivity"
-                />
+                android:value=".ListMoviesActivity" />
+        </activity>
+
+        <activity
+            android:name=".ReviewDetailsActivity"
+            android:label="@string/review_details_title"
+            android:parentActivityName=".MovieDetailsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MovieDetailsActivity" />
         </activity>
     </application>
-
 </manifest>

@@ -2,6 +2,11 @@
     <string name="app_name">PopularMovies</string>
 
     <string name="movie_details_title">Movie Details</string>
+    <string name="review_details_title">Review Details</string>
+    <string name="movie_details_rating_star">Location rating star</string>
+
+    <string name="movie_icon">Movie icon</string>
+    <string name="author_icon">Author icon</string>
 
     <string name="settings_title">PopularMovies Settings</string>
     <string name="settings_menu_item">Settings</string>
@@ -10,6 +15,7 @@
     <string name="drawer_close">Navigation menu close</string>
 
     <string name="no_internet">No Internet connection.</string>
+    <string name="mark_as_favourite">Favourite</string>
 
     <!-- String resources for the "Order by" preference -->
     <string name="settings_order_by_label">Order By</string>
@@ -19,11 +25,16 @@
     <string name="settings_order_by_most_popular_label">Most Popular</string>
     <string name="settings_order_by_most_popular_value" translatable="false">popular</string>
 
+    <string name="settings_order_by_favourites_label">Favourites</string>
+    <string name="settings_order_by_favourites_value" translatable="false">favourites</string>
+
     <string name="settings_order_by_top_rated_label">Top Rated</string>
     <string name="settings_order_by_top_rated_value" translatable="false">top_rated</string>
 
     <string name="user_rating">User rating: <xliff:g id="user_rating">%s</xliff:g></string>
     <string name="release_date">Release date: <xliff:g id="release_date">%s</xliff:g></string>
+
+    <string name="review_author_says"><xliff:g id="release_date">%s</xliff:g> says</string>
 
     <string name="try_again">Try again</string>
 
@@ -31,4 +42,16 @@
     <string name="no_internet_description">No internet connection</string>
     <string name="poster_description">Movie poster image</string>
     <string name="backdrop_description">Movie backdrop image</string>
+
+    <string name="back_online_status">You are back online</string>
+    <string name="offline_status">You are now offline</string>
+    <string name="error_loading_movie_list">Error loading movie list</string>
+    <string name="error_loading_trailer_list">Error loading trailers</string>
+    <string name="error_loading_review_list">Error loading reviews</string>
+
+    <string name="section_header_trailers">Trailers</string>
+    <string name="section_header_reviews">Reviews</string>
+
+    <string name="no_trailers_available">No trailers available.</string>
+    <string name="no_reviews_available">No reviews available.</string>
 </resources>

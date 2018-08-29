@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_backdrop"
+        style="@style/MovieDetailsBackdrop"
+        android:contentDescription="@string/backdrop_description" />
+
+    <Button
+        android:id="@+id/btn_favourite"
+        style="@style/MovieDetailsFavouriteButton"/>
+
+</RelativeLayout>
