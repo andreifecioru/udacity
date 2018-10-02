@@ -21,21 +21,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.android.android_me.R;
+import com.example.android.android_me.data.AndroidImageAssets;
+import static com.example.android.android_me.ui.BodyPartFragment.IMG_RES_ID_KEY;
 
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
 public class AndroidMeActivity extends AppCompatActivity {
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
-        // TODO (5) Create a new BodyPartFragment instance and display it using the FragmentManager
-        BodyPartFragment bodyPartFragment = new BodyPartFragment();
+        Bundle args = new Bundle();
 
+        // Create a new head BodyPartFragment
+        BodyPartFragment headFragment = new BodyPartFragment();
+        args.putInt(IMG_RES_ID_KEY, AndroidImageAssets.getHeads().get(0));
+        headFragment.setArguments(args);
+
+        // Create a new body BodyPartFragment
+        BodyPartFragment bodyFragment = new BodyPartFragment();
+        args = new Bundle();
+        args.putInt(IMG_RES_ID_KEY, AndroidImageAssets.getBodies().get(0));
+        bodyFragment.setArguments(args);
+
+        // Create a new body BodyPartFragment
+        BodyPartFragment legsFragment = new BodyPartFragment();
+        args = new Bundle();
+        args.putInt(IMG_RES_ID_KEY, AndroidImageAssets.getLegs().get(0));
+        legsFragment.setArguments(args);
+
+        // Add the fragment to its container using a FragmentManager and a Transaction
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
-                .add(R.id.head_container, bodyPartFragment)
+                .add(R.id.head_container, headFragment)
+                .add(R.id.body_container, bodyFragment)
+                .add(R.id.legs_container, legsFragment)
                 .commit();
     }
 }
