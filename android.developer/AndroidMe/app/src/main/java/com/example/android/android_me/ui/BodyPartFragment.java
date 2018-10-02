@@ -27,43 +27,85 @@ import android.widget.ImageView;
 
 import com.example.android.android_me.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BodyPartFragment extends Fragment {
-    private static final String LOG_TAG = BodyPartFragment.class.getSimpleName();
 
-    public static final String IMG_RES_ID_KEY = "img.res.id";
+    // TODO (3) Create final Strings to store state information about the list of images and list index
+    private final static String IMG_ID_LIST_KEY = "img.id.list";
+    private final static String LIST_INDEX_KEY = "list.index";
+
+    // Tag for logging
+    private static final String TAG = "BodyPartFragment";
+
+    // Variables to store a list of image resources and the index of the image that this fragment displays
+    private List<Integer> mImageIds;
+    private int mListIndex;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment
      */
-    public BodyPartFragment() { }
+    public BodyPartFragment() {
+    }
 
     /**
      * Inflates the fragment layout file and sets the correct resource for the image to display
      */
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Get the image resource id
-        Bundle args = getArguments();
-
-        if (args == null) {
-            String errMsg = "Fragment params must be set for BodyPartFragment class.";
-            Log.e(LOG_TAG, errMsg);
-            throw new IllegalStateException(errMsg);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Restore the saved state
+        if (savedInstanceState != null) {
+            mListIndex = savedInstanceState.getInt(LIST_INDEX_KEY);
+            mImageIds = savedInstanceState.getIntegerArrayList(IMG_ID_LIST_KEY);
         }
-
-        int imgResId = args.getInt(IMG_RES_ID_KEY);
 
         // Inflate the Android-Me fragment layout
         View rootView = inflater.inflate(R.layout.fragment_body_part, container, false);
 
         // Get a reference to the ImageView in the fragment layout
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.body_part_image_view);
+        final ImageView imageView = (ImageView) rootView.findViewById(R.id.body_part_image_view);
 
-        // Set the image to the first in our list of head images
-        imageView.setImageResource(imgResId);
+        // If a list of image ids exists, set the image resource to the correct item in that list
+        // Otherwise, create a Log statement that indicates that the list was not found
+        if(mImageIds != null){
+            // Set the image resource to the list item at the stored index
+            imageView.setImageResource(mImageIds.get(mListIndex));
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imageView.setImageResource(mImageIds.get(nextListIndex()));
+                }
+            });
+        } else {
+            Log.v(TAG, "This fragment has a null list of image id's");
+        }
 
         // Return the rootView
         return rootView;
+    }
+
+    // Setter methods for keeping track of the list images this fragment can display and which image
+    // in the list is currently being displayed
+
+    public void setImageIds(List<Integer> imageIds) {
+        mImageIds = imageIds;
+    }
+
+    public void setListIndex(int index) {
+        mListIndex = (index >= mImageIds.size()) ? 0 : index;
+    }
+
+    private int nextListIndex() {
+        setListIndex(++mListIndex);
+        return mListIndex;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putIntegerArrayList(IMG_ID_LIST_KEY, new ArrayList<>(mImageIds));
+        outState.putInt(LIST_INDEX_KEY, mListIndex);
     }
 }
