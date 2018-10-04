@@ -25,15 +25,14 @@ import com.example.android.android_me.data.AndroidImageAssets;
 
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
 public class AndroidMeActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
         // Only create new fragments when there is no previously saved state
-        if (savedInstanceState == null) {
+        if(savedInstanceState == null) {
+
             // Create a new head BodyPartFragment
             BodyPartFragment headFragment = new BodyPartFragment();
 
@@ -62,5 +61,6 @@ public class AndroidMeActivity extends AppCompatActivity {
                     .add(R.id.leg_container, legFragment)
                     .commit();
         }
+
     }
 }
