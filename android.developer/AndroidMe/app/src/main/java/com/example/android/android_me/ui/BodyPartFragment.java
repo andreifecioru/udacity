@@ -17,7 +17,6 @@
 package com.example.android.android_me.ui;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +52,7 @@ public class BodyPartFragment extends Fragment {
      * Inflates the fragment layout file and sets the correct resource for the image to display
      */
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Load the saved state (the list of images and list index) if there is one
         if(savedInstanceState != null) {
@@ -112,7 +111,7 @@ public class BodyPartFragment extends Fragment {
      * Save the current state of this fragment
      */
     @Override
-    public void onSaveInstanceState(@NonNull Bundle currentState) {
+    public void onSaveInstanceState(Bundle currentState) {
         currentState.putIntegerArrayList(IMAGE_ID_LIST, (ArrayList<Integer>) mImageIds);
         currentState.putInt(LIST_INDEX, mListIndex);
     }
