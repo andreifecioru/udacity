@@ -29,26 +29,23 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-
-        <!-- Three containers for each Android-Me body part -->
-        <!-- This container holds the head BodyPartFragment of the custom Android-Me image -->
-        <FrameLayout android:id="@+id/head_container"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:scaleType="centerInside"/>
-
-        <!-- The remaining containers for the body and leg BodyPartFragments -->
-        <FrameLayout android:id="@+id/body_container"
+        <fragment
+            android:id="@+id/head_fragment"
+            android:name="com.example.android.android_me.ui.BodyPartFragment"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerInside"/>
+            android:layout_height="180dp" />
 
-        <FrameLayout android:id="@+id/leg_container"
+        <fragment
+            android:id="@+id/body_fragment"
+            android:name="com.example.android.android_me.ui.BodyPartFragment"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerInside"/>
+            android:layout_height="180dp" />
 
-
+        <fragment
+            android:id="@+id/legs_fragment"
+            android:name="com.example.android.android_me.ui.BodyPartFragment"
+            android:layout_width="match_parent"
+            android:layout_height="180dp" />
     </LinearLayout>
 
 </ScrollView>
