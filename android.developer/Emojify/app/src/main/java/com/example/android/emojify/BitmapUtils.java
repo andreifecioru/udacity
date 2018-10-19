@@ -71,7 +71,7 @@ class BitmapUtils {
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        return BitmapFactory.decodeFile(imagePath, bmOptions);
+        return BitmapFactory.decodeFile(imagePath);
     }
 
     /**
@@ -124,8 +124,7 @@ class BitmapUtils {
     private static void galleryAddPic(Context context, String imagePath) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(imagePath);
-        Uri contentUri = FileProvider.getUriForFile(context, FILE_PROVIDER_AUTHORITY, f);
-//        Uri contentUri = Uri.fromFile(f);
+        Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         context.sendBroadcast(mediaScanIntent);
     }
