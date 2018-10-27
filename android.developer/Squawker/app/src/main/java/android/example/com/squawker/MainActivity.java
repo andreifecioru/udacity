@@ -35,6 +35,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
     SquawkAdapter mAdapter;
+
+    private String mFcmToken;
 
     static final String[] MESSAGES_PROJECTION = {
             SquawkContract.COLUMN_AUTHOR,
@@ -91,6 +97,14 @@ public class MainActivity extends AppCompatActivity implements
         if (extraData != null && extraData.containsKey("test_key")) {
             Log.d(LOG_TAG, "Extra data: " + extraData.getString("test_key"));
         }
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(MainActivity.this, new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                Log.d(LOG_TAG, "New token: " + newToken);
+            }
+        });
     }
 
     @Override
