@@ -15,15 +15,22 @@
 */
 package android.example.com.squawker.following;
 
+import android.content.SharedPreferences;
 import android.example.com.squawker.R;
+import android.example.com.squawker.provider.SquawkContract;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceScreen;
+import android.util.Log;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 /**
  * Shows the list of instructors you can follow
  */
-public class FollowingPreferenceFragment extends PreferenceFragmentCompat {
+public class FollowingPreferenceFragment extends PreferenceFragmentCompat
+    implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private final static String LOG_TAG = FollowingPreferenceFragment.class.getSimpleName();
 
@@ -31,5 +38,31 @@ public class FollowingPreferenceFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Add visualizer preferences, defined in the XML file in res->xml->preferences_squawker
         addPreferencesFromResource(R.xml.following_squawker);
+
+        // setup subscriptions
+        PreferenceScreen preferenceScreen = getPreferenceScreen();
+        SharedPreferences sharedPreferences = preferenceScreen.getSharedPreferences();
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        setSubscriptionStatus(SquawkContract.ASSER_KEY, sharedPreferences.getBoolean(SquawkContract.ASSER_KEY, false));
+        setSubscriptionStatus(SquawkContract.CEZANNE_KEY, sharedPreferences.getBoolean(SquawkContract.CEZANNE_KEY, false));
+        setSubscriptionStatus(SquawkContract.JLIN_KEY, sharedPreferences.getBoolean(SquawkContract.JLIN_KEY, false));
+        setSubscriptionStatus(SquawkContract.LYLA_KEY, sharedPreferences.getBoolean(SquawkContract.LYLA_KEY, false));
+        setSubscriptionStatus(SquawkContract.NIKITA_KEY, sharedPreferences.getBoolean(SquawkContract.NIKITA_KEY, false));
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(LOG_TAG, "Preference changed for key: " + key);
+        setSubscriptionStatus(key, sharedPreferences.getBoolean(key, false));
+    }
+
+    private void setSubscriptionStatus(String key, boolean status) {
+        if (status) {
+            FirebaseMessaging.getInstance().subscribeToTopic(key);
+        } else {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(key);
+        }
     }
 }
