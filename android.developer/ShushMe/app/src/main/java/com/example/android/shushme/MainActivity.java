@@ -20,6 +20,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,8 +42,11 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
@@ -158,6 +162,7 @@ public class MainActivity
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(LOG_TAG, "API Connection Successful!");
+        refreshPlacesData();
     }
 
     @Override
@@ -201,9 +206,36 @@ public class MainActivity
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(PlaceEntry.COLUMN_PLACE_ID, placeId);
                         getContentResolver().insert(PlaceEntry.CONTENT_URI, contentValues);
+
+                        refreshPlacesData();
                     }
                 }
                 break;
+        }
+    }
+
+    private void refreshPlacesData() {
+        // Retrieve all the place IDs we have in our local DB
+        Cursor cursor = getContentResolver().query(
+            PlaceEntry.CONTENT_URI, null, null, null, null, null);
+
+        if (cursor != null && cursor.getCount() > 0) {
+            String[] placeIds = new String[cursor.getCount()];
+            int idx = 0;
+            while (cursor.moveToNext()) {
+                String placeId = cursor.getString(cursor.getColumnIndex(PlaceEntry.COLUMN_PLACE_ID));
+                placeIds[idx ++] = placeId;
+            }
+
+            cursor.close();
+
+            PendingResult<PlaceBuffer> pendingResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeIds);
+            pendingResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
+                @Override
+                public void onResult(@NonNull PlaceBuffer places) {
+                    mAdapter.swapPlaces(places);
+                }
+            });
         }
     }
 }
