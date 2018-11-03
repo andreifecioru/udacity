@@ -17,6 +17,8 @@ package com.example.android.shushme;
 */
 
 import android.Manifest;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,10 +36,15 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.android.shushme.provider.PlaceContract.PlaceEntry;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 public class MainActivity
         extends AppCompatActivity
@@ -48,6 +55,8 @@ public class MainActivity
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private static final int REQUEST_LOCATION_PERMISSION = 1;
+
+    private static final int PLACE_PICKER_REQUEST = 100;
 
     // Member variables
     private PlaceListAdapter mAdapter;
@@ -90,17 +99,12 @@ public class MainActivity
         mAddPlaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String message = (isLocationPermissionGranted())
-                        ? "Location permissions granted."
-                        : "Location permissions NOT granted.";
-
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+                pickPlace();
             }
         });
 
         mLocationPermissionsCheckBox.setChecked(false);
 
-        // TODO (4) Create a GoogleApiClient with the LocationServices API and GEO_DATA_API
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -164,5 +168,42 @@ public class MainActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.i(LOG_TAG, "API Connection Failed!");
+    }
+
+    private void pickPlace() {
+        try {
+            Intent intent = new PlacePicker.IntentBuilder().build(this);
+            startActivityForResult(intent, PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            Log.e(LOG_TAG, "GooglePlaceServices not available: " + e.getMessage());
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Log.e(LOG_TAG, "GooglePlaceServices not available: " + e.getMessage());
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Failed to pick a place: " + e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case PLACE_PICKER_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    Place place = PlacePicker.getPlace(this, data);
+                    if (place == null) {
+                        Log.i(LOG_TAG, "No place selected");
+                    } else {
+                        Log.i(LOG_TAG, "A place was selected");
+
+                        // Extract the place info (only the ID)
+                        String placeId = place.getId();
+
+                        // Insert the place info in the DB
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(PlaceEntry.COLUMN_PLACE_ID, placeId);
+                        getContentResolver().insert(PlaceEntry.CONTENT_URI, contentValues);
+                    }
+                }
+                break;
+        }
     }
 }
