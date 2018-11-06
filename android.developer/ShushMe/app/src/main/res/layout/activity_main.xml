@@ -59,9 +59,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </LinearLayout>
 
-        <!-- TODO (6) Add a LinearLayout that contains a checkbox to grant the location permissions
-                        and set the checkbox click listener to call onLocationPermissionClicked -->
-
         <LinearLayout
             android:id="@+id/location_permissions_container"
             android:layout_width="match_parent"
@@ -85,7 +82,31 @@
                 android:layoutDirection="rtl"
                 android:layout_marginRight="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ringer_permissions_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:src="@drawable/ic_ringer_primary_24dp" />
+
+            <CheckBox
+                android:id="@+id/ringer_permissions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/ringer_permissions"
+                android:layoutDirection="rtl"
+                android:layout_marginRight="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
         </LinearLayout>
 
         <Button

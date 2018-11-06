@@ -69,6 +69,8 @@ public class MainActivity
     private RecyclerView mRecyclerView;
     private CheckBox mLocationPermissionsCheckBox;
     private LinearLayout mLocationPermissionsContainer;
+    private CheckBox mRingerPermissionsCheckBox;
+    private LinearLayout mRingerPermissionsContainer;
     private Button mAddPlaceButton;
     private GoogleApiClient mGoogleApiClient;
 
@@ -104,6 +106,19 @@ public class MainActivity
                 }
             }
         });
+
+        mRingerPermissionsCheckBox = findViewById(R.id.ringer_permissions);
+        mRingerPermissionsCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(LOG_TAG, "Ringer permissions changed: " + isChecked);
+                if (isChecked) {
+                    RingerUtils.askForRingerPermissions(MainActivity.this);
+                }
+            }
+        });
+
+        mRingerPermissionsContainer = findViewById(R.id.ringer_permissions_container);
 
         mAddPlaceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +164,9 @@ public class MainActivity
 
         int visibilityStatus = isLocationPermissionGranted() ? View.GONE : View.VISIBLE;
         mLocationPermissionsContainer.setVisibility(visibilityStatus);
+
+        visibilityStatus = RingerUtils.isRingerPermissionGranted(this) ? View.GONE : View.VISIBLE;
+        mRingerPermissionsContainer.setVisibility(visibilityStatus);
     }
 
     private boolean isLocationPermissionGranted() {
@@ -283,4 +301,5 @@ public class MainActivity
 
         Log.i(LOG_TAG, String.format("Place %s: [%f, %f]", name, latitude, longitude));
     }
+
 }
