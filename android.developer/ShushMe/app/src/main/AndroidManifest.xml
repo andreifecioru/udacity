@@ -30,5 +30,7 @@
             android:authorities="com.example.android.shushme"
             android:exported="false"/>
 
+        <receiver android:name=".GeofenceBroadcastReceiver" />
+
     </application>
 </manifest>

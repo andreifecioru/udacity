@@ -19,6 +19,7 @@ package com.example.android.shushme;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.android.shushme.provider.PlaceContract.PlaceEntry;
@@ -69,6 +71,9 @@ public class MainActivity
     private LinearLayout mLocationPermissionsContainer;
     private Button mAddPlaceButton;
     private GoogleApiClient mGoogleApiClient;
+
+    private GeofencingUtils mGeofencingUtils;
+    private boolean mIsEnabled;
 
     /**
      * Called when the activity is starting
@@ -116,6 +121,26 @@ public class MainActivity
                 .addApi(Places.GEO_DATA_API)
                 .enableAutoManage(this, this)
                 .build();
+
+        mGeofencingUtils = new GeofencingUtils(this);
+
+        Switch onOffSwitch = findViewById(R.id.enable_switch);
+        mIsEnabled = getPreferences(MODE_PRIVATE).getBoolean(getString(R.string.setting_enabled), false);
+        onOffSwitch.setChecked(mIsEnabled);
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+                editor.putBoolean(getString(R.string.setting_enabled), isChecked);
+                mIsEnabled = isChecked;
+                editor.apply();
+                if (isChecked)
+                    mGeofencingUtils.registerAllGeofences();
+                else
+                    mGeofencingUtils.unregisterAllGeofences();
+            }
+        });
+
     }
 
     @Override
@@ -202,6 +227,8 @@ public class MainActivity
                         // Extract the place info (only the ID)
                         String placeId = place.getId();
 
+                        logLocationInfo(place);
+
                         // Insert the place info in the DB
                         ContentValues contentValues = new ContentValues();
                         contentValues.put(PlaceEntry.COLUMN_PLACE_ID, placeId);
@@ -234,8 +261,26 @@ public class MainActivity
                 @Override
                 public void onResult(@NonNull PlaceBuffer places) {
                     mAdapter.swapPlaces(places);
+                    mGeofencingUtils.updateGeofenceList(places);
+
+                    if (mIsEnabled) {
+                        mGeofencingUtils.registerAllGeofences();
+                    }
+
+                    for (Place place: places) {
+                        logLocationInfo(place);
+                    }
                 }
             });
+
         }
+    }
+
+    private void logLocationInfo(Place place) {
+        double latitude = place.getLatLng().latitude;
+        double longitude = place.getLatLng().longitude;
+        String name = place.getName().toString();
+
+        Log.i(LOG_TAG, String.format("Place %s: [%f, %f]", name, latitude, longitude));
     }
 }
