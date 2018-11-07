@@ -25,6 +25,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -71,6 +73,9 @@ public class QuizActivity
 
     private SimpleExoPlayer mPlayer;
     private SimpleExoPlayerView mPlayerView;
+
+    private MediaSessionCompat mMediaSession;
+    private PlaybackStateCompat.Builder mPlaybackStateBuilder;
 
 
     @Override
@@ -119,6 +124,27 @@ public class QuizActivity
         }
 
         initializePlayer(Uri.parse(answerSample.getUri()));
+        initializeMediaSession();
+    }
+
+    private void initializeMediaSession() {
+        if (mMediaSession == null) {
+            mMediaSession = new MediaSessionCompat(this, MEDIA_SESSION_NAME);
+            mMediaSession.setFlags(
+                    MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
+                    MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+            mMediaSession.setMediaButtonReceiver(null);
+
+            mPlaybackStateBuilder = new PlaybackStateCompat.Builder()
+                    .setActions(
+                            PlaybackStateCompat.ACTION_PLAY |
+                            PlaybackStateCompat.ACTION_PAUSE |
+                            PlaybackStateCompat.ACTION_PLAY_PAUSE |
+                            PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS);
+            mMediaSession.setPlaybackState(mPlaybackStateBuilder.build());
+            mMediaSession.setCallback(new MusicQuizSessionCallbacks());
+            mMediaSession.setActive(true);
+        }
     }
 
     private void initializePlayer(Uri sampleUri) {
@@ -142,9 +168,18 @@ public class QuizActivity
     }
 
     private void releasePlayer() {
-        mPlayer.stop();
-        mPlayer.release();
-        mPlayer = null;
+        if (mPlayer != null) {
+            mPlayer.stop();
+            mPlayer.release();
+            mPlayer = null;
+        }
+
+        if (mMediaSession != null) {
+            mMediaSession.setActive(false);
+            mMediaSession = null;
+        }
+
+
     }
 
 
@@ -274,6 +309,14 @@ public class QuizActivity
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         Log.d(LOG_TAG, "onPlayerStateChanged called!");
+
+        if (playbackState == ExoPlayer.STATE_READY) {
+            int state = playWhenReady
+                    ? PlaybackStateCompat.STATE_PLAYING
+                    : PlaybackStateCompat.STATE_PAUSED;
+            mPlaybackStateBuilder.setState(state, mPlayer.getCurrentPosition(), 1f);
+            mMediaSession.setPlaybackState(mPlaybackStateBuilder.build());
+        }
     }
 
     @Override
@@ -285,5 +328,23 @@ public class QuizActivity
     @Override
     public void onPositionDiscontinuity() {
         Log.d(LOG_TAG, "onPositionDiscontinuity called!");
+    }
+
+    private static class MusicQuizSessionCallbacks extends MediaSessionCompat.Callback {
+        @Override
+        public void onPlay() {
+            Log.i(LOG_TAG, "Media session callback: onPlay");
+
+        }
+
+        @Override
+        public void onPause() {
+            Log.i(LOG_TAG, "Media session callback: onPause");
+        }
+
+        @Override
+        public void onSkipToPrevious() {
+            Log.i(LOG_TAG, "Media session callback: onSkipToPrevious");
+        }
     }
 }
