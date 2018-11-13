@@ -16,6 +16,9 @@
 
 package com.example.android.classicalmusicquiz;
 
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,7 +27,9 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.media.session.MediaButtonReceiver;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -74,14 +79,18 @@ public class QuizActivity
     private SimpleExoPlayer mPlayer;
     private SimpleExoPlayerView mPlayerView;
 
-    private MediaSessionCompat mMediaSession;
+    private static MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mPlaybackStateBuilder;
+
+    private NotificationManager mNotificationManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         mPlayerView = findViewById(R.id.playerView);
 
@@ -179,7 +188,9 @@ public class QuizActivity
             mMediaSession = null;
         }
 
-
+        if (mNotificationManager != null) {
+            mNotificationManager.cancelAll();
+        }
     }
 
 
@@ -315,8 +326,18 @@ public class QuizActivity
                     ? PlaybackStateCompat.STATE_PLAYING
                     : PlaybackStateCompat.STATE_PAUSED;
             mPlaybackStateBuilder.setState(state, mPlayer.getCurrentPosition(), 1f);
-            mMediaSession.setPlaybackState(mPlaybackStateBuilder.build());
+<<<<<<< HEAD
+=======
+
+            PlaybackStateCompat _playbackState = mPlaybackStateBuilder.build();
+            mMediaSession.setPlaybackState(_playbackState);
+            NotificationUtils.triggerMediaStyleNotification(this, mMediaSession, _playbackState);
+>>>>>>> [ANDROID.DEV] - MusicQuiz | Adding MediaStyle notifications
         }
+
+        PlaybackStateCompat playbackState = mPlaybackStateBuilder.build();
+        mMediaSession.setPlaybackState(playbackState);
+        NotificationUtils.triggerMediaStyleNotification(this, mMediaSession, playbackState);
     }
 
     @Override
@@ -330,21 +351,32 @@ public class QuizActivity
         Log.d(LOG_TAG, "onPositionDiscontinuity called!");
     }
 
-    private static class MusicQuizSessionCallbacks extends MediaSessionCompat.Callback {
+    private class MusicQuizSessionCallbacks extends MediaSessionCompat.Callback {
         @Override
         public void onPlay() {
             Log.i(LOG_TAG, "Media session callback: onPlay");
-
+            mPlayer.setPlayWhenReady(true);
         }
 
         @Override
         public void onPause() {
             Log.i(LOG_TAG, "Media session callback: onPause");
+            mPlayer.setPlayWhenReady(false);
         }
 
         @Override
         public void onSkipToPrevious() {
             Log.i(LOG_TAG, "Media session callback: onSkipToPrevious");
+            mPlayer.seekTo(0L);
+        }
+    }
+
+    public static class MediaReceiver extends BroadcastReceiver {
+        public MediaReceiver() {}
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            MediaButtonReceiver.handleIntent(mMediaSession, intent);
         }
     }
 }

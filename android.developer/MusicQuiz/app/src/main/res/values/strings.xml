@@ -21,4 +21,8 @@
     <string name="guess">Can you guess the composer?</string>
     <string name="notification_text">Press play to hear the piece!</string>
     <string name="sample_list_load_error">Error loading one or more samples!</string>
+
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="restart">Restart</string>
 </resources>
