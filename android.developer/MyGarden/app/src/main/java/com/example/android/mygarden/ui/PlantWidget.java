@@ -1,10 +1,14 @@
 package com.example.android.mygarden.ui;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -21,11 +25,18 @@ import static com.example.android.mygarden.ui.PlantDetailActivity.EXTRA_PLANT_ID
 public class PlantWidget extends AppWidgetProvider {
     private static final String LOG_TAG = PlantWidget.class.getSimpleName();
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId, int plantImgResId, long plantId, boolean canWater) {
+        Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
+        int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
 
         RemoteViews views;
-        views = getSinglePlantRemoteViews(context, plantImgResId, plantId, canWater);
+        if (width < 300) {
+            views = getSinglePlantRemoteViews(context, plantImgResId, plantId, canWater);
+        } else {
+            views = getGridRemoteViews(context);
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -42,6 +53,10 @@ public class PlantWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId, plantImgResId, plantId, canWater);
         }
+    }
+
+    private static RemoteViews getGridRemoteViews(Context context) {
+        return null;
     }
 
     private static RemoteViews getSinglePlantRemoteViews(Context context, int plantImgResId, long plantId, boolean canWater) {
@@ -88,6 +103,14 @@ public class PlantWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        Log.d(LOG_TAG, "App widget options changed...");
+        PlantWateringService.startActionUpdatePlantWidgets(context);
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
     }
 }
 
