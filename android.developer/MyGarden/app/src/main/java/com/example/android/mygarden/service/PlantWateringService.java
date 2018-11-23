@@ -13,7 +13,7 @@ import android.support.v4.app.JobIntentService;
 import android.util.Log;
 
 import com.example.android.mygarden.R;
-import com.example.android.mygarden.ui.PlantWidget;
+import com.example.android.mygarden.widget.PlantWidget;
 import com.example.android.mygarden.utils.PlantUtils;
 
 import static com.example.android.mygarden.provider.PlantContract.BASE_CONTENT_URI;

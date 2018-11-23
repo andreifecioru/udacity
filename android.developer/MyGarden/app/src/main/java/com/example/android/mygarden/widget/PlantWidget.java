@@ -1,10 +1,9 @@
-package com.example.android.mygarden.ui;
+package com.example.android.mygarden.widget;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -15,6 +14,7 @@ import android.widget.RemoteViews;
 
 import com.example.android.mygarden.R;
 import com.example.android.mygarden.service.PlantWateringService;
+import com.example.android.mygarden.ui.PlantDetailActivity;
 
 import static com.example.android.mygarden.service.PlantWateringService.PLANT_ID_KEY;
 import static com.example.android.mygarden.ui.PlantDetailActivity.EXTRA_PLANT_ID;
@@ -50,13 +50,28 @@ public class PlantWidget extends AppWidgetProvider {
                                         int plantImgResId,
                                         long plantId,
                                         boolean canWater) {
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_grid_view);
+
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId, plantImgResId, plantId, canWater);
         }
     }
 
     private static RemoteViews getGridRemoteViews(Context context) {
-        return null;
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.plant_widget_grid);
+
+        Intent intent = new Intent(context, GridWidgetService.class);
+        views.setRemoteAdapter(R.id.widget_grid_view, intent);
+
+        Intent appIntent = new Intent(context, PlantDetailActivity.class);
+        PendingIntent pendingAppIntent = PendingIntent.getActivity(
+                context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        views.setPendingIntentTemplate(R.id.widget_grid_view, pendingAppIntent);
+
+        views.setEmptyView(R.id.widget_grid_view, R.id.empty_view);
+
+        return views;
     }
 
     private static RemoteViews getSinglePlantRemoteViews(Context context, int plantImgResId, long plantId, boolean canWater) {
