@@ -1,0 +1,28 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Baking Time</string>
+
+    <string name="recipe_details_title">Recipe Details</string>
+    <string name="step_details_title">Step Details</string>
+
+    <string name="back_online_status">You are back online</string>
+    <string name="offline_status">You are now offline</string>
+
+    <string name="no_recipes_description">No movies to display</string>
+    <string name="no_internet_description">No internet connection</string>
+
+    <string name="try_again">Try again</string>
+
+    <string name="recipe_image_description">Recipe image</string>
+    <string name="error_loading_recipe_list">Error loading the recipe list</string>
+
+    <string name="look_at_recipe">Look at a recipe</string>
+    <string name="no_ingredients_available">No ingredients.</string>
+    <string name="no_steps_available">No steps.</string>
+
+    <string name="ingredients_count">No. of ingredients: <xliff:g id="count">%s</xliff:g></string>
+    <string name="ingredient_quantity"><xliff:g id="quantity">%.2f</xliff:g> <xliff:g id="mesure">%s</xliff:g></string>
+    <string name="steps_count">No. of steps: <xliff:g id="count">%s</xliff:g></string>
+
+    <string name="section_header_ingredients">ingredients</string>
+    <string name="section_header_steps">preparation steps</string>
+</resources>

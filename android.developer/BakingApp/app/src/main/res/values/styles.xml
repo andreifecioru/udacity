@@ -1,0 +1,189 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ConnectivityStatusInfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <style name="RecipeListRecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/greyLight</item>
+        <item name="android:layout_marginTop">@dimen/medium</item>
+    </style>
+
+    <style name="RecipeListLoadingIndicator">
+        <item name="android:layout_width">@dimen/xxxlarge</item>
+        <item name="android:layout_height">@dimen/xxxlarge</item>
+    </style>
+
+    <style name="MovieListNavigationDrawer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+    <style name="RecipeListEmptyView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RecipeListEmptyViewNoMoviesImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/pie</item>
+    </style>
+
+    <style name="MovieListEmptyViewNoInternetImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/no_internet</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="RecipeListEmptyViewTryAgainButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_try_again_btn</item>
+        <item name="android:textColor">@color/greyLight</item>
+        <item name="android:text">@string/try_again</item>
+        <item name="android:layout_marginTop">@dimen/medium</item>
+    </style>
+
+    <style name="RecipeListItemContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/medium</item>
+        <item name="android:background">@drawable/bg_recipe_container</item>
+        <item name="android:layout_margin">@dimen/xsmall</item>
+    </style>
+
+    <style name="RecipeListItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/small</item>
+        <item name="android:background">@drawable/bg_recipe_image</item>
+    </style>
+
+    <style name="RecipeListItemName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/small</item>
+    </style>
+
+    <style name="RecipeDetailsFragment">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="RecipeDetailsFragmentTablet">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="StepDetailsFragmentTablet">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2.5</item>
+    </style>
+
+    <style name="RecipeDetailsSectionHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:padding">@dimen/small</item>
+        <item name="android:paddingStart">@dimen/medium</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+    </style>
+
+    <style name="RecipeIngredientName">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/medium</item>
+        <item name="android:layout_marginStart">@dimen/medium</item>
+        <item name="android:layout_marginEnd">@dimen/medium</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Medium</item>
+    </style>
+
+    <style name="RecipeIngredientQuantity">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginEnd">@dimen/medium</item>
+        <item name="android:layout_marginBottom">@dimen/medium</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Body2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RecipeStepNo">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_marginLeft">@dimen/medium</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Headline</item>
+    </style>
+
+    <style name="RecipeStepDescription">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minLines">1</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:padding">@dimen/small</item>
+        <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="AppWidgetContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/small</item>
+    </style>
+
+    <style name="AppWidgetRecipeName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/grey</item>
+        <item name="android:padding">@dimen/medium</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.DeviceDefault.Medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">@string/look_at_recipe</item>
+    </style>
+
+    <style name="AppWidgetIngredientName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/greyLight</item>
+        <item name="android:padding">@dimen/medium</item>
+    </style>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Layout for each item in the grid-view displaying the movie posters in
+    the movie-list activity. It contains:
+        - image view rendering the movie poster
+        - text view displaying the movie title
+        - widget for displaying user rating (1-5 stars scale)
+        - button for marking the movie as favourite
+-->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/RecipeListItemContainer">
+
+    <ImageView
+        android:id="@+id/iv_recipe_image"
+        style="@style/RecipeListItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/recipe_image_description" />
+
+    <TextView
+        android:id="@+id/tv_recipe_name"
+        style="@style/RecipeListItemName"
+        app:layout_constraintTop_toBottomOf="@+id/iv_recipe_image"
+        app:layout_constraintEnd_toStartOf="@id/iv_recipe_image"
+        app:layout_constraintStart_toEndOf="@id/iv_recipe_image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recipe_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <TextView
+            android:id="@+id/tv_ingredient_count"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_step_count"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
