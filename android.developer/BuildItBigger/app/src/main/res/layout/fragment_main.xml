@@ -1,0 +1,43 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivityFragmentPaid">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <TextView
+            android:id="@+id/instructions_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large"
+            android:textAlignment="center"
+            android:text="@string/instructions" />
+
+        <Button
+            android:id="@+id/btn_tell_joke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/button_text" />
+        <!--
+            This is a progress indicator that is visible
+            while the recipe list data is being downloaded.
+        -->
+        <ProgressBar
+            android:id="@+id/pb_loading_indicator"
+            style="@style/LoadingIndicator" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/conn_status_text_view"
+        style="@style/ConnectivityStatusInfo" />
+</RelativeLayout>
