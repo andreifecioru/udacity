@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xsmall">4dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="large">24dp</dimen>
+    <dimen name="xlarge">32dp</dimen>
+    <dimen name="xxlarge">40dp</dimen>
+    <dimen name="xxxlarge">48dp</dimen>
+    <dimen name="xxxxlarge">72dp</dimen>
+
+    <dimen name="match_parent" format="integer" type="dimen">-1</dimen>
+
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="app_bar_width">-1px</dimen>
+
+    <dimen name="fab_margin_start">@dimen/large</dimen>
+    <dimen name="fab_margin">@dimen/large</dimen>
+    <dimen name="article_content_width">-1px</dimen>
+</resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ArticleListActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/layout_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.android.example.feedreader.utils.ui.RecyclerViewEmptyViewSupport
+                android:id="@+id/rv_article_list"
+                style="@style/ArticleListRecyclerView" />
+
+            <!--
+                The empty view for our grid view. It is made visible after the article data
+                has been loaded and there is nothing to show, which means either:
+                    - no articles are provided by the server (server error code is someth. other than 200-OK)
+                    - no Internet connection is available (offline)
+             -->
+            <LinearLayout
+                android:id="@+id/empty_view"
+                style="@style/ArticleListEmptyView">
+
+                <!--
+                These images are displayed when no article data is available
+                to be displayed by our article-list grid view.
+                -->
+                <LinearLayout
+                    android:id="@+id/empty_view_no_articles"
+                    style="@style/ArticleListEmptyView">
+
+                    <!-- This image is visible when we can't get any article data from the remote server -->
+                    <ImageView
+                        android:id="@+id/iv_empty_article_list"
+                        style="@style/ArticleListEmptyViewNoArticlesImage"
+                        android:contentDescription="@string/no_articles_description" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/conn_status_text_view"
+            style="@style/ConnectivityStatusInfo" />
+    </android.support.design.widget.CoordinatorLayout>
+
+</android.support.constraint.ConstraintLayout>

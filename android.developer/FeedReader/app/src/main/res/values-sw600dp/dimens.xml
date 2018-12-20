@@ -1,0 +1,6 @@
+<resources>
+    <!-- detail -->
+    <dimen name="fab_margin_start">@dimen/xxxxlarge</dimen>
+    <dimen name="fab_margin">@dimen/large</dimen>
+    <dimen name="article_content_width">600dp</dimen>
+</resources>

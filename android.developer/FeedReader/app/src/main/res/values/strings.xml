@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">FeedReader</string>
+
+    <string name="activity_article_details">Article Details</string>
+
+    <string name="back_online_status">You are back online</string>
+    <string name="offline_status">You are now offline</string>
+
+    <string name="error_loading_article_list">Failed loading your feed</string>
+    <string name="no_articles_description">No articles to display</string>
+
+    <string name="menu_refresh">Refresh</string>
+    <string name="action_share">Share</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">
+        android.support.design.widget.AppBarLayout$ScrollingViewBehavior
+    </string>
+</resources>
