@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        style="@style/ListOffersActivityLayoutRoot">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/layout_coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/list_offers_swipe_layout" />
+
+            <TextView
+                android:id="@+id/conn_status_text_view"
+                style="@style/ConnectivityStatusInfo" />
+        </android.support.design.widget.CoordinatorLayout>
+
+        <!-- The navigation drawer -->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_view"
+            style="@style/FunTravelNavigationDrawer"
+            app:itemBackground="@drawable/nav_menu_selected_item"
+            app:itemTextColor="@color/colorPrimaryDark"
+            app:itemIconTint="@color/colorPrimaryDark"
+            app:headerLayout="@layout/nav_menu_header"
+            app:menu="@menu/navigation_menu"/>
+
+    </android.support.v4.widget.DrawerLayout>
+</FrameLayout>

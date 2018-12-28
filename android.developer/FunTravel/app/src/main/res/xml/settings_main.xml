@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+
+    <ListPreference
+        android:title="@string/settings_max_offer_count_label"
+        android:key="@string/settings_max_offer_count_key"
+        android:defaultValue="@string/settings_max_offer_count_default"
+        android:entries="@array/settings_max_offer_count"
+        android:entryValues="@array/settings_max_offer_count" />
+
+    <ListPreference
+        android:title="@string/settings_widget_max_offer_count_label"
+        android:key="@string/settings_widget_max_offer_count_key"
+        android:defaultValue="@string/settings_widget_max_offer_count_default"
+        android:entries="@array/settings_widget_max_offer_count"
+        android:entryValues="@array/settings_widget_max_offer_count" />
+
+    <PreferenceCategory
+        android:title="@string/settings_category_offer_types">
+        <CheckBoxPreference
+            android:key="@string/settings_cityscape_check_key"
+            android:title="@string/settings_cityscape_check_label"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="@string/settings_trekking_check_key"
+            android:title="@string/settings_trekking_check_label"
+            android:defaultValue="true"/>
+
+        <CheckBoxPreference
+            android:key="@string/settings_resort_check_key"
+            android:title="@string/settings_resort_check_label"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

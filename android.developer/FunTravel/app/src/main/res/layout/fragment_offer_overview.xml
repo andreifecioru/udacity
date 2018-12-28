@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/exo_player_view"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:background="@color/black"
+            android:layout_width="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_no_video"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:src="@drawable/no_video"
+            android:contentDescription="@string/no_video_description"
+            android:visibility="gone"/>
+
+        <include layout="@layout/offer_summary" />
+
+        <TextView
+            android:id="@+id/tv_step_description"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="@dimen/large"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"/>
+    </LinearLayout>
+</ScrollView>
