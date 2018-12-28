@@ -1,0 +1,153 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ListOffersActivityLayoutRoot">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/lightGrey</item>
+    </style>
+
+    <style name="FunTravelNavigationDrawer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/lightGrey</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+    <style name="ConnectivityStatusInfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <style name="ListOffersActivityRecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/medium</item>
+    </style>
+
+    <style name="ListOffersActivityEmptyView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ListOffersActivityEmptyViewNoArticlesImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/attention</item>
+    </style>
+
+
+    <style name="OfferListItemCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/xsmall</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+    </style>
+
+    <style name="OfferListItemThumbnail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="OfferListItemTitle" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/medium</item>
+        <item name="android:paddingRight">@dimen/medium</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">4</item>
+    </style>
+
+    <style name="OfferListItemTitleWidget">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
+
+    <style name="OfferRatingContainer">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/small</item>
+        <item name="android:paddingLeft">@dimen/medium</item>
+        <item name="android:paddingRight">@dimen/medium</item>
+    </style>
+
+    <style name="OfferListItemRating">
+        <item name="android:layout_width">@dimen/offer_list_item_rating_star_size</item>
+        <item name="android:layout_height">@dimen/offer_list_item_rating_star_size</item>
+        <item name="android:src">@android:drawable/star_off</item>
+    </style>
+
+    <style name="ReviewAuthorName" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/medium</item>
+        <item name="android:paddingRight">@dimen/medium</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">4</item>
+    </style>
+
+    <style name="OfferReviewsRecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/medium</item>
+    </style>
+
+    <style name="OfferReviewsEmptyView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AppWidgetContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/widget_margin</item>
+    </style>
+
+    <style name="AppWidgetHeader">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/lightGrey</item>
+        <item name="android:padding">@dimen/medium</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.DeviceDefault.Medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:text">@string/best_offers</item>
+    </style>
+
+    <style name="AppWidgetOfferItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/lightGrey</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:divider">@color/colorPrimary</item>
+        <item name="android:paddingTop">@dimen/medium</item>
+        <item name="android:paddingBottom">@dimen/medium</item>
+    </style>
+</resources>

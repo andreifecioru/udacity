@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppWidgetContainer">
+
+    <TextView
+        android:id="@+id/tv_header"
+        style="@style/AppWidgetHeader"/>
+
+    <ListView
+        android:id="@+id/lv_offer_list"
+        style="@style/AppWidgetOfferItem"
+        tools:listitem="@layout/widget_list_item"/>
+
+</LinearLayout>

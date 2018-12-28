@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xsmall">4dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="large">24dp</dimen>
+    <dimen name="xlarge">32dp</dimen>
+    <dimen name="xxlarge">40dp</dimen>
+    <dimen name="xxxlarge">48dp</dimen>
+    <dimen name="xxxxlarge">72dp</dimen>
+
+    <dimen name="nav_menu_header_height">150dp</dimen>
+    <dimen name="nav_menu_header_title_text_size">24sp</dimen>
+    <dimen name="nav_menu_header_subtitle_text_size">16sp</dimen>
+
+    <dimen name="offer_list_item_rating_star_size">20dp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
+</resources>

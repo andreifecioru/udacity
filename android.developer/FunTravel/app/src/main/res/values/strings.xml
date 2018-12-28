@@ -1,0 +1,55 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">FunTravel</string>
+    <string name="travel_for_fun">Travel for fun</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_menu_item">Settings</string>
+
+    <string name="offer_details_title">Offer details</string>
+
+    <string name="drawer_open">Navigation menu open</string>
+    <string name="drawer_close">Navigation menu close</string>
+
+    <string name="back_online_status">You are back online</string>
+    <string name="offline_status">You are now offline</string>
+
+    <string name="error_loading_offer_list">Failed loading offer list.</string>
+    <string name="error_loading_review_list">Failed loading review list.</string>
+
+    <string name="no_offers_description">No offers to display</string>
+    <string name="no_video_description">No video to display</string>
+    <string name="offer_photo_description">Offer photo description</string>
+
+    <string name="offer_price">$<xliff:g id="price">%s</xliff:g></string>
+
+    <string name="rating_star_icon">Rating star icon</string>
+
+    <string name="no_reviews">No reviews available.</string>
+
+    <string name="tab_title_overview">OVERVIEW</string>
+    <string name="tab_title_reviews">REVIEWS</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!-- String resources for the settings activity -->
+    <string name="settings_max_offer_count_key" translatable="false">max_offer_count</string>
+    <string name="settings_max_offer_count_label">Max no. of offers</string>
+    <string name="settings_max_offer_count_default">20</string>
+
+    <string name="settings_widget_max_offer_count_key" translatable="false">offers_per_page</string>
+    <string name="settings_widget_max_offer_count_label">Max no. of offers in widget</string>
+    <string name="settings_widget_max_offer_count_default">5</string>
+
+    <string name="settings_category_offer_types">What type of offers do you want to see?</string>
+
+    <string name="settings_cityscape_check_key" translatable="false">cityscape</string>
+    <string name="settings_cityscape_check_label">Cityscapes</string>
+
+    <string name="settings_trekking_check_key" translatable="false">trekking</string>
+    <string name="settings_trekking_check_label">Trekking</string>
+
+    <string name="settings_resort_check_key" translatable="false">resort</string>
+    <string name="settings_resort_check_label">Resorts</string>
+
+    <string name="best_offers">FunTravel\'s best offers</string>
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        style="@style/ListOffersActivityLayoutRoot">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/layout_coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.example.android.funtravel.utils.ui.RecyclerViewEmptyViewSupport
+                    android:id="@+id/rv_offer_list"
+                    style="@style/ListOffersActivityRecyclerView" />
+
+                <!--
+                    The empty view for our grid view. It is made visible after the offer data
+                    has been loaded and there is nothing to show, which means either:
+                        - no offers are provided by the server (server error code is someth. other than 200-OK)
+                        - no Internet connection is available (offline)
+                 -->
+                <LinearLayout
+                    android:id="@+id/empty_view"
+                    style="@style/ListOffersActivityEmptyView">
+
+                    <!--
+                    These images are displayed when no offer data is available
+                    to be displayed by our offer-list grid view.
+                    -->
+                    <LinearLayout
+                        android:id="@+id/empty_view_no_offers"
+                        style="@style/ListOffersActivityEmptyView">
+
+                        <!-- This image is visible when we can't get any offer data from the remote server -->
+                        <ImageView
+                            android:id="@+id/iv_empty_article_list"
+                            style="@style/ListOffersActivityEmptyViewNoArticlesImage"
+                            android:contentDescription="@string/no_offers_description" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <TextView
+                android:id="@+id/conn_status_text_view"
+                style="@style/ConnectivityStatusInfo" />
+        </android.support.design.widget.CoordinatorLayout>
+
+        <!-- The navigation drawer -->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_view"
+            style="@style/FunTravelNavigationDrawer"
+            app:itemBackground="@drawable/nav_menu_selected_item"
+            app:itemTextColor="@color/colorPrimaryDark"
+            app:itemIconTint="@color/colorPrimaryDark"
+            app:headerLayout="@layout/nav_menu_header"
+            app:menu="@menu/navigation_menu"/>
+
+    </android.support.v4.widget.DrawerLayout>
+</FrameLayout>
