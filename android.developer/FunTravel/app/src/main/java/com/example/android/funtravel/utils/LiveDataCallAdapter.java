@@ -1,16 +1,16 @@
 package com.example.android.funtravel.utils;
 
-import android.arch.lifecycle.LiveData;
-import android.support.annotation.NonNull;
-
-
 import java.lang.reflect.Type;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
 
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 /**
  * A Retrofit adapter which converts the Call into a LiveData of ApiResponse.

@@ -25,6 +25,9 @@ import com.example.android.funtravel.utils.LiveDataCallAdapterFactory;
  */
 @Module
 public class NetModule {
+    // In a real-world app this would be the URL of our backend (deployed somewhere in the cloud).
+    // For now, we deploy the backend locally (on the host machine) and
+    // assume that the app is deployed on an emulated device.
     private static final String BASE_URL = "http://10.0.2.2:8080/_ah/api/";
 
     @Provides

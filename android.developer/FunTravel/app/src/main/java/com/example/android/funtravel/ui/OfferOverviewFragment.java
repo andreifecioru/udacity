@@ -6,9 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.android.funtravel.common.model.Offer;
 import com.example.android.funtravel.utils.OfferUtils;
@@ -44,6 +45,12 @@ import butterknife.ButterKnife;
 import com.example.android.funtravel.R;
 
 
+/**
+ * Fragment displaying the "overview" info of an offer which includes:
+ *   - the video-tour on the top (an {@link ExoPlayer} instance)
+ *   - title and rating bar underneath
+ *   - full text description on the bottom.
+ */
 public class OfferOverviewFragment
     extends Fragment
     implements ExoPlayer.EventListener {
@@ -66,7 +73,7 @@ public class OfferOverviewFragment
 
     private Offer mOffer;
     private SimpleExoPlayer mPlayer;
-    private boolean mPlayWhenReady = false;
+    private boolean mPlayWhenReady = true;
     private long mPlayerPosition = 0L;
 
     @Nullable

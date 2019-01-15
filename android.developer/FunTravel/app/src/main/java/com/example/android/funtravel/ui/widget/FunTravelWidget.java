@@ -1,5 +1,6 @@
 package com.example.android.funtravel.ui.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.android.funtravel.R;
+import com.example.android.funtravel.ui.OfferDetailsActivity;
 
 
 /**
@@ -25,6 +27,18 @@ public class FunTravelWidget extends AppWidgetProvider {
 
         Intent intent = new Intent(context, FunTravelRemoteViewsService.class);
         views.setRemoteAdapter(R.id.lv_offer_list, intent);
+        views.setEmptyView(R.id.lv_offer_list, R.id.empty_view);
+
+        // Individual list items in the widget control cannot issue their own
+        // pending intents. Instead we need to setup an "intent template"
+        // for them to fill in with appropriate extra data (i.e. the offer data).
+        Intent activityIntent = new Intent(context, OfferDetailsActivity.class);
+        PendingIntent activityPendingIntent =
+                PendingIntent.getActivity(context, 0, activityIntent, 0);
+        views.setPendingIntentTemplate(R.id.lv_offer_list, activityPendingIntent);
+
+        // Hook-up the pending intent to our widget.
+        views.setOnClickPendingIntent(R.id.widget_list_item_container, activityPendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

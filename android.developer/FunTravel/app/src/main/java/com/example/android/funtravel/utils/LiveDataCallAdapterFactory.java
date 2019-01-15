@@ -1,15 +1,15 @@
 package com.example.android.funtravel.utils;
 
-import android.arch.lifecycle.LiveData;
-import android.support.annotation.NonNull;
-
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
+
 import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
+
 
 /**
  * Call adapter factory class for hooking our {@link LiveDataCallAdapter} with the Retrofit lib.

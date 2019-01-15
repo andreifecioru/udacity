@@ -2,15 +2,17 @@ package com.example.android.funtravel.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindBool;
 import butterknife.BindView;
@@ -27,6 +29,16 @@ import static com.example.android.funtravel.ui.OfferOverviewFragment.OFFER_ARGS_
 import static com.example.android.funtravel.ui.OfferReviewsFragment.OFFER_ID_ARGS_KEY;
 
 
+/**
+ * Implements the functionality for the screen where we display the full info about an offer.
+ *
+ * The layout comes in 2 flavors:
+ *  - "mobile" screen layout: it is a tabbed layout ("overview" & "reviews" tabs)
+ *  - "tablet" screen layout: everything is put on the screen at once.
+ *
+ *  Although visually the two layouts are very different, there is a single code that orchestrates
+ *  them both. We it all from juggling the underlying fragments based on the screen width.
+ */
 public class OfferDetailsActivity extends BaseActivity {
     private static final String LOG_TAG = OfferDetailsActivity.class.getSimpleName();
 

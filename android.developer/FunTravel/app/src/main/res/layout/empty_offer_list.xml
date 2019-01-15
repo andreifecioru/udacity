@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The empty view for our UI controls displaying list of offers (in various forms).
+    It is made visible after the offer data has been loaded and there is nothing to show, which means either:
+        - no offers are provided by the server (server error code is someth. other than 200-OK)
+        - no Internet connection is available (offline)
+ -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_view"
+    style="@style/ListOffersEmptyView">
+
+    <ImageView
+        android:id="@+id/iv_empty_offer_list"
+        style="@style/ListOffersActivityEmptyViewNoOffersImage"
+        android:contentDescription="@string/no_offers_description" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/no_offers_description"/>
+</LinearLayout>

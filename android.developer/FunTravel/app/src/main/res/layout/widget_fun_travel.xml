@@ -11,4 +11,6 @@
         style="@style/AppWidgetOfferItem"
         tools:listitem="@layout/widget_list_item"/>
 
+    <include layout="@layout/empty_offer_list" />
+
 </LinearLayout>

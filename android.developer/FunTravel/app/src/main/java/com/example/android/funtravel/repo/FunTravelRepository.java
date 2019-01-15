@@ -2,34 +2,28 @@ package com.example.android.funtravel.repo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import android.app.Application;
-import android.arch.core.util.Function;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.Transformations;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
+import androidx.arch.core.util.Function;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.example.android.funtravel.api.FunTravelApi;
-import com.example.android.funtravel.common.model.OfferType;
 import com.example.android.funtravel.dao.OfferDao;
 import com.example.android.funtravel.dao.ReviewDao;
 import com.example.android.funtravel.model.OfferList;
 import com.example.android.funtravel.model.ParcelableOffer;
 import com.example.android.funtravel.model.ParcelableReview;
 import com.example.android.funtravel.model.ReviewList;
-import com.example.android.funtravel.ui.ListOffersActivity;
 import com.example.android.funtravel.utils.ApiResponse;
 import com.example.android.funtravel.utils.NetworkBoundResource;
 import com.example.android.funtravel.utils.Resource;
@@ -74,12 +68,9 @@ public class FunTravelRepository {
     @WorkerThread
     public void deleteAllOffers(final Runnable onComplete) {
         // we delete all offers on a background thread.
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mOfferDao.deleteAllOffers();
-                onComplete.run();
-            }
+        mExecutor.execute(() -> {
+            mOfferDao.deleteAllOffers();
+            onComplete.run();
         });
     }
 
@@ -93,12 +84,9 @@ public class FunTravelRepository {
     @WorkerThread
     public void deleteAllReviewsForOffer(final long offerId, final Runnable onComplete) {
         // we delete all offers on a background thread.
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mReviewDao.deleteAllReviewsForOffer(offerId);
-                onComplete.run();
-            }
+        mExecutor.execute(() -> {
+            mReviewDao.deleteAllReviewsForOffer(offerId);
+            onComplete.run();
         });
     }
 
@@ -108,7 +96,7 @@ public class FunTravelRepository {
      * This allows us to download the offers only once and then hit the DB cache
      * multiple times when needed. This also provides the off-line support we want.
      */
-    public LiveData<Resource<Long>> fetchOffers(final int count) {
+    public LiveData<Resource<Long>> fetchOffers(final int count, final int flags) {
         return new NetworkBoundResource<Long, OfferList>() {
 
             @Override
@@ -154,7 +142,7 @@ public class FunTravelRepository {
 
             @Override
             protected LiveData<ApiResponse<OfferList>> createCall() {
-                return mFunTravelApi.getOfferList(count);
+                return mFunTravelApi.getOfferList(count, flags);
             }
         }.getAsLiveData();
     }
@@ -171,17 +159,20 @@ public class FunTravelRepository {
 
             @Override
             protected void saveCallResult(@NonNull ReviewList data) {
-                Log.d(LOG_TAG, "Saving review data for offer " + offerId + "to the DB (" + data.getReviews().size() +" entries).");
+                List<? extends ParcelableReview> reviews = data.getReviews();
+                if (reviews != null) {
+                    Log.d(LOG_TAG, "Saving review data for offer " + offerId + "to the DB (" + reviews.size() +" entries).");
 
-                // Enforce the foreign key restriction for all incoming reviews
-                for (ParcelableReview review: data.getReviews()) {
-                    review.setOfferId(offerId);
+                    // Enforce the foreign key restriction for all incoming reviews
+                    for (ParcelableReview review: reviews) {
+                        review.setOfferId(offerId);
+                    }
+
+                    // Perform DB insertions
+                    ParcelableReview[] arrReviews = new ParcelableReview[reviews.size()];
+                    data.getReviews().toArray(arrReviews);
+                    mReviewDao.insertReviews(arrReviews);
                 }
-
-                // Perform DB insertions
-                ParcelableReview[] arrReviews = new ParcelableReview[data.getReviews().size()];
-                data.getReviews().toArray(arrReviews);
-                mReviewDao.insertReviews(arrReviews);
             }
 
             @Override
@@ -233,19 +224,16 @@ public class FunTravelRepository {
      * This query is used by the various adapters that access offers based on
      * a "position".
      *
-     * @param position the "position" of the article in the set of offers sorted
+     * @param position the "position" of the offer in the set of offers sorted
      *                 by their ID.
      */
     public LiveData<ParcelableOffer> getOfferAtPosition(final long position) {
         return Transformations.map(mOfferDao.getOfferAtPosition(position),
-                new Function<List<ParcelableOffer>, ParcelableOffer>() {
-                    @Override
-                    public ParcelableOffer apply(List<ParcelableOffer> offers) {
-                        if (offers != null && !offers.isEmpty()) {
-                            return offers.get(0);
-                        }
-                        return null;
+                offers -> {
+                    if (offers != null && !offers.isEmpty()) {
+                        return offers.get(0);
                     }
+                    return null;
                 });
     }
 
@@ -266,19 +254,16 @@ public class FunTravelRepository {
      * This query is used by the various adapters that access offers based on
      * a "position".
      *
-     * @param position the "position" of the article in the set of offers sorted
+     * @param position the "position" of the review in the set of reviews sorted
      *                 by their ID.
      */
     public LiveData<ParcelableReview> getReviewAtPositionForOffer(final long position, final long offerId) {
         return Transformations.map(mReviewDao.getReviewAtPositionForOffer(position, offerId),
-                new Function<List<ParcelableReview>, ParcelableReview>() {
-                    @Override
-                    public ParcelableReview apply(List<ParcelableReview> reviews) {
-                        if (reviews != null && !reviews.isEmpty()) {
-                            return reviews.get(0);
-                        }
-                        return null;
+                reviews -> {
+                    if (reviews != null && !reviews.isEmpty()) {
+                        return reviews.get(0);
                     }
+                    return null;
                 });
     }
 }

@@ -1,7 +1,8 @@
 package com.example.android.funtravel.utils;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 
 /**
  * The "resource" abstraction as described in the AAC official docs.

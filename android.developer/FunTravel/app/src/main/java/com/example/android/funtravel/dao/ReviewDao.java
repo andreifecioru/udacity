@@ -2,14 +2,14 @@ package com.example.android.funtravel.dao;
 
 import java.util.List;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
 
 import com.example.android.funtravel.model.ParcelableReview;
 
-import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+import static androidx.room.OnConflictStrategy.REPLACE;
 
 
 /**
@@ -17,7 +17,9 @@ import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
  *
  * Services provided:
  *  - retrieve the offer-reviews for a particular offer from DB
+ *  - retrieve the offer-reviews for a particular offer by position (ordered by id)
  *  - insert a list of offer-review into DB
+ *  - delete all reviews for a particular offer
  */
 @Dao
 public interface ReviewDao {

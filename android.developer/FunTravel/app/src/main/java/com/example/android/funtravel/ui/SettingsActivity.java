@@ -6,16 +6,13 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.funtravel.R;
 
-import butterknife.BindBool;
-import butterknife.ButterKnife;
 
-
-/*
+/**
  * This is the activity implementing the app's preference panel.
  *
  * This activity is accessed via the "Settings" option in the

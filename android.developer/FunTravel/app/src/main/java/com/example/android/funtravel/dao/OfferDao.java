@@ -1,26 +1,28 @@
 package com.example.android.funtravel.dao;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Query;
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
 
 import com.example.android.funtravel.model.ParcelableOffer;
 
-import java.util.List;
-
-import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
+import static androidx.room.OnConflictStrategy.REPLACE;
 
 
 /**
  * DAO definition for the basic offer information.
+ *
  * Services provided:
  *  - retrieve all the offers from DB
- *  - retrieve a particular offer by ID
+ *  - retrieve a particular offer by id
+ *  - retrieve a particular offer by position (ordered by id)
+ *  - retrieve a list of offers in ascending order by price
  *  - insert a list of offers into DB
- *  - clear all the offers from DB (used during testing and
- *      will also clear the reviews due to the way
- *      foreign keys are set up)
+ *  - clear all the offers from DB (used during testing;
+ *      will also clear the reviews due to the way foreign keys are set up)
  */
 @Dao
 public interface OfferDao {

@@ -3,18 +3,21 @@ package com.example.android.funtravel.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Index;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 
-import com.example.android.funtravel.common.model.Offer;
 import com.example.android.funtravel.common.model.Review;
 
-import static android.arch.persistence.room.ForeignKey.CASCADE;
+import static androidx.room.ForeignKey.CASCADE;
 
 
 /**
  * Parcelable protocol implementation over the {@link Review} model abstraction.
+ *
+ * We don't want to have {@link Parcelable} implementation part of the base {@link Review} in "common"
+ * definition because this is a marshaling mechanism used to pass info between various parts of
+ * the app (it's an app-related concern).
  */
 @Entity(tableName = "reviews",
         indices = {@Index("offer_id")},

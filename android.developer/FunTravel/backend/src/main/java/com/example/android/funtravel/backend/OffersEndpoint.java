@@ -12,12 +12,12 @@ import com.google.api.server.spi.config.Named;
     version = "v1",
     namespace = @ApiNamespace(
         ownerDomain = "backend.funtravel.android.example.com",
-        ownerName = "backend.funtravel.anddroid.example.com"
+        ownerName = "backend.funtravel.android.example.com"
     ))
 public class OffersEndpoint {
     /** A simple endpoint method that returns the travel offers listing */
     @ApiMethod(name = "offers", path = "list")
-    public OffersBean listOffers(@Named("count") int count) {
-        return new OffersBean(count);
+    public OffersBean listOffers(@Named("count") int count, @Named("flags") int flags) {
+        return new OffersBean(count, flags);
     }
 }

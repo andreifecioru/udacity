@@ -1,27 +1,24 @@
 package com.example.android.funtravel.ui;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.funtravel.R;
-import com.example.android.funtravel.common.model.Offer;
 import com.example.android.funtravel.common.model.Review;
-import com.example.android.funtravel.model.ParcelableOffer;
 import com.example.android.funtravel.model.ParcelableReview;
 import com.example.android.funtravel.repo.FunTravelRepository;
 import com.example.android.funtravel.utils.OfferUtils;
-import com.example.android.funtravel.utils.ui.DynamicHeightNetworkImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,12 +31,11 @@ public class ReviewAdapter
         extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
     private static final String LOG_TAG = ReviewAdapter.class.getSimpleName();
 
-    private final Context mContext;
     private final ListReviewsViewModel mViewModel;
     private final LifecycleOwner mOwner;
     private final long mOfferId;
 
-    private long mReviewount = 0;
+    private long mReviewCount = 0;
 
     /** Produces an instance of the {@link ReviewAdapter} class (constructor)
      *
@@ -49,11 +45,9 @@ public class ReviewAdapter
      * @param viewModel An instance of {@link ListOffersViewModel} (provides access to {@link FunTravelRepository}).
      * @param offerId The ID of the offer associated with the reviews displayed by this adapter.
      */
-    ReviewAdapter(Context context,
-                  LifecycleOwner owner,
+    ReviewAdapter(LifecycleOwner owner,
                   ListReviewsViewModel viewModel,
                   long offerId) {
-        mContext = context;
         mOwner = owner;
         mViewModel = viewModel;
         mOfferId = offerId;
@@ -65,7 +59,7 @@ public class ReviewAdapter
      * @param reviewCount The number of reviews to be displayed by this adapter.
      */
     public void notifyChanged(long reviewCount) {
-        mReviewount = reviewCount;
+        mReviewCount = reviewCount;
         notifyDataSetChanged();
     }
 
@@ -95,7 +89,7 @@ public class ReviewAdapter
 
     @Override
     public int getItemCount() {
-        return (int) mReviewount;
+        return (int) mReviewCount;
     }
 
     // Implements the view-holder pattern.

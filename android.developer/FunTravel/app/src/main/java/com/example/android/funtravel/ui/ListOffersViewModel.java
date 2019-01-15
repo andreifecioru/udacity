@@ -1,13 +1,11 @@
 package com.example.android.funtravel.ui;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
-import android.support.v4.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.android.funtravel.model.ParcelableOffer;
 import com.example.android.funtravel.repo.FunTravelRepository;
@@ -31,17 +29,13 @@ public class ListOffersViewModel extends ViewModel {
         mRepository = repository;
     }
 
-    LiveData<Resource<Long>> fetchOffers(int maxOfferCount) {
-        return mRepository.fetchOffers(maxOfferCount);
+    LiveData<Resource<Long>> fetchOffers(int maxOfferCount, int flags) {
+        return mRepository.fetchOffers(maxOfferCount, flags);
     }
 
     LiveData<ParcelableOffer> getOfferAtPosition(long position) {
         return mRepository.getOfferAtPosition(position);
     }
-
-//    LiveData<List<ParcelableOffer>> getBestOffersAsync(int count) {
-//        return mRepository.getBestOffersAsync(count);
-//    }
 
     void deleteAllOffers(Runnable onComplete) {
         mRepository.deleteAllOffers(onComplete);

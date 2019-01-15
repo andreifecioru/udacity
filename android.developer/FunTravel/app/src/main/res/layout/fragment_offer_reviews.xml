@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.android.funtravel.utils.ui.RecyclerViewEmptyViewSupport
-            android:id="@+id/rv_review_list"
-            style="@style/OfferReviewsRecyclerView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.example.android.funtravel.utils.ui.RecyclerViewEmptyViewSupport
+                android:id="@+id/rv_review_list"
+                style="@style/OfferReviewsRecyclerView" />
 
-        <!--
-            The empty view for our grid view. It is made visible after the offer data
-            has been loaded and there is nothing to show, which means either:
-                - no reviews are provided by the server (server error code is someth. other than 200-OK)
-                - no Internet connection is available (offline)
-         -->
-        <TextView
-            android:id="@+id/tv_empty_view"
-            style="@style/OfferReviewsEmptyView"
-            android:text="@string/no_reviews"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <!--
+                The empty view for our grid view. It is made visible after the review data
+                has been loaded and there is nothing to show, which means either:
+                    - no reviews are provided by the server (server error code is someth. other than 200-OK)
+                    - no Internet connection is available (offline)
+             -->
+            <TextView
+                android:id="@+id/tv_empty_view"
+                style="@style/OfferReviewsEmptyView"
+                android:text="@string/no_reviews"/>
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

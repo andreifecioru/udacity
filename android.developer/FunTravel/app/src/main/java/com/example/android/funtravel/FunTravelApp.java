@@ -6,6 +6,10 @@ import com.example.android.funtravel.di.AppComponent;
 import com.example.android.funtravel.di.DaggerAppComponent;
 import com.example.android.funtravel.di.module.AppModule;
 
+/**
+ * Custom {@link Application} implementation where we put together
+ * our DI setup.
+ */
 public class FunTravelApp extends Application {
     private AppComponent mAppComponent;
 

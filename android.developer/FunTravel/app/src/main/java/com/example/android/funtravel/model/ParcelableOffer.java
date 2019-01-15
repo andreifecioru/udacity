@@ -1,6 +1,7 @@
 package com.example.android.funtravel.model;
 
-import android.arch.persistence.room.Entity;
+import androidx.room.Entity;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,6 +10,10 @@ import com.example.android.funtravel.common.model.Offer;
 
 /**
  * Parcelable protocol implementation over the {@link Offer} model abstraction.
+ *
+ * We don't want to have {@link Parcelable} implementation part of the base {@link Offer} in "common"
+ * definition because this is a marshaling mechanism used to pass info between various parts of
+ * the app (it's an app-related concern).
  */
 @Entity(tableName = "offers")
 public class ParcelableOffer

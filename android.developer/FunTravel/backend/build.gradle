@@ -20,12 +20,16 @@ apply plugin: 'war'
 apply plugin: 'com.google.cloud.tools.appengine'
 apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     implementation 'com.google.endpoints:endpoints-framework:2.0.9'
     implementation 'javax.inject:javax.inject:1'
+
+    // we need this in classpath @ compile time (to avoid warnings)
+    compileOnly "androidx.room:room-runtime:$room_version"
+    compileOnly 'com.google.code.gson:gson:2.8.2'
 
     implementation project(':common')
 
@@ -33,3 +37,8 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.23.0'
     implementation 'com.google.http-client:google-http-client-android:1.23.0'
 }
+
+compileJava {
+    dependsOn ":common:build"
+}
+

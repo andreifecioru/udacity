@@ -1,31 +1,40 @@
 package com.example.android.funtravel.ui;
 
-import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import com.example.android.funtravel.FunTravelApp;
 import com.example.android.funtravel.R;
 import com.example.android.funtravel.utils.Resource;
 import com.example.android.funtravel.utils.ui.RecyclerViewEmptyViewSupport;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
+/**
+ * Fragment displaying the "reviews" info of an offer which includes:
+ *
+ * It's pretty much a one-column grid layout which displays for reach review
+ * entry the name of the author, the rating and the review content.
+ */
 public class OfferReviewsFragment
         extends Fragment
         implements SwipeRefreshLayout.OnRefreshListener {
@@ -78,7 +87,7 @@ public class OfferReviewsFragment
         mReviewsRecyclerView.setLayoutManager(layoutManager);
 
         // Setup the adapter for our recycler view
-        mReviewAdapter = new ReviewAdapter(getContext(), this, mViewModel, mOfferId);
+        mReviewAdapter = new ReviewAdapter(this, mViewModel, mOfferId);
         mReviewsRecyclerView.setAdapter(mReviewAdapter);
 
         // Set the empty view for our recycler view
@@ -185,20 +194,14 @@ public class OfferReviewsFragment
 
         // In order to force the re-loading of the entire offer-list,
         // we first have to clear the local data cache (i.e. reset the DB contents).
-        mViewModel.deleteAllReviewsForOffer(mOfferId, new Runnable() {
-            @Override
-            public void run() {
-                FragmentActivity activity = getActivity();
-                if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Kick-start data loading
-                            mSwipeRefreshLayout.setRefreshing(true);
-                            fetchReviews();
-                        }
-                    });
-                }
+        mViewModel.deleteAllReviewsForOffer(mOfferId, () -> {
+            FragmentActivity activity = getActivity();
+            if (activity != null) {
+                activity.runOnUiThread(() -> {
+                    // Kick-start data loading
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    fetchReviews();
+                });
             }
         });
     }

@@ -9,7 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 
 import android.app.Application;
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 
 import com.example.android.funtravel.dao.FunTravelDatabase;
 import com.example.android.funtravel.dao.OfferDao;

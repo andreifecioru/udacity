@@ -1,11 +1,13 @@
 package com.example.android.funtravel.utils;
 
-import android.support.annotation.Nullable;
-import android.util.Log;
-
 import java.io.IOException;
 
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
 import retrofit2.Response;
+
 
 /**
  * A wrapper class on top of the Retrofit response. Used by {@link LiveDataCallAdapter}.

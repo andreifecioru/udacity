@@ -4,13 +4,14 @@ import javax.inject.Inject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.widget.ListView;
 
 import com.example.android.funtravel.FunTravelApp;
 import com.example.android.funtravel.R;
-import com.example.android.funtravel.common.model.Offer;
 import com.example.android.funtravel.model.ParcelableOffer;
 import com.example.android.funtravel.repo.FunTravelRepository;
 import com.example.android.funtravel.utils.OfferUtils;
@@ -18,7 +19,15 @@ import com.example.android.funtravel.utils.PreferenceUtils;
 
 import java.util.List;
 
+import static com.example.android.funtravel.ui.OfferOverviewFragment.OFFER_ARGS_KEY;
 
+
+/**
+ * A {@link RemoteViewsService} implementation for our app's widget.
+ *
+ * Performs all the heavy-lifting of updating the {@link ListView}  UI control with the offer
+ * information for each list item.
+ */
 public class FunTravelRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private static final String LOG_TAG = FunTravelRemoteViewsFactory.class.getSimpleName();
 
@@ -65,9 +74,17 @@ public class FunTravelRemoteViewsFactory implements RemoteViewsService.RemoteVie
             return null;
         }
 
-        Offer offer = mOffers.get(position);
+        ParcelableOffer offer = mOffers.get(position);
 
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_list_item);
+
+        // We set a fill-intent which will be used to fill-in the pending intent template
+        // which is set on the collection view in FunTravelWidget.
+        Bundle extras = new Bundle();
+        extras.putParcelable(OFFER_ARGS_KEY, offer);
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtras(extras);
+        remoteViews.setOnClickFillInIntent(R.id.widget_list_item_container, fillInIntent);
 
         // Display the offer-type logo image
         remoteViews.setImageViewResource(R.id.iv_offer_type, OfferUtils.getOfferTypeImageRes(offer));
@@ -89,6 +106,7 @@ public class FunTravelRemoteViewsFactory implements RemoteViewsService.RemoteVie
 
     @Override
     public int getViewTypeCount() {
+        // All items are the same, so we have one view type.
         return 1;
     }
 
