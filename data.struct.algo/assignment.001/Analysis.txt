@@ -1,0 +1,56 @@
+# Task 0
+For both cases (calls and texts) we are accessing a record in an indexed sequence of records (i.e. list). Lists are optimized for this type of access. In both cases we are dealing with O(1) complexity.
+
+
+----------------------------------------------------------------------------
+
+
+# Task 1
+We are accumulating all the phone numbers from both collections into a set. Adding a new element into a set is predicated on a "contains" test into the target set. Sets are optimized for this type of operations, so I am guessing that set insertion is an O(1) operation.
+
+We are traversing all the records in both the `calls` and `texts` lists and we are extracting the phone numbers and adding them to the final set. Phone number extraction itself does depend on the size of the input (it takes a fixed amount of time to extract the phone number info from each record). So again, that step is O(1).
+
+The only thing that depends on the size of the input set is the traversal operation itself: that is O(n). For each record, the extraction and addition to the set is O(1).
+
+In the end we get O(n) overall complexity order.
+
+
+----------------------------------------------------------------------------
+
+
+# Task 2
+Again, we are dealing with a traversal of the list of call records, where the processing of each record is constant O(1). For each record we perform some data extraction and we accumulate into a dictionary. Adding to a dictionary based on a pre-defined key (i.e. the phone number) is O(1). So this step is )(n) overall.
+
+In the end we perform an aggregation (i.e. computation of max value) on the result of the traversal performed above. This requires another traversal to reduce the list to a max value. This is O(n).
+
+Overall we are looking at O(n) complexity for the whole thing.
+
+
+----------------------------------------------------------------------------
+
+
+# Task 3
+The first step is a data-extraction step which requires the traversal of the input data set and an accumulation into a result sequence. Since the data-extraction and accumulation is O(1) this initial step is O(n).
+
+For part A, we proceed with a filter operation which requires a traversal of the input - O(n), a test - O(1) and an accumulation into an output set O(1). Based on this SO link (https://stackoverflow.com/questions/14434490/what-is-the-complexity-of-this-python-sort-method) the sort operation that follows should have an O(n log(n)) complexity.
+
+So the overall complexity for part A is O(n log(n)).
+
+For part B, the only step that depends on input size is the filtering operation which requires a traversal of the input. So the complexity order for part B is O(n).
+
+
+----------------------------------------------------------------------------
+
+
+# Task 4
+In this task we are performing:
+  - a traversal of all call records and conversion into a set - O(n)
+  - a traversal of all text records and accumulation into a set - O(n)
+  - a second traversal of all call records and accumulation into a set - O(n)
+  - computation of difference between 2 sets - O(n) worst case. The actual complexity here is the minimum size of the two sets, or, the size of the symmetric difference, whichever is less.
+
+NOTE: we could have traversed the call records only once (instead of twice), but that would make the code a bit harder to follow.
+
+Finally, we perform a sorting on the resulted set of phone numbers that are suspected to be telemarketers. This is O(n log(n)) complexity.
+
+In conclusion, we are looking at an overall O(n) complexity order.
