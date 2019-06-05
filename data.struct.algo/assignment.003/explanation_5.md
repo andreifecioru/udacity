@@ -1,0 +1,3 @@
+A basic trie implementation where each node keeps a reference to its set of child nodes. I used a dictionary for this purpose: the key is the letter and the value is a reference to the node containing the next letter in the word. This means that in the context of a single node, accessing the next letter (i.e. finding the node associated to the next letter) is an `O(1)` operation.
+
+This means that the time it takes to search for a complete word in the trie is only dependant on the length of the input word (i.e. `O(n)` where `n` is the length of the input).

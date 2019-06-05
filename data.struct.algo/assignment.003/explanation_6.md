@@ -1,0 +1,1 @@
+This is plain min/max computation in a sequence of values. We make sure we keep track of both the min and max values as we pass through the input. This ensures that we get both values in one pass resulting in `O(n)` complexity (i.e. not `O(2n)`).

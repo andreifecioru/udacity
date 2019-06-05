@@ -1,0 +1,5 @@
+The core idea here is to distribute the digits between the two output numbers evenly in **descending** order. The distribution part is constant time (i.e. `O(1)`). We need to be able to access the input digits in descending order in `O(nlog(n))` time.
+
+Fir this purpose I am using a max-heap data structure. I could have used the Python built-in heap, but since the heap data structure was one of the lectures in this module, I decided to roll my own. We start by traversing the input digits and inserting the them into the max heap. We then continue by extracting values from the max-heap and distributing them evenly between the two output numbers.
+
+Both operations (insertion and removal) are worst-case `O(log(n))` in complexity. Since we are performing these operations in a loop for each element of the input, we end up with an overall complexity of `O(nlog(n))`. 
